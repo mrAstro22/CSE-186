@@ -1,0 +1,53 @@
+<!-- 
+#######################################################################
+#
+# Copyright (C) 2025 David C. Harrison. All right reserved.
+#
+# You may not use, distribute, publish, or modify this code without
+# the express written permission of the copyright holder.
+#
+#######################################################################
+
+#######################################################################
+#######               DO NOT MODIFY THIS FILE               ###########
+#######################################################################
+-->
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>CSE186 Assignment 2</title>
+  <link href="tree.css" rel="stylesheet"/> 
+  <link href="layout.css" rel="stylesheet"/> 
+  <script type="text/javascript" src="Tree.js"></script>
+</head> 
+<body>
+  <div class="controls">
+    <div>
+      <textarea id="json" cols="80" rows="8"></textarea>
+    </div>
+    <button id="set">Set</button>
+    <p/>
+    <div>
+      <button id="expand">Expand</button>
+      <button id="collapse">Collapse</button>
+    </div>
+  <div>
+  <div class="trees">
+    <span id="tree1"></span>
+    <span id="tree2"></span>
+  </div>
+</body> 
+<script>
+  const t1 = new Tree('tree1');
+  const t2 = new Tree('tree2');
+  const expand = document.getElementById('expand');
+  const collapse = document.getElementById('collapse');
+  const json = document.getElementById('json');
+  const set = document.getElementById('set');
+  expand.addEventListener('click', function() { t1.expand(); });
+  collapse.addEventListener('click', function() { t1.collapse(); });
+  set.addEventListener('click', function() { t1.set(json.value); });
+</script>
+</html>

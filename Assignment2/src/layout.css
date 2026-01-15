@@ -1,0 +1,30 @@
+/*
+#######################################################################
+#
+# Copyright (C) 2025 David C. Harrison. All right reserved.
+#
+# You may not use, distribute, publish, or modify this code without
+# the express written permission of the copyright holder.
+#
+#######################################################################
+*/
+
+/*
+#######################################################################
+# DO NOT MODIFY THIS FILE
+#######################################################################
+*/
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+textarea {
+  font-size: 8px;
+}
+
+.trees {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  padding: 10px;
+}
