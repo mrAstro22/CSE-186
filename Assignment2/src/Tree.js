@@ -73,12 +73,33 @@ class Tree {
    * @param {string} containerId id of a node the Tree will be a child of
    */
   constructor(containerId) {
+    // this.containerString = containerId + '-';
+    // this.containerId = document.getElementById(containerId);
+  }
+
+  // renderBranch(branch){
+  //   const folder = document.createElement('div');
+  //   folder.innerText = branch.title;
+    
+  //   proId = this.containerId.concat(branch.id);
+  //   folder.id = branch.containerId.concat();
+  //   this.containerId.appendChild(folder);
+  // }
+
+  renderLeaf(leaf){
+    const file = document.createElement('div'); // Creates div for File
+    file.innerText = leaf.title;  // Shows leaf title
+
+    const proId = this.containerString.concat(leaf.id); // Concat our tree # w ID
+    file.dataset.id = proID;  // Store id in DOM attribute
+    return file;
   }
 
   /**
    * Expand all folders in the tree
    */
   expand() {
+
   }
 
   /**
