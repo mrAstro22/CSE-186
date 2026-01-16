@@ -75,15 +75,75 @@ class Tree {
   constructor(containerId) {
     this.containerString = containerId + '-';
     this.containerId = document.getElementById(containerId);
+
+    // Render Tree Data
+    this.render(data);
+
+    //this.checkTree();
   }
 
+  // checkTree(){
+  //   const allChildren = this.containerId.querySelectorAll('.folder-label, .file');
+  //   allChildren.forEach(child => {
+  //     console.log(child.innerText, child.dataset.id);
+  //   });
+  // }
+
+  // Recursively render the tree data
+  render(data){
+
+    // Dynamically Clear Container (all children removed)
+    // while (this.containerId.firstChild) {
+    //   this.containerId.removeChild(this.containerId.firstChild);
+    // }
+
+    data.forEach(node => {
+      let element;
+
+      if(node instanceof Branch){
+        element = this.renderBranch(node);
+      }
+      else if(node instanceof Leaf){
+        element = this.renderLeaf(node);
+      }
+      this.containerId.appendChild(element);
+    })
+  }
+
+  // Branch Specific Rendering
+  // If branch has children, recursively render them
   renderBranch(branch){
     const folder = document.createElement('div');
-    folder.innerText = branch.title;
-    
-    // Branch ID
-    const folderId = this.containerString.concat(branch.id); // Concat our tree # w ID
-    folder.dataset.id = folderId;  // Store id in DOM attribute
+    folder.className = 'folder'; // Detectable as 'folder' in CSS
+
+    // Folder Label
+    const label = document.createElement('div');
+    label.className = 'folder-label';
+    label.innerText = branch.title; // Shows branch title
+
+    // Label ID
+    const labelId = this.containerString.concat(branch.id); // Concat our tree # w ID
+    label.dataset.id = labelId;  // Store id in DOM attribute
+    label.dataset.title = branch.title; // Store title in DOM attribute
+
+    folder.appendChild(label);
+
+    // Separate Container for Children
+    const childrenContainer = document.createElement('div');
+    childrenContainer.className = 'children-container'; // Optional CSS class
+    childrenContainer.style.display = 'none'; // Initially Hidden
+
+    // When Clicked, Toggle Children Visibility
+    label.addEventListener('click', () => {
+        if (childrenContainer.style.display === 'none') {
+            childrenContainer.style.display = 'block';   // show children
+            label.classList.add('expanded');
+        } else {
+            childrenContainer.style.display = 'none';    // hide children
+            label.classList.remove('expanded'); 
+        }
+    });
+
 
     // Recursively Render Children
     branch.children.forEach(child => {
@@ -99,18 +159,24 @@ class Tree {
         childElement = this.renderLeaf(child);
       }
 
-      folder.appendChild(childElement);
+      childrenContainer.appendChild(childElement);
     });
+
+    folder.appendChild(childrenContainer);
     return folder;
   }
 
+  // No Recursion but it Renders Leafs
   renderLeaf(leaf){
     const file = document.createElement('div'); // Creates div for File
+    file.className = 'file';
     file.innerText = leaf.title;  // Shows leaf title
 
     // Leaf ID
     const fileId = this.containerString.concat(leaf.id); // Concat our tree # w ID
     file.dataset.id = fileId;  // Store id in DOM attribute
+    file.dataset.title = leaf.title; // Store title in DOM attribute
+
     return file;
   }
 
@@ -118,13 +184,30 @@ class Tree {
    * Expand all folders in the tree
    */
   expand() {
+    const allContainers = this.containerId.querySelectorAll('.children-container');
+    allContainers.forEach(container => {
+      container.style.display = 'block'; // Show all children containers
+    });
 
+    const allLabels = this.containerId.querySelectorAll('.folder-label');
+    allLabels.forEach(label => {
+      label.classList.add('expanded'); // Change all symbols to expanded
+    });
   }
 
   /**
    * Collapse all folders in the tree
    */
   collapse() {
+    const allContainers = this.containerId.querySelectorAll('.children-container');
+    allContainers.forEach(container => {
+      container.style.display = 'none'; // Show all children containers
+    });
+
+    const allLabels = this.containerId.querySelectorAll('.folder-label');
+    allLabels.forEach(label => {
+      label.classList.remove('expanded'); // Change all symbols to closed
+    });
   }
 
   /**

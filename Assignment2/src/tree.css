@@ -1,4 +1,51 @@
 /* Your CSS goes here */
 
+.trees{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-style: solid;
+    border-width: 3px;
+}
 
+.folder{
+    color: black;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.folder-label::before{
+    display: inline-block;
+    content: '\25B8'; /* Unicode for right-pointing triangle */
+    font-size: larger;
+    width: 15px;
+}
+
+.folder-label.expanded::before{
+    transform: rotate(90deg);
+}
+
+.folder-label{
+    display: inline-block;
+    border-radius: 3px; /* Round it Off */
+    padding: 2px 5px;
+}
+
+.folder-label:hover{
+    background-color: lightgray;
+}
+
+
+.file{
+    color: blue;
+    margin-left: 50px;
+    padding: 2px 5px;
+    cursor: pointer;
+}
+
+.file:hover{
+    display: inline-block;
+    border-radius: 3px; /* Round it Off */
+    background-color: lightblue;
+}
 
