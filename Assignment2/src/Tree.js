@@ -73,25 +73,44 @@ class Tree {
    * @param {string} containerId id of a node the Tree will be a child of
    */
   constructor(containerId) {
-    // this.containerString = containerId + '-';
-    // this.containerId = document.getElementById(containerId);
+    this.containerString = containerId + '-';
+    this.containerId = document.getElementById(containerId);
   }
 
-  // renderBranch(branch){
-  //   const folder = document.createElement('div');
-  //   folder.innerText = branch.title;
+  renderBranch(branch){
+    const folder = document.createElement('div');
+    folder.innerText = branch.title;
     
-  //   proId = this.containerId.concat(branch.id);
-  //   folder.id = branch.containerId.concat();
-  //   this.containerId.appendChild(folder);
-  // }
+    // Branch ID
+    const folderId = this.containerString.concat(branch.id); // Concat our tree # w ID
+    folder.dataset.id = folderId;  // Store id in DOM attribute
+
+    // Recursively Render Children
+    branch.children.forEach(child => {
+      let childElement;
+
+      // Is it Branch?
+      if(child instanceof Branch){
+        childElement = this.renderBranch(child);
+      }
+
+      // Is it Leaf?
+      else if(child instanceof Leaf){
+        childElement = this.renderLeaf(child);
+      }
+
+      folder.appendChild(childElement);
+    });
+    return folder;
+  }
 
   renderLeaf(leaf){
     const file = document.createElement('div'); // Creates div for File
     file.innerText = leaf.title;  // Shows leaf title
 
-    const proId = this.containerString.concat(leaf.id); // Concat our tree # w ID
-    file.dataset.id = proID;  // Store id in DOM attribute
+    // Leaf ID
+    const fileId = this.containerString.concat(leaf.id); // Concat our tree # w ID
+    file.dataset.id = fileId;  // Store id in DOM attribute
     return file;
   }
 
