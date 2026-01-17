@@ -16,7 +16,7 @@
 
 .folder-label::before{
     display: inline-block;
-    content: '\25B8'; /* Unicode for right-pointing triangle */
+    content: '\25B8'; /* Right-pointing triangle */
     font-size: larger;
     width: 15px;
 }
@@ -49,3 +49,14 @@
     background-color: lightblue;
 }
 
+.file.error{
+    color: red;
+    margin: 0px;
+    text-align: center;
+}
+
+.file.error:hover {
+    background-color: lightblue;
+    border-radius: 3px;
+    display: block;
+}

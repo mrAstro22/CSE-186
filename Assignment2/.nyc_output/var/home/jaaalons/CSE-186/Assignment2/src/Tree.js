@@ -73,39 +73,153 @@ class Tree {
    * @param {string} containerId id of a node the Tree will be a child of
    */
   constructor(containerId) {
-    // this.containerString = containerId + '-';
-    // this.containerId = document.getElementById(containerId);
+    this.containerString = containerId + '-';
+    this.containerId = document.getElementById(containerId);
+
+    // Render Tree Data
+    this.render(data);
+
+    this.checkTree();
   }
 
-  // renderBranch(branch){
-  //   const folder = document.createElement('div');
-  //   folder.innerText = branch.title;
-    
-  //   proId = this.containerId.concat(branch.id);
-  //   folder.id = branch.containerId.concat();
-  //   this.containerId.appendChild(folder);
-  // }
+  checkTree(){
+    const allChildren = this.containerId.querySelectorAll('.folder-label, .file');
+    allChildren.forEach(child => {
+      console.log(child.innerText, child.id);
+    });
+  }
 
-  // renderLeaf(leaf){
-  //   const file = document.createElement('div'); // Creates div for File
-  //   file.innerText = leaf.title;  // Shows leaf title
+  // Recursively render the tree data
+  render(data){
 
-  //   const proId = this.containerString.concat(leaf.id); // Concat our tree # w ID
-  //   file.dataset.id = proID;  // Store id in DOM attribute
-  //   return file;
-  // }
+    // Dynamically Clear Container (all children removed)
+    while (this.containerId.firstChild) {
+      this.containerId.removeChild(this.containerId.firstChild);
+    }
+
+    data.forEach(node => {
+      let element;
+
+      if(node instanceof Branch){
+        element = this.renderBranch(node);
+      }
+      else if(node instanceof Leaf){
+        element = this.renderLeaf(node);
+      }
+      this.containerId.appendChild(element);
+    })
+  }
+
+  // Branch Specific Rendering
+  // If branch has children, recursively render them
+  renderBranch(branch){
+    const folder = document.createElement('div');
+    folder.className = 'folder'; // Detectable as 'folder' in CSS
+
+    // Folder Label
+    const label = document.createElement('div');
+    label.className = 'folder-label';
+    label.innerText = branch.title; // Shows branch title
+
+    // Label ID
+    const labelId = this.containerString.concat(branch.id); // Concat our tree # w ID
+    label.id = labelId; // DIV ID
+
+    // Metadata for Testing
+    label.title = branch.title; // DIV Metadata Title
+
+    folder.appendChild(label);
+
+    // Separate Container for Children
+    const childrenContainer = document.createElement('div');
+    childrenContainer.className = 'children-container'; // Optional CSS class
+    childrenContainer.style.display = 'none'; // Initially Hidden
+
+    // When Clicked, Toggle Children Visibility
+    label.addEventListener('click', () => {
+        if (childrenContainer.style.display === 'none') {
+            childrenContainer.style.display = 'block';   // show children
+            label.classList.toggle('expanded');
+        } 
+        else {
+            childrenContainer.style.display = 'none';    // hide children
+            label.classList.remove('expanded'); 
+        }
+    });
+
+
+    // Recursively Render Children
+    branch.children.forEach(child => {
+      let childElement;
+
+      // Is it Branch?
+      if(child instanceof Branch){
+        childElement = this.renderBranch(child);
+      }
+
+      // Is it Leaf?
+      else if(child instanceof Leaf){
+        childElement = this.renderLeaf(child);
+      }
+
+      childrenContainer.appendChild(childElement);
+    });
+
+    folder.appendChild(childrenContainer);
+    return folder;
+  }
+
+  // No Recursion but it Renders Leafs
+  renderLeaf(leaf){
+    const file = document.createElement('div'); // Creates div for File
+    file.className = 'file';
+    file.innerText = leaf.title;  // Shown on Screen
+
+    // Leaf ID
+    const fileId = this.containerString.concat(leaf.id); // Concat our tree # w ID
+    file.id = fileId; // DIV ID
+
+    // Metadata for Testing
+    file.title = leaf.title; // DIV Metadata Title
+
+    if(leaf.id === 'error'){
+      file.classList.add('error');
+    }
+    else{
+      file.classList.add('file');
+    }
+
+    return file;
+  }
 
   /**
    * Expand all folders in the tree
    */
   expand() {
+    const allContainers = this.containerId.querySelectorAll('.children-container');
+    allContainers.forEach(container => {
+      container.style.display = 'block'; // Show all children containers
+    });
 
+    const allLabels = this.containerId.querySelectorAll('.folder-label');
+    allLabels.forEach(label => {
+      label.classList.add('expanded'); // Change all symbols to expanded
+    });
   }
 
   /**
    * Collapse all folders in the tree
    */
   collapse() {
+    const allContainers = this.containerId.querySelectorAll('.children-container');
+    allContainers.forEach(container => {
+      container.style.display = 'none'; // Show all children containers
+    });
+
+    const allLabels = this.containerId.querySelectorAll('.folder-label');
+    allLabels.forEach(label => {
+      label.classList.remove('expanded'); // Change all symbols to closed
+    });
   }
 
   /**
@@ -120,6 +234,67 @@ class Tree {
    * @param {string} json New data for the tree
    */
   set(json) {
+
+    // Parse JSON
+    const textarea = document.getElementById('json');
+    const jsonString = textarea.value;
+    let parsedData;
+    try {
+      parsedData = JSON.parse(jsonString);
+      //console.log(parsedData);
+
+    } catch (err) {
+      // Handle malformed JSON
+      console.error("Parse error:", err.message);
+
+      this.render([new Leaf('error', err.message)]);
+      return;
+    }
+
+
+
+    // We need to recursively convert Data
+    const seen = new Set();
+    function conversion(node){
+      
+      if(!node.id || !node.title){
+        throw new Error("One or more objects are missing one or more required properties");
+      }
+
+      // Check for Duplicates
+      if(seen.has(node.id)){
+        throw new Error("One or more objects have non-unique IDs");
+      }
+      seen.add(node.id);
+      
+      // If it has children, it's a Branch
+      if(node.children){
+
+        // Children not an array - Error
+        if(!Array.isArray(node.children)){
+          throw new Error("One or more objects are missing one or more required properties");
+        }
+
+        const children = node.children.map(conversion);
+        return new Branch(node.id, node.title, children);
+      }
+
+      // It's a Leaf
+      return new Leaf(node.id, node.title);
+    }    
+
+    // Top Level Conversion
+    let convertedData;
+    try {
+      convertedData = parsedData.map(conversion);
+      this.render(convertedData);
+      this.checkTree();
+    } catch (err2) {
+      this.render([new Leaf('error', err2.message)]);
+      // Handle conversion errors
+      console.error(err2.message);
+    }
+
   }
 }
 

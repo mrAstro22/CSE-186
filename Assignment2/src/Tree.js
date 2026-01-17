@@ -79,40 +79,39 @@ class Tree {
     // Render Tree Data
     this.render(data);
 
-    //this.checkTree();
+    this.checkTree();
   }
 
-  // checkTree(){
-  //   const allChildren = this.containerId.querySelectorAll('.folder-label, .file');
-  //   allChildren.forEach(child => {
-  //     console.log(child.innerText, child.dataset.id);
-  //   });
-  // }
+  checkTree() {
+    const allChildren =
+    this.containerId.querySelectorAll('.folder-label, .file');
+    allChildren.forEach((child) => {
+      console.log(child.innerText, child.id);
+    });
+  }
 
   // Recursively render the tree data
-  render(data){
-
+  render(data) {
     // Dynamically Clear Container (all children removed)
-    // while (this.containerId.firstChild) {
-    //   this.containerId.removeChild(this.containerId.firstChild);
-    // }
+    while (this.containerId.firstChild) {
+      this.containerId.removeChild(this.containerId.firstChild);
+    }
 
-    data.forEach(node => {
+    data.forEach((node) => {
       let element;
 
-      if(node instanceof Branch){
+      if (node instanceof Branch) {
         element = this.renderBranch(node);
-      }
-      else if(node instanceof Leaf){
+      } else if (node instanceof Leaf) {
         element = this.renderLeaf(node);
       }
       this.containerId.appendChild(element);
-    })
+    });
   }
 
   // Branch Specific Rendering
   // If branch has children, recursively render them
-  renderBranch(branch){
+  renderBranch(branch) {
     const folder = document.createElement('div');
     folder.className = 'folder'; // Detectable as 'folder' in CSS
 
@@ -122,9 +121,12 @@ class Tree {
     label.innerText = branch.title; // Shows branch title
 
     // Label ID
-    const labelId = this.containerString.concat(branch.id); // Concat our tree # w ID
-    label.dataset.id = labelId;  // Store id in DOM attribute
-    label.dataset.title = branch.title; // Store title in DOM attribute
+    const labelId =
+    this.containerString.concat(branch.id); // Concat our tree # w ID
+    label.id = labelId; // DIV ID
+
+    // Metadata for Testing
+    label.title = branch.title; // DIV Metadata Title
 
     folder.appendChild(label);
 
@@ -134,28 +136,25 @@ class Tree {
     childrenContainer.style.display = 'none'; // Initially Hidden
 
     // When Clicked, Toggle Children Visibility
-    label.addEventListener('click', () => {
-        if (childrenContainer.style.display === 'none') {
-            childrenContainer.style.display = 'block';   // show children
-            label.classList.add('expanded');
-        } else {
-            childrenContainer.style.display = 'none';    // hide children
-            label.classList.remove('expanded'); 
-        }
+    label.addEventListener(('click'), () => {
+      if (childrenContainer.style.display === 'none') {
+        childrenContainer.style.display = 'block'; // show children
+        label.classList.toggle('expanded');
+      } else {
+        childrenContainer.style.display = 'none'; // hide children
+        label.classList.remove('expanded');
+      }
     });
 
 
     // Recursively Render Children
-    branch.children.forEach(child => {
+    branch.children.forEach((child) => {
       let childElement;
 
       // Is it Branch?
-      if(child instanceof Branch){
+      if (child instanceof Branch) {
         childElement = this.renderBranch(child);
-      }
-
-      // Is it Leaf?
-      else if(child instanceof Leaf){
+      } else if (child instanceof Leaf) { // Is it Leaf?
         childElement = this.renderLeaf(child);
       }
 
@@ -167,16 +166,24 @@ class Tree {
   }
 
   // No Recursion but it Renders Leafs
-  renderLeaf(leaf){
+  renderLeaf(leaf) {
     const file = document.createElement('div'); // Creates div for File
     file.className = 'file';
-    file.innerText = leaf.title;  // Shows leaf title
+    file.innerText = leaf.title; // Shown on Screen
 
     // Leaf ID
-    const fileId = this.containerString.concat(leaf.id); // Concat our tree # w ID
-    file.dataset.id = fileId;  // Store id in DOM attribute
-    file.dataset.title = leaf.title; // Store title in DOM attribute
+    const fileId =
+    this.containerString.concat(leaf.id); // Concat our tree # w ID
+    file.id = fileId; // DIV ID
 
+    // Metadata for Testing
+    file.title = leaf.title; // DIV Metadata Title
+
+    if (leaf.id === 'error') {
+      file.classList.add('error');
+    } else {
+      file.classList.add('file');
+    }
     return file;
   }
 
@@ -184,13 +191,14 @@ class Tree {
    * Expand all folders in the tree
    */
   expand() {
-    const allContainers = this.containerId.querySelectorAll('.children-container');
-    allContainers.forEach(container => {
+    const allContainers =
+    this.containerId.querySelectorAll('.children-container');
+    allContainers.forEach((container) => {
       container.style.display = 'block'; // Show all children containers
     });
 
     const allLabels = this.containerId.querySelectorAll('.folder-label');
-    allLabels.forEach(label => {
+    allLabels.forEach((label) => {
       label.classList.add('expanded'); // Change all symbols to expanded
     });
   }
@@ -199,13 +207,14 @@ class Tree {
    * Collapse all folders in the tree
    */
   collapse() {
-    const allContainers = this.containerId.querySelectorAll('.children-container');
-    allContainers.forEach(container => {
+    const allContainers =
+    this.containerId.querySelectorAll('.children-container');
+    allContainers.forEach((container) => {
       container.style.display = 'none'; // Show all children containers
     });
 
     const allLabels = this.containerId.querySelectorAll('.folder-label');
-    allLabels.forEach(label => {
+    allLabels.forEach((label) => {
       label.classList.remove('expanded'); // Change all symbols to closed
     });
   }
@@ -222,6 +231,71 @@ class Tree {
    * @param {string} json New data for the tree
    */
   set(json) {
+    // Parse JSON
+    const textarea = document.getElementById('json');
+    const jsonString = textarea.value;
+    let parsedData;
+    try {
+      parsedData = JSON.parse(jsonString);
+      // console.log(parsedData);
+    } catch (err) {
+      // Handle malformed JSON
+      console.error('Parse error:', err.message);
+
+      this.render([new Leaf('error', err.message)]);
+      return;
+    }
+
+    // We need to recursively convert Data
+    const seen = new Set();
+    /**
+     * Recursively converts a JSON node into a Leaf or Branch instance.
+     * @param {object} node - The node object from parsed JSON
+     * @param {string} node.id - Unique identifier for the node
+     * @param {string} node.title - Title of the node
+     * @param {Array} [node.children] - Optional array of child nodes
+     * @returns {Leaf|Branch} - Returns Leaf or Branch instance
+     */
+    function conversion(node) {
+      if (!node.id || !node.title) {
+        throw new Error(
+            'One or more objects are missing one or more required properties',
+        );
+      }
+
+      // Check for Duplicates
+      if (seen.has(node.id)) {
+        throw new Error('One or more objects have non-unique IDs');
+      }
+      seen.add(node.id);
+      // If it has children, it's a Branch
+      if (node.children) {
+        // Children not an array - Error
+        if (!Array.isArray(node.children)) {
+          throw new Error(
+              'One or more objects are missing one or more required properties',
+          );
+        }
+
+        const children = node.children.map(conversion);
+        return new Branch(node.id, node.title, children);
+      }
+
+      // It's a Leaf
+      return new Leaf(node.id, node.title);
+    }
+
+    // Top Level Conversion
+    let convertedData;
+    try {
+      convertedData = parsedData.map(conversion);
+      this.render(convertedData);
+      this.checkTree();
+    } catch (err2) {
+      this.render([new Leaf('error', err2.message)]);
+      // Handle conversion errors
+      console.error(err2.message);
+    }
   }
 }
 
