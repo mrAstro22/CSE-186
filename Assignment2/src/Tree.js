@@ -79,15 +79,15 @@ class Tree {
     // Render Tree Data
     this.render(data);
 
-    //this.checkTree();
+    this.checkTree();
   }
 
-  // checkTree(){
-  //   const allChildren = this.containerId.querySelectorAll('.folder-label, .file');
-  //   allChildren.forEach(child => {
-  //     console.log(child.innerText, child.dataset.id);
-  //   });
-  // }
+  checkTree(){
+    const allChildren = this.containerId.querySelectorAll('.folder-label, .file');
+    allChildren.forEach(child => {
+      console.log(child.innerText, child.dataset.id);
+    });
+  }
 
   // Recursively render the tree data
   render(data){
