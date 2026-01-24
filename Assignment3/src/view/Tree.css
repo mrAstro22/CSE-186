@@ -1,0 +1,51 @@
+/* Your Tree styles go here */
+
+.trees{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-style: solid;
+    border-width: 3px;
+}
+
+.children-container{
+    display: none;
+    margin-left: 15px;
+}
+
+.arrow-icon{
+    display: inline-block;
+    font-family: monospace;
+    cursor: pointer;
+    text-align: center;
+    font-size: 15px;
+    width: 15px;
+}
+
+.folder.expanded + .children-container{
+    display: block;
+}
+
+.folder{
+    color: black;
+    margin-left: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.checkbox {
+    margin-right: 8px;
+}
+
+.file{
+    color: blue;
+    margin-left: 50px;
+    padding: 2px 5px;
+    cursor: pointer;
+}
+
+.file:hover{
+    display: inline-block;
+    border-radius: 3px; /* Round it Off */
+    background-color: lightblue;
+}
