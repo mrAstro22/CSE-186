@@ -73,9 +73,13 @@ class Tree extends React.Component {
   }
 
   renderBranch(branch) {
-    const ariaLabel = this.state.expanded[branch.id] ?
+    const expandAriaLabel = this.state.expanded[branch.id] ?
       'Expand ${branch.title}' :
       'Collapse ${branch.title}';
+
+    const checkAriaLabel = branch.checked ?
+      'Uncheck ${branch.title}' :
+      'Check ${branch.title}';
 
     const children = branch.children.map((child) => {
       // Is it Branch??
@@ -92,9 +96,19 @@ class Tree extends React.Component {
         <div className={`folder ${this.state.expanded[branch.id] ?
           'expanded' :
           ''}`}>
+          {branch.checkable && (
+            <input
+              className = "checkbox"
+              type="checkbox"
+              name = {branch.id}
+              checked = {this.state.checked[branch.id] ?? branch.checked}
+              onChange = {() => this.handleCheckBox(branch)}
+              aria-label = {checkAriaLabel}
+            />
+          )}
           <span
             className = 'arrow-icon'
-            aria-label = {ariaLabel}
+            aria-label = {expandAriaLabel}
             style = {{transform: this.state.expanded[branch.id] ?
               'rotate(0deg)' :
               'rotate(-90deg)'}}
