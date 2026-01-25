@@ -27,9 +27,26 @@ class Tree extends React.Component {
   constructor(props) {
     super(props);
     this.data = data;
+    const expanded = {};
+    const checked = {};
+
+    // Preset Checked and Expanded
+    const initState = (nodes) => {
+      nodes.forEach((node) => {
+        if (node instanceof Branch) {
+          expanded[node.id] = node.expanded || false; // start from model
+          checked[node.id] = node.checked || false;
+          if (node.children) initState(node.children);
+        } else if (node instanceof Leaf) {
+          checked[node.id] = node.checked || false;
+        }
+      });
+    };
+
+    initState(this.data);
     this.state = {
-      expanded: {},
-      checked: {},
+      expanded,
+      checked,
     };
   }
 
@@ -37,9 +54,9 @@ class Tree extends React.Component {
    * Don't implement this function until you get to the Stretch requirement
    * @returns {Array} the data currently displayed
    */
-  raw() {
-    return [];
-  }
+  // raw() {
+  //   return [];
+  // }
 
   /**
    * @returns {object} JSX of the Tree
@@ -52,9 +69,6 @@ class Tree extends React.Component {
           if (node instanceof Branch) {
             return this.renderBranch(node);
           } else if (node instanceof Leaf) {
-            // if(node.checkable) {
-            //   checkedState
-            // }
             return this.renderLeaf(node);
           }
           return null;
@@ -63,7 +77,9 @@ class Tree extends React.Component {
     );
   }
 
+  // Folder Expansion
   handleExpanded(branch) {
+    // Toggle between prev and curr state
     this.setState((prevState) => ({
       expanded: {
         ...prevState.expanded,
@@ -74,12 +90,12 @@ class Tree extends React.Component {
 
   renderBranch(branch) {
     const expandAriaLabel = this.state.expanded[branch.id] ?
-      'Expand ${branch.title}' :
-      'Collapse ${branch.title}';
+      `Collapse ${branch.title}` :
+      `Expand ${branch.title}`;
 
-    const checkAriaLabel = branch.checked ?
-      'Uncheck ${branch.title}' :
-      'Check ${branch.title}';
+    const checkAriaLabel = this.state.checked[branch.id] ?
+      `Uncheck ${branch.title}` :
+      `Check ${branch.title}`;
 
     const children = branch.children.map((child) => {
       // Is it Branch??
@@ -101,7 +117,7 @@ class Tree extends React.Component {
               className = "checkbox"
               type="checkbox"
               name = {branch.id}
-              checked = {this.state.checked[branch.id] ?? branch.checked}
+              checked = {this.state.checked[branch.id]}
               onChange = {() => this.handleCheckBox(branch)}
               aria-label = {checkAriaLabel}
             />
@@ -127,19 +143,21 @@ class Tree extends React.Component {
     );
   }
 
-  handleCheckBox(leafNode) {
+  // Checkbox State Change
+  handleCheckBox(node) {
+    // Toggle between prev state and curr
     this.setState((prevState) => ({
       checked: {
         ...prevState.checked,
-        [leafNode.id]: !prevState.checked[leafNode.id],
+        [node.id]: !prevState.checked[node.id],
       },
     }));
   };
 
   renderLeaf(leafNode) {
-    const ariaLabel = leafNode.checked ?
-      'Uncheck ${leafNode.title}' :
-      'Check ${leafNode.title}';
+    const ariaLabel = this.state.checked[leafNode.id] ?
+      `Uncheck ${leafNode.title}` :
+      `Check ${leafNode.title}`;
 
     return (
       <div key = {leafNode.id} className = 'file'>
@@ -148,7 +166,7 @@ class Tree extends React.Component {
             className = "checkbox"
             type="checkbox"
             name = {leafNode.id}
-            checked = {this.state.checked[leafNode.id] ?? leafNode.checked}
+            checked = {this.state.checked[leafNode.id]}
             onChange = {() => this.handleCheckBox(leafNode)}
             aria-label = {ariaLabel}
           />
