@@ -33,6 +33,16 @@
     font-weight: bold;
 }
 
+.folder:hover{
+    display: inline-block;
+    border-radius: 3px; /* Round it Off */
+    background-color: lightblue;
+}
+
+.folder-title.highlight {
+    background-color:lightblue;
+}
+
 .checkbox {
     margin-right: 8px;
 }
@@ -42,6 +52,10 @@
     margin-left: 50px;
     padding: 2px 5px;
     cursor: pointer;
+}
+
+.file.highlight {
+    background-color: lightblue;
 }
 
 .file:hover{

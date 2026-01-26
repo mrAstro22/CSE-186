@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 
 import './Tree.css';
 import Branch from '../model/Branch';
-import Leaf from '../model/Leaf';
+// import Leaf from '../model/Leaf';
 import data from '../model/data';
 
 /**
@@ -33,12 +33,10 @@ class Tree extends React.Component {
     // Preset Checked and Expanded
     const initState = (nodes) => {
       nodes.forEach((node) => {
-        if (node instanceof Branch) {
-          expanded[node.id] = node.expanded || false; // start from model
-          checked[node.id] = node.checked || false;
-          if (node.children) initState(node.children);
-        } else if (node instanceof Leaf) {
-          checked[node.id] = node.checked || false;
+        checked[node.id] = node.checked || false;
+        expanded[node.id] = node.expanded || false;
+        if (node.children) {
+          initState(node.children); // recursion for nested branches
         }
       });
     };
@@ -47,6 +45,7 @@ class Tree extends React.Component {
     this.state = {
       expanded,
       checked,
+      highlight: new Set(),
     };
   }
 
@@ -68,10 +67,10 @@ class Tree extends React.Component {
         {this.data.map((node) => {
           if (node instanceof Branch) {
             return this.renderBranch(node);
-          } else if (node instanceof Leaf) {
+          } else {
             return this.renderLeaf(node);
           }
-          return null;
+          // return null;
         })}
       </div>
     );
@@ -97,27 +96,31 @@ class Tree extends React.Component {
       `Uncheck ${branch.title}` :
       `Check ${branch.title}`;
 
+    const isExpanded = this.state.expanded[branch.id] || false;
+    const isChecked = this.state.checked[branch.id] || false;
+
     const children = branch.children.map((child) => {
       // Is it Branch??
       if (child instanceof Branch) {
         return this.renderBranch(child);
-      } else if (child instanceof Leaf) { // Leaf??
+      } else { // Leaf??
         return this.renderLeaf(child);
       }
-      return null;
+      // return null;
     });
 
     return (
+      // I added a branch wrapper for the cases that a folder
+      // Has Children
+      // I couldn't add multiple divs before
       <div key = {branch.id} className = 'branch-wrapper'>
-        <div className={`folder ${this.state.expanded[branch.id] ?
-          'expanded' :
-          ''}`}>
+        <div className={`folder ${isExpanded ? 'expanded' : ''}`}>
           {branch.checkable && (
             <input
               className = "checkbox"
               type="checkbox"
               name = {branch.id}
-              checked = {this.state.checked[branch.id]}
+              checked = {isChecked}
               onChange = {() => this.handleCheckBox(branch)}
               aria-label = {checkAriaLabel}
             />
@@ -132,9 +135,12 @@ class Tree extends React.Component {
           >
             {'\u25BC'}
           </span>
-          <span className = "folder-title">
+          <label className = {`folder-title 
+          ${this.state.highlight.has(branch.id) ? 'highlight' : ''}`}
+          onClick = {(e) => this.handleShift(branch, e)}
+          >
             {branch.title}
-          </span>
+          </label>
         </div>
         <div className = 'children-container'>
           {children}
@@ -159,23 +165,61 @@ class Tree extends React.Component {
       `Uncheck ${leafNode.title}` :
       `Check ${leafNode.title}`;
 
+    const isChecked = this.state.checked[leafNode.id] || false;
+
     return (
-      <div key = {leafNode.id} className = 'file'>
+      <div
+        key = {leafNode.id}
+        className = {`file ${this.state.highlight.has(
+            leafNode.id) ? 'highlight' : ''}`}>
         {leafNode.checkable && (
           <input
             className = "checkbox"
             type="checkbox"
             name = {leafNode.id}
-            checked = {this.state.checked[leafNode.id]}
+            checked = {isChecked}
             onChange = {() => this.handleCheckBox(leafNode)}
             aria-label = {ariaLabel}
           />
         )}
-        <span>{leafNode.title}</span>
+        <label
+          onClick = {(e) => this.handleShift(leafNode, e)}
+        >
+          {leafNode.title}
+        </label>
       </div>
     );
   }
+
+  // Shift Click - Highlight
+  handleShift(node, e) {
+    // On event of Shift Click
+    if (e.shiftKey) {
+      e.preventDefault(); // stop browser from selecting text
+      this.setState((prev) => {
+        const highlight = new Set(prev.highlight);
+        if (highlight.has(node.id)) {
+          highlight.delete(node.id);
+        } else {
+          highlight.add(node.id);
+        }
+        console.log('Highlight Set:', highlight);
+        return {highlight}; // Update State
+      });
+    // Click on Node from Highlighted Set
+    } else {
+      this.setState((prev) =>{
+        const highlight = new Set(prev.highlight);
+        highlight.clear();
+        return {highlight};
+      });
+    }
+  }
+  deleteHighlighted(nodes, highlighted){
+
+  }
 }
+
 
 Tree.propTypes = {
   data: PropTypes.array,

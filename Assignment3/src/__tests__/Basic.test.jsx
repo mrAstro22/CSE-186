@@ -14,7 +14,6 @@ import Tree from '../view/Tree';
 import data from '../model/data';
 import userEvent from '@testing-library/user-event';
 
-
 it('renders tree data', () => {
   render(<Tree data={data} />);
   screen.getByText(/Folder 1/);
@@ -26,10 +25,20 @@ it('Checkboxes exist', () => {
   expect(checkboxes.length).toBeGreaterThan(0);
 });
 
-it('Checkboxes are Clickable', async () => {
+it('File Checkboxes are Clickable', async () => {
   render(<Tree data={data} />);
   const user = userEvent.setup();
   const checkbox = screen.getByLabelText('Uncheck File 14');
+
+  const isChecked = checkbox.checked;
+  await user.click(checkbox);
+  expect(checkbox.checked).toBe(!isChecked);
+});
+
+it('Folder Checkboxes are Clickable', async () => {
+  render(<Tree data={data} />);
+  const user = userEvent.setup();
+  const checkbox = screen.getByLabelText('Uncheck Folder 3');
 
   const isChecked = checkbox.checked;
   await user.click(checkbox);
@@ -53,4 +62,14 @@ it('Expandable Branches', async () => {
   // Expand
   await user.click(icon);
   expect(folder1.classList.contains('expanded')).toBe(true);
+});
+
+it('initState recursion runs without render', () => {
+  const tree = new Tree();
+
+  // Check that the state is initialized correctly
+  expect(tree.state.checked[
+      'a47771a1-f101-4443-96bb-4605208c4fd2']).toBe(true);
+  expect(tree.state.checked[
+      '8007f70d-d20e-42c4-87ad-0b52a9ff7a0b']).toBe(true);
 });
