@@ -26,7 +26,6 @@ class Tree extends React.Component {
    */
   constructor(props) {
     super(props);
-    this.data = data;
     const expanded = {};
     const checked = {};
 
@@ -41,8 +40,9 @@ class Tree extends React.Component {
       });
     };
 
-    initState(this.data);
+    initState(data);
     this.state = {
+      treeData: data, // React Tree
       expanded,
       checked,
       highlight: new Set(),
@@ -64,7 +64,7 @@ class Tree extends React.Component {
   render() {
     return (
       <div className="trees">
-        {this.data.map((node) => {
+        {this.state.treeData.map((node) => {
           if (node instanceof Branch) {
             return this.renderBranch(node);
           } else {
@@ -193,33 +193,79 @@ class Tree extends React.Component {
 
   // Shift Click - Highlight
   handleShift(node, e) {
+    e.preventDefault(); // stop browser from selecting text
     // On event of Shift Click
-    if (e.shiftKey) {
-      e.preventDefault(); // stop browser from selecting text
-      this.setState((prev) => {
-        const highlight = new Set(prev.highlight);
+    this.setState((prev) =>{
+      const highlight = new Set(prev.highlight);
+      if (e.shiftKey) {
         if (highlight.has(node.id)) {
           highlight.delete(node.id);
         } else {
           highlight.add(node.id);
         }
-        console.log('Highlight Set:', highlight);
-        return {highlight}; // Update State
-      });
-    // Click on Node from Highlighted Set
-    } else {
-      this.setState((prev) =>{
-        const highlight = new Set(prev.highlight);
-        highlight.clear();
-        return {highlight};
+        // console.log('Highlight Set:', highlight);
+
+        // Click on Node from Highlighted Set
+      } else {
+        // If we selected the same node
+        if (highlight.has(node.id)) {
+          highlight.clear();
+          // console.log('Highlight Set:', highlight);
+        } else {
+          highlight.clear();
+          highlight.add(node.id);
+        }
+      }
+      return {highlight};
+    });
+  }
+
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleKeyPress);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeyPress);
+  }
+
+  handleKeyPress = (e) => {
+    if (e.key === 'Backspace' || e.key === 'Delete') {
+      e.preventDefault();
+      if (this.state.highlight.size <= 0) {
+        // console.log('Nothing in set');
+        return null;
+      }
+      // Update Tree
+      this.setState((prev) => {
+        const treeData = this.deleteHighlighted(
+            prev.treeData,
+            prev.highlight,
+        );
+
+        // Rerender Adjusted Tree
+        return {
+          treeData,
+          highlight: new Set(),
+        };
       });
     }
-  }
-  deleteHighlighted(nodes, highlighted){
+  };
 
+  deleteHighlighted(nodes, highlighted) {
+    // Filter All Non-Highlighted Nodes
+    const filteredNodes = nodes.filter((node) => !highlighted.has(node.id));
+
+    // Recursively Call Non-Highlighted Nodes
+    const newNodes = filteredNodes.map((node) => {
+      if (node.children) {
+        node.children = this.deleteHighlighted(node.children, highlighted);
+      }
+      return node;
+    });
+
+    return newNodes;
   }
 }
-
 
 Tree.propTypes = {
   data: PropTypes.array,
