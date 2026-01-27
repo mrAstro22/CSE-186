@@ -110,9 +110,7 @@ class Tree extends React.Component {
     });
 
     return (
-      // I added a branch wrapper for the cases that a folder
-      // Has Children
-      // I couldn't add multiple divs before
+      // Branch Wrapper for Multiple Divs
       <div key = {branch.id} className = 'branch-wrapper'>
         <div className={`folder ${isExpanded ? 'expanded' : ''}`}>
           {branch.checkable && (
@@ -161,6 +159,7 @@ class Tree extends React.Component {
   };
 
   renderLeaf(leafNode) {
+    // Ternary Deciding Checked Status
     const ariaLabel = this.state.checked[leafNode.id] ?
       `Uncheck ${leafNode.title}` :
       `Check ${leafNode.title}`;
