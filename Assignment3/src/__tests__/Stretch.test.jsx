@@ -8,12 +8,36 @@
 #
 #######################################################################
 */
-import {it} from 'vitest';
+import {expect, it} from 'vitest';
 import {render, screen} from '@testing-library/react';
 import App from '../App';
+import Tree from '../view/Tree';
+import data from '../model/data';
+import userEvent from '@testing-library/user-event';
 
-it('Shows JSON Tree', () => {
+it('Shows JSON Tree', async () => {
   render(<App />);
-  screen.getByLabelText('JSON Tree');
+  render(<Tree data={data} />);
+  const user = userEvent.setup();
+  const button = screen.getByText('JSON');
+  await user.click(button); // Simulates click
+
+  const JSONtree = screen.getByLabelText('JSON Tree');
+
+  expect(JSONtree).toBeInTheDocument();
 });
 
+it('Clear Works', async () => {
+  render(<App />);
+  render(<Tree data={data} />);
+  const user = userEvent.setup();
+  const Jsonbutton = screen.getByText('JSON');
+  const Clearbutton = screen.getByText('Clear');
+
+  await user.click(Jsonbutton); // Simulates click
+  await user.click(Clearbutton); // Simulates click
+
+  const JSONtree = screen.getByLabelText('JSON Tree');
+  const JSONtext = JSONtree.textContent;
+  expect(JSONtext).toBe('');
+});

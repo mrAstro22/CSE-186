@@ -53,9 +53,9 @@ class Tree extends React.Component {
    * Don't implement this function until you get to the Stretch requirement
    * @returns {Array} the data currently displayed
    */
-  // raw() {
-  //   return [];
-  // }
+  raw() {
+    return [this.state.treeData];
+  }
 
   /**
    * @returns {object} JSX of the Tree
