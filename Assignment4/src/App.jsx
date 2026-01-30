@@ -9,11 +9,18 @@
 #######################################################################
 */
 
-// import React, {useState, createContext} from 'react';
 import mail from './model/mail.json';
 
-// Passing Context over components
+// Components
 import Header from './view/Header.jsx';
+// import MailSum from './view/MailSum.jsx';
+
+// Passing Context over components
+import {createContext, useState} from 'react';
+
+// Top Level Context
+export const inboxContext = createContext();
+export const emailContext = createContext();
 
 /**
  * Simple component with no state.
@@ -23,24 +30,45 @@ import Header from './view/Header.jsx';
  * @returns {object} JSX
  */
 function App() {
+  // Global State of Mailbox
+  const [mailbox, setMailbox] = useState('Inbox');
+  const [email, setEmail] = useState('');
+
   return (
-    <div>
-      <Header/>
-      <table>
-        <tbody>
-          {mail.map((mailbox) => (
-            mailbox.mail.map((email) => (
-              <tr key={email.id}>
-                <td>{mailbox.name}</td>
-                <td>{email.from.name}</td>
-                <td>{email.subject}</td>
-                <td>{email.received}</td>
-              </tr>
-            ))
-          ))}
-        </tbody>
-      </table>
-    </div>
+    // Component 1: selectedMailbox
+    <inboxContext.Provider value={{mailbox, setMailbox}}>
+      <emailContext.Provider value = {{email, setEmail}}>
+      <div>
+        <Header/>
+        {/* <MailSum/> */}
+        <table
+          className='mail-list'
+          aria-label='mail-list'
+        >
+          <tbody
+            className='mailbox'
+          >
+            {mail
+                .filter((box) => box.name === mailbox)
+                .map((box) => (
+                  box.mail.map((email) => (
+                    <tr
+                      key={email.id}
+                      className='selected-mail'
+                      onClick={() => }
+                    >
+                      {/* <td>{box.name}</td> */}
+                      <td>{email.from.name}</td>
+                      <td>{email.subject}</td>
+                      <td>{email.received}</td>
+                    </tr>
+                  ))
+                ))}
+          </tbody>
+        </table>
+      </div>
+      </emailContext.Provider>
+    </inboxContext.Provider> // Set Contexts
   );
 }
 

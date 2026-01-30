@@ -1,0 +1,28 @@
+.border {
+    background-color: green;
+}
+
+/* .mailIcons {
+    cursor: pointer;
+} */
+
+.mail-list {
+    padding-top: 50px;
+}
+
+.mailbox {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* .selected-mail {
+    border
+} */
+
+.selected-mail:hover {
+    cursor: pointer;
+    background-color: aliceblue;
+}
+
+.menu-icon {
+  margin-left: 10px;
+}
