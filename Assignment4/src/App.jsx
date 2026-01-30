@@ -9,7 +9,11 @@
 #######################################################################
 */
 
+// import React, {useState, createContext} from 'react';
 import mail from './model/mail.json';
+
+// Passing Context over components
+import Header from './view/Header.jsx';
 
 /**
  * Simple component with no state.
@@ -21,7 +25,7 @@ import mail from './model/mail.json';
 function App() {
   return (
     <div>
-      <h2>Let&apos;s make this look way better with Material-UI, eh?</h2>
+      <Header/>
       <table>
         <tbody>
           {mail.map((mailbox) => (
