@@ -3,7 +3,7 @@ import {useState, useContext} from 'react';
 import {mailboxContext} from '../App';
 
 // CSS
-import './Mail.css';
+// import './Mail.css';
 import './Drawer.css';
 
 // MUI Elements
@@ -19,7 +19,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-
+import Typography from '@mui/material/Typography';
 
 // Drawer: https://mui.com/material-ui/react-drawer/
 /**
@@ -71,7 +71,7 @@ function Header() {
         width: '100%',
         alignItems: 'center',
         border: '1px solid black',
-        bgcolor: 'cyan',
+        bgcolor: 'green',
         position: 'fixed',
         top: 0,
         left: 0,
@@ -86,9 +86,17 @@ function Header() {
         <MenuIcon className='menu-icon'/>
       </IconButton>
 
-      <h2>
+      <Typography
+        sx={{
+          variant: 'head',
+          color: 'black',
+          ml: '10px',
+          fontSize: '20px',
+          fontWeight: 'bold',
+        }}
+      >
         CSE186 Mail - {mailbox}
-      </h2>
+      </Typography>
 
       <Drawer
         className = "app-drawer"

@@ -11,11 +11,11 @@
 
 // MUI
 import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 
 // Components
 import Header from './view/Header.jsx';
 import MailList from './view/MailList.jsx';
+import Email from './view/Email.jsx';
 
 // Passing Context over components
 import {createContext, useState} from 'react';
@@ -39,33 +39,34 @@ function App() {
   // const [currentPage, setPage] = useState('Inbox');
   const [mailbox, setMailbox] = useState('Inbox'); // Header
   const [email, setEmail] = useState(null); // MailList
+  // const [deviceType, setDevice] = useState('Mobile');
 
   return (
     // Component 1: selectedMailbox
     <mailboxContext.Provider value={{mailbox, setMailbox}}>
       <emailContext.Provider value = {{email, setEmail}}>
-        <Header/>
-        <Box sx={{ flexGrow: 1, padding: 2 }}>
-        <Grid container spacing={2}>
-         <Grid
-              item
-              xs={12}        // full width on mobile
-              md={4}         // 4/12 width on desktop
-            >
-              <MailList />
-            </Grid>
+        {/* <Header/> */}
+        <Grid container spacing={2} sx={{height: '100%'}}>
 
-            {/* Full email view */}
-            <Grid
-              item
-              xs={12}        // full width on mobile
-              md={8}         // 8/12 width on desktop
-            >
-              {/* Only render full email if one is selected */}
-              {email && <MailList showEmail />}
-            </Grid>
+          {/* Column 1: Mailbox Selection*/}
+          <Grid size={{xs: 12, md: 12}}>
+            <Header/>
           </Grid>
-        </Box>
+
+          {/* Column 2: Email Summary*/}
+          <Grid size={{xs: 12, md: 5}}
+            sx={{height: '100%'}}
+          >
+            <MailList />
+          </Grid>
+
+          {/* Column 3: Email Content*/}
+          <Grid size={{xs: 12, md: 5}}
+            sx={{height: '100%', overflowY: 'auto'}}
+          >
+            <Email/>
+          </Grid>
+        </Grid>
       </emailContext.Provider>
     </mailboxContext.Provider>
   );

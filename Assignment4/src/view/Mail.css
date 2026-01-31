@@ -1,26 +1,20 @@
-.border {
-    background-color: green;
-}
-
-/* .mailIcons {
-    cursor: pointer;
-} */
-
 .mail-list {
-    padding-top: 50px;
-}
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;}
 
-.mailbox {
-    font-family: 'Courier New', Courier, monospace;
-}
 
-/* .selected-mail {
+.selected-mail {
     margin-block: 20px;
-} */
+}
 
 .selected-mail:hover {
     cursor: pointer;
     background-color: aliceblue;
+}
+
+.emailElements {
+    margin-top: 60px;
 }
 
 .menu-icon {
