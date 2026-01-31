@@ -98,13 +98,29 @@ function Header() {
         CSE186 Mail - {mailbox}
       </Typography>
 
+      {/* https://mui.com/material-ui/react-drawer/#ResponsiveDrawer.js */}
+
+      {/* Mobile Drawer*/}
       <Drawer
         className = "app-drawer"
+        variant='temporary'
+        sx={{
+          display: {xs: 'block', sm: 'none'}}}
         open={open}
         onClose={toggleDrawer(false)}>
         {DrawerList}
       </Drawer>
 
+      {/* Desktop Drawer*/}
+      <Drawer
+        variant="permanent"
+        sx={{
+          display: {xs: 'none', sm: 'block'},
+        }}
+        open
+      >
+        {DrawerList}
+      </Drawer>
     </Box>
   );
 }

@@ -72,29 +72,4 @@ function App() {
   );
 }
 
-function useWindowSize() {
-  const [deviceType, setDevice] = useState();
-  const [size, setSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
-
-  useEffect(() => {
-    const handleResize = () => {
-      setSize({ width: window.innerWidth, height: window.innerHeight });
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  if (width < 768) {
-    setDevice = 'Mobile'
-  }
-  else {
-    setDevice = 'Desktop'
-  }
-  return setDevice;
-}
-
 export default App;
