@@ -9,22 +9,19 @@
 #######################################################################
 */
 
-// High Level Idea:
-// * Hide Certain Components for Mobile App
-
-import mail from './model/mail.json';
+// MUI
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 
 // Components
 import Header from './view/Header.jsx';
-import EmailHandle from './view/Email.jsx';
-
-// import MailSum from './view/MailSum.jsx';
+import MailList from './view/MailList.jsx';
 
 // Passing Context over components
 import {createContext, useState} from 'react';
 
 // Top Level Context
-export const inboxContext = createContext();
+export const mailboxContext = createContext('Inbox');
 export const emailContext = createContext();
 
 /**
@@ -40,46 +37,37 @@ function App() {
   // Will change based on size of screen
 
   // const [currentPage, setPage] = useState('Inbox');
-  const [mailbox, setMailbox] = useState('Inbox'); // Click
-  const [email, setEmail] = useState(null);
+  const [mailbox, setMailbox] = useState('Inbox'); // Header
+  const [email, setEmail] = useState(null); // MailList
 
   return (
     // Component 1: selectedMailbox
-    <inboxContext.Provider value={{mailbox, setMailbox}}>
+    <mailboxContext.Provider value={{mailbox, setMailbox}}>
       <emailContext.Provider value = {{email, setEmail}}>
-        <div>
-          <Header/>
-          <table
-            className='mail-list'
-            aria-label='mail-list'
-          >
-            <tbody
-              className='mailbox'
+        <Header/>
+        <Box sx={{ flexGrow: 1, padding: 2 }}>
+        <Grid container spacing={2}>
+         <Grid
+              item
+              xs={12}        // full width on mobile
+              md={4}         // 4/12 width on desktop
             >
-              {mail
-                  .filter((box) => box.name === mailbox)
-                  .map((box) => (
-                    box.mail.map((email) => (
-                      <tr
-                        key={email.id}
-                        className='selected-mail'
-                        onClick={() => {
-                          setEmail(email.id);
-                          // console.log('Set Email:', email.id);
-                        }}
-                      >
-                        {/* <td>{box.name}</td> */}
-                        <td>{email.from.name}</td>
-                        <td>{email.subject}</td>
-                        <td>{email.received}</td>
-                      </tr>
-                    ))
-                  ))}
-            </tbody>
-          </table>
-        </div>
+              <MailList />
+            </Grid>
+
+            {/* Full email view */}
+            <Grid
+              item
+              xs={12}        // full width on mobile
+              md={8}         // 8/12 width on desktop
+            >
+              {/* Only render full email if one is selected */}
+              {email && <MailList showEmail />}
+            </Grid>
+          </Grid>
+        </Box>
       </emailContext.Provider>
-    </inboxContext.Provider>
+    </mailboxContext.Provider>
   );
 }
 

@@ -1,6 +1,6 @@
 // Context Hooks
 import {useState, useContext} from 'react';
-import {inboxContext} from '../App';
+import {mailboxContext} from '../App';
 
 // CSS
 import './Mail.css';
@@ -28,7 +28,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 function Header() {
   // State: Menu Open/Close
   const [open, setOpen] = useState(false);
-  const {setMailbox} = useContext(inboxContext);
+  const {mailbox, setMailbox} = useContext(mailboxContext);
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -86,6 +86,10 @@ function Header() {
         <MenuIcon className='menu-icon'/>
       </IconButton>
 
+      <h2>
+        CSE186 Mail - {mailbox}
+      </h2>
+
       <Drawer
         className = "app-drawer"
         open={open}
@@ -96,5 +100,4 @@ function Header() {
     </Box>
   );
 }
-
 export default Header;
