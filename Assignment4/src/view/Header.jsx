@@ -1,127 +1,85 @@
 // Context Hooks
-import {useState, useContext} from 'react';
-import {mailboxContext} from '../App';
+import {useContext} from 'react';
+import {emailContext, layoutContext, mailboxContext} from '../App';
 
 // CSS
 // import './Mail.css';
 import './Drawer.css';
 
 // MUI Elements
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import DeleteIcon from '@mui/icons-material/Delete';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Typography from '@mui/material/Typography';
+import CloseIcon from '@mui/icons-material/Close';
 
-// Drawer: https://mui.com/material-ui/react-drawer/
 /**
  * @returns {object} Returns Drawer Component
  */
 function Header() {
-  // State: Menu Open/Close
-  const [open, setOpen] = useState(false);
-  const {mailbox, setMailbox} = useContext(mailboxContext);
+  // Context: Set Mailbox Type
+  // Context: Set as Open/Close
+  const {mailbox} = useContext(mailboxContext);
+  const {setEmail} = useContext(emailContext);
+  const {drawerOpen, setDrawerOpen, mobileMail, setMobileMail} =
+  useContext(layoutContext);
 
-  const toggleDrawer = (newOpen) => () => {
-    setOpen(newOpen);
-  };
-
-  const DrawerList = (
-    <Box
-      className = 'drawer'
-      role="presentation"
-      onClick={toggleDrawer(false)}>
-      <List>
-        {['Inbox', 'Important', 'Trash'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-
-            <ListItemButton
-              className='mailIcons'
-              onClick={() => setMailbox(text)}
-
-            >
-              <ListItemIcon>
-                {index === 0 ? <InboxIcon /> :
-                index === 1 ? <MailIcon /> :
-                index === 2 ? <DeleteIcon /> :
-                <InboxIcon />
-                }
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
 
   return (
-    <Box
-      className = "header"
+    <AppBar
+      position="fixed"
       sx={{
-        display: 'flex',
-        width: '100%',
-        alignItems: 'center',
-        border: '1px solid black',
         bgcolor: 'green',
-        position: 'fixed',
-        top: 0,
-        left: 0,
+        zIndex: (theme) => theme.zIndex.drawer + 1,
       }}
     >
-      <IconButton
-        color="inherit"
-        aria-label= {open ? 'hide mailboxes' : 'show mailboxes'}
-        onClick={toggleDrawer(true)}
-        edge="start"
-      >
-        <MenuIcon className='menu-icon'/>
-      </IconButton>
+      <Toolbar>
 
-      <Typography
-        sx={{
-          variant: 'head',
-          color: 'black',
-          ml: '10px',
-          fontSize: '20px',
-          fontWeight: 'bold',
-        }}
-      >
+        {/* Menu Button: Mobile Only*/}
+
+        {/* Normal Mail View*/}
+        <IconButton
+          color="inherit"
+          aria-label= {drawerOpen ? 'hide mailboxes' : 'show mailboxes'}
+          onClick={() => setDrawerOpen((prev) => !prev)}
+          edge="start"
+          sx={{display: {md: 'none'}}}
+        >
+          <MenuIcon className='menu-icon'/>
+        </IconButton>
+
+        <Typography
+          sx={{
+            color: 'black',
+            ml: '10px',
+            fontSize: '20px',
+            fontWeight: 'bold',
+          }}
+        >
         CSE186 Mail - {mailbox}
-      </Typography>
+        </Typography>
 
-      {/* https://mui.com/material-ui/react-drawer/#ResponsiveDrawer.js */}
+        {/* Get X Ready for Exit*/}
+        {mobileMail && (
+          <IconButton
+            color="inherit"
+            aria-label = "close"
+            onClick={() => {
+              setMobileMail(false);
+              setEmail(null);
+            }}
+            sx={{
+              display: {md: 'none'},
+              ml: 'auto',
+            }}
+          >
+            <CloseIcon className='close-icon'/>
+          </IconButton>
+        )}
+      </Toolbar>
 
-      {/* Mobile Drawer*/}
-      <Drawer
-        className = "app-drawer"
-        variant='temporary'
-        sx={{
-          display: {xs: 'block', sm: 'none'}}}
-        open={open}
-        onClose={toggleDrawer(false)}>
-        {DrawerList}
-      </Drawer>
-
-      {/* Desktop Drawer*/}
-      <Drawer
-        variant="permanent"
-        sx={{
-          display: {xs: 'none', sm: 'block'},
-        }}
-        open
-      >
-        {DrawerList}
-      </Drawer>
-    </Box>
+    </AppBar>
   );
 }
 export default Header;

@@ -1,4 +1,4 @@
-// Context
+// import PropTypes from 'prop-types';
 import {useContext} from 'react';
 import {emailContext} from '../App';
 
@@ -9,7 +9,7 @@ function Email() {
   const {email} = useContext(emailContext);
 
   if (!email) {
-    return <div>Select an Email to View</div>;
+    return;
   }
 
   return (
@@ -24,6 +24,23 @@ function Email() {
     </div>
   );
 }
+
+// Email.propTypes = {
+//   email: PropTypes.shape({
+//     id: PropTypes.string.isRequired,
+//     from: PropTypes.shape({
+//       name: PropTypes.string.isRequired,
+//       address: PropTypes.string.isRequired,
+//     }).isRequired,
+//     to: PropTypes.shape({
+//       name: PropTypes.string.isRequired,
+//       address: PropTypes.string.isRequired,
+//     }).isRequired,
+//     received: PropTypes.string.isRequired,
+//     subject: PropTypes.string.isRequired,
+//     content: PropTypes.string.isRequired,
+//   }).isRequired,
+// };
 
 /**
  *

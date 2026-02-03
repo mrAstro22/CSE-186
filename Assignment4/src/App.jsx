@@ -11,9 +11,11 @@
 
 // MUI
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 
 // Components
 import Header from './view/Header.jsx';
+import SideBar from './view/SideBar.jsx';
 import MailList from './view/MailList.jsx';
 import Email from './view/Email.jsx';
 
@@ -21,8 +23,11 @@ import Email from './view/Email.jsx';
 import {createContext, useState} from 'react';
 
 // Top Level Context
+export const layoutContext = createContext();
 export const mailboxContext = createContext('Inbox');
 export const emailContext = createContext();
+
+const drawerWidth = 240;
 
 /**
  * Simple component with no state.
@@ -39,36 +44,81 @@ function App() {
   // const [currentPage, setPage] = useState('Inbox');
   const [mailbox, setMailbox] = useState('Inbox'); // Header
   const [email, setEmail] = useState(null); // MailList
-  // const [deviceType, setDevice] = useState('Mobile');
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  // Mobile Email
+  const [mobileMail, setMobileMail] = useState(false);
 
   return (
     // Component 1: selectedMailbox
-    <mailboxContext.Provider value={{mailbox, setMailbox}}>
-      <emailContext.Provider value = {{email, setEmail}}>
-        {/* <Header/> */}
-        <Grid container spacing={2} sx={{height: '100%'}}>
+    <layoutContext.Provider
+      value={{
+        drawerOpen,
+        setDrawerOpen,
+        drawerWidth,
+        mobileMail,
+        setMobileMail,
+      }}>
+      <mailboxContext.Provider value={{mailbox, setMailbox}}>
+        <emailContext.Provider value = {{email, setEmail}}>
+          {/* Fixed Header */}
+          <Header/>
 
-          {/* Column 1: Mailbox Selection*/}
-          <Grid size={{xs: 12, md: 12}}>
-            <Header/>
-          </Grid>
+          {/* Sidebar Drawer */}
+          <SideBar/>
 
-          {/* Column 2: Email Summary*/}
-          <Grid size={{xs: 12, md: 5}}
-            sx={{height: '100%'}}
+          {/* Mail Content */}
+          <Box
+            sx={{
+              ml: {md: `${drawerWidth}px`}, // offset for desktop drawer
+              mt: '64px', // offset for AppBar height
+            }}
           >
-            <MailList />
-          </Grid>
+            <Grid
+              container
+              spacing={2}
+              wrap="nowrap"
+              sx={{height: 'calc(100vh - 64px)'}}>
 
-          {/* Column 3: Email Content*/}
-          <Grid size={{xs: 12, md: 5}}
-            sx={{height: '100%', overflowY: 'auto'}}
-          >
-            <Email/>
-          </Grid>
-        </Grid>
-      </emailContext.Provider>
-    </mailboxContext.Provider>
+              {/* Email List */}
+              <Grid
+                size={{
+                  xs: 12,
+                  md: 5,
+                }}
+                sx={{
+                  display: {
+                    xs: mobileMail ? 'none' : 'block',
+                    md: 'block',
+                  },
+                  height: '100%',
+                }}
+              >
+                <MailList/>
+              </Grid>
+
+              {/* Email Content */}
+              <Grid
+                size={{
+                  xs: 12,
+                  md: 5,
+                }}
+                sx={{
+                  display: {
+                    xs: mobileMail || email ? 'block' : 'none',
+                    md: 'block',
+                  },
+                  height: '100%',
+                  overflowY: 'auto',
+                }}
+              >
+                <Email/>
+              </Grid>
+            </Grid>
+          </Box>
+        </emailContext.Provider>
+      </mailboxContext.Provider>
+    </layoutContext.Provider>
   );
 }
 

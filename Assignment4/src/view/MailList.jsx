@@ -3,11 +3,11 @@ import './Mail.css';
 
 // Context
 import {useContext} from 'react';
-import {mailboxContext} from '../App';
-import {emailContext} from '../App';
+import {layoutContext, mailboxContext, emailContext} from '../App';
 
 // Data
 import mail from '../model/mail.json';
+import PropTypes from 'prop-types';
 
 // MUI
 import Table from '@mui/material/Table';
@@ -17,14 +17,19 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 
 /**
+ * @param {object} props
+ * @param props.data
  * @returns {object} Mailbox List
  */
-function MailList() {
+function MailList({data=null}) {
   const {mailbox} = useContext(mailboxContext);
   const {setEmail} = useContext(emailContext);
+  const {setMobileMail} = useContext(layoutContext);
+
+  const mailboxData = data || mail;
 
   // CurrMailbox was generated from ChatGPT
-  const currMailbox = mail
+  const currMailbox = mailboxData
       .find((box) => box.name === mailbox)?.mail
       ?.slice()
       .sort((a, b) => new Date(b.received) - new Date(a.received)) || [];
@@ -50,6 +55,7 @@ function MailList() {
               onClick={() => {
               // Render Email Content
                 setEmail(email);
+                setMobileMail(true);
               }}
             >
               {/* <td>{box.name}</td> */}
@@ -74,6 +80,10 @@ function MailList() {
     </TableContainer>
   );
 }
+
+MailList.propTypes = {
+  data: PropTypes.array,
+};
 
 /**
  *
