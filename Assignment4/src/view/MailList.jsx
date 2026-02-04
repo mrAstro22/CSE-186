@@ -16,17 +16,20 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 
+// MUI Clipped Drawer
+// https://mui.com/material-ui/react-drawer/#ClippedDrawer.js
+
 /**
- * @param {object} props
- * @param props.data
+ * @param {object} props - Mail Props
+ * @param {Array<object>} props.initMail - Array for Mailbox
  * @returns {object} Mailbox List
  */
-function MailList({data=null}) {
+function MailList({initMail=null}) {
   const {mailbox} = useContext(mailboxContext);
   const {setEmail} = useContext(emailContext);
   const {setMobileMail} = useContext(layoutContext);
 
-  const mailboxData = data || mail;
+  const mailboxData = initMail || mail;
 
   // CurrMailbox was generated from ChatGPT
   const currMailbox = mailboxData
@@ -45,7 +48,7 @@ function MailList({data=null}) {
     >
       <Table
         className='mail-list'
-        aria-label='mail-list'
+        aria-label='list of mail'
       >
         <TableBody>
           {currMailbox.map((email) => (
@@ -82,7 +85,7 @@ function MailList({data=null}) {
 }
 
 MailList.propTypes = {
-  data: PropTypes.array,
+  initMail: PropTypes.array,
 };
 
 /**

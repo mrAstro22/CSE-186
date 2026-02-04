@@ -14,6 +14,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 
+
+// MUI Clipped Drawer
+// https://mui.com/material-ui/react-drawer/#ClippedDrawer.js
+
 /**
  * @returns {object} Returns Drawer Component
  */
@@ -31,6 +35,7 @@ function Header() {
       position="fixed"
       sx={{
         bgcolor: 'green',
+        // Renders drawer under Header
         zIndex: (theme) => theme.zIndex.drawer + 1,
       }}
     >
@@ -46,10 +51,14 @@ function Header() {
           edge="start"
           sx={{display: {md: 'none'}}}
         >
-          <MenuIcon className='menu-icon'/>
+          <MenuIcon
+            className='menu-icon'
+            aria-label = 'menu-icon'
+          />
         </IconButton>
 
         <Typography
+          aria-label = 'title'
           sx={{
             color: 'black',
             ml: '10px',
@@ -64,7 +73,7 @@ function Header() {
         {mobileMail && (
           <IconButton
             color="inherit"
-            aria-label = "close"
+            aria-label = "close mail reader"
             onClick={() => {
               setMobileMail(false);
               setEmail(null);

@@ -22,6 +22,10 @@ import Email from './view/Email.jsx';
 // Passing Context over components
 import {createContext, useState} from 'react';
 
+// Data
+// import mail from '../model/mail.json';
+import PropTypes from 'prop-types';
+
 // Top Level Context
 export const layoutContext = createContext();
 export const mailboxContext = createContext('Inbox');
@@ -34,13 +38,16 @@ const drawerWidth = 240;
  *
  * See the basic-react from lecture for an example of adding and reacting
  * to changes in state.
- * @returns {object} JSX
+/**
+ * @param {object} props - App props
+ * @param {Array<object>} props.initMail - Array for Mailbox
+ * @returns {object} Mailbox List
  */
-function App() {
+function App({initMail=null}) {
   // Global State of Mailbox
   // const [deviceType, setDevice] = useState('Mobile');
   // Will change based on size of screen
-
+  const mailboxData = initMail;
   // const [currentPage, setPage] = useState('Inbox');
   const [mailbox, setMailbox] = useState('Inbox'); // Header
   const [email, setEmail] = useState(null); // MailList
@@ -94,7 +101,7 @@ function App() {
                   height: '100%',
                 }}
               >
-                <MailList/>
+                <MailList initMail={mailboxData}/>
               </Grid>
 
               {/* Email Content */}
@@ -121,5 +128,9 @@ function App() {
     </layoutContext.Provider>
   );
 }
+
+App.propTypes = {
+  initMail: PropTypes.array,
+};
 
 export default App;

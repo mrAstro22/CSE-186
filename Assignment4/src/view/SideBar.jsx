@@ -28,30 +28,32 @@ function SideBar() {
   const {setMailbox} = useContext(mailboxContext);
   const {drawerOpen, setDrawerOpen, drawerWidth} = useContext(layoutContext);
 
+  // Preset mailbox
+  const mailboxes = [
+    {name: 'Inbox', icon: <InboxIcon />},
+    {name: 'Important', icon: <MailIcon />},
+    {name: 'Trash', icon: <DeleteIcon />},
+  ];
+
   const DrawerList = (
     <Box sx={{width: drawerWidth}}>
       {/* Spacer to push below AppBar */}
       <Toolbar />
 
       <List>
-        {['Inbox', 'Important', 'Trash'].map((text, index) => (
-          <ListItem key={text} disablePadding>
+        {mailboxes.map((text) => (
+          <ListItem key={text.name} disablePadding>
 
             <ListItemButton
               className='mailIcons'
               onClick={() => {
-                setMailbox(text);
+                setMailbox(text.name);
                 setDrawerOpen(false); // Close Drawer
               }}
+              aria-label={text.name} // Aria-Label for Mailbox Type
             >
-              <ListItemIcon>
-                {index === 0 ? <InboxIcon /> :
-                index === 1 ? <MailIcon /> :
-                index === 2 ? <DeleteIcon /> :
-                <InboxIcon />
-                }
-              </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemIcon>{text.icon}</ListItemIcon>
+              <ListItemText primary={text.name} />
             </ListItemButton>
           </ListItem>
         ))}

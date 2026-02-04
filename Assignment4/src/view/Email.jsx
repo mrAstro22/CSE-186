@@ -3,13 +3,13 @@ import {useContext} from 'react';
 import {emailContext} from '../App';
 
 /**
- * @returns {object} Email Content
+ * @returns {object | null} Email Content
  */
 function Email() {
   const {email} = useContext(emailContext);
 
   if (!email) {
-    return;
+    return null;
   }
 
   return (
