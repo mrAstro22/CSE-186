@@ -53,7 +53,7 @@ function App({initMail=null}) {
   const [email, setEmail] = useState(null); // MailList
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  // Mobile Email
+  // Mobile Email Content
   const [mobileMail, setMobileMail] = useState(false);
 
   return (
