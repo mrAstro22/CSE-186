@@ -1,0 +1,28 @@
+#######################################################################
+#
+# Copyright (C) 2020-2026 David C. Harrison. All right reserved.
+#
+# You may not use, distribute, publish, or modify this code without
+# the express written permission of the copyright holder.
+#
+#######################################################################
+
+openapi: '3.0.3'
+
+info:
+  description: CSE186 Assignment 5
+  version: 0.1.0
+  title: CSE186 Assignment 5
+
+servers:
+  - url: http://localhost:3010/api/v0
+
+paths:
+  /mail:
+    get:
+      description: Returns all EMail
+      responses:
+        200:
+          description: Email Response
+        404:
+          description: Not Found 
