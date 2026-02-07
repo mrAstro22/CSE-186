@@ -35,7 +35,7 @@ it('Errors on invalid URL', async () => {
 
 it('Serves API Docs', async () => {
   await request.get('/api/v0/docs/')
-      .expect(200)
+      .expect(200);
 });
 
 it('Serves API Docs as HTML', async () => {

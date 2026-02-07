@@ -19,10 +19,41 @@ servers:
 
 paths:
   /mail:
-    get:
+    get: # Should have content property removed
       description: Returns all EMail
       responses:
         200:
           description: Email Response
         404:
-          description: Not Found 
+          description: Not Found
+    post: 
+      description: Save new email and return newly created
+      responses:
+        400: Unexpected Properties
+
+  # WIP
+  /mail?mailbox={mailbox}:
+  get: # Should have content property removed
+    description: Returns all EMails in 
+     Specified Mailbox as an Array
+    responses:
+      404: Mailbox Unknown
+
+  # WIP
+  /mail/{id}:
+    get: # Include Content Property
+      description: Returns all EMail in Specified Mailbox
+      responses:
+        200:
+          description: Email Response
+        404:
+          description: Not Found
+
+  # WIP
+  /mail/{id}?mailbox={mailbox}:
+    put:
+    description: Move email with id into named mailbox
+    responses:
+      409:
+        description: If (named mailbox === 'sent') && mail id 
+          not already in sent mailbox
