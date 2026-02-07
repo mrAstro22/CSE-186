@@ -17,35 +17,119 @@ info:
 servers:
   - url: http://localhost:3010/api/v0
 
+components:
+  schemas:
+    description: Email Data - Content
+    Email:
+    id:
+      type: string 
+      format: uuid
+      example: "591b428e-1b99-4a56-b653-dab17210b3b7"
+    to-name: 
+      type: string
+      example: "CSE186 Student"
+    to-email: 
+      type: string
+      format: email
+      example: "cse186-student@ucsc.edu"
+    from-name:
+      type: string
+      example: "Cherye O'Loughane"
+    from-email:
+      type: string 
+      format: email
+      example: "Cherye O'Loughane"
+    subject:
+      type: string
+      example: "Broderskab (Brotherhood)"
+    recieved:
+      type: string 
+      format: date-time
+      example: "2020-07-07T00:18:37Z"
+
+    Email+Content:
+      description: Email Date + Content
+      allOf: # Allows extra properties to be added
+        - $ref: '#/components/schemas/Email'
+        - type: object
+          content:
+            type: string
+            example: "Duis aliquam convallis nunc."
+
 paths:
+  # GET Complete
   /mail:
     get: # Should have content property removed
-      description: Returns all EMail
+      description: Return all Mail, Content Removed
       responses:
         200:
-          description: Email Response
+          description: List of Mail
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name: 
+                      type: string
+                      example: "inbox"
+                    mail:
+                      type: array
+                      items: # Reuse Email Schema
+                        $ref: '#/components/schemas/Email'
         404:
           description: Not Found
+
     post: 
       description: Save new email and return newly created
       responses:
         400: Unexpected Properties
 
-  # WIP
+  # GET Complete
   /mail?mailbox={mailbox}:
-  get: # Should have content property removed
-    description: Returns all EMails in 
+  get:
+    description: Returns all Emails in 
      Specified Mailbox as an Array
+    parameters:
+    - name: mailbox
+      in: query
+      required: true
     responses:
+      200:
+        description: Emails in Requested Mailbox
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  name: 
+                    type: string
+                    example: "inbox"
+                  mail:
+                    type: array
+                    items: # Reuse Email Schema
+                      $ref: '#/components/schemas/Email'
       404: Mailbox Unknown
 
   # WIP
   /mail/{id}:
     get: # Include Content Property
-      description: Returns all EMail in Specified Mailbox
+      description: Returns email identified by ID
+      parameter:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: "591b428e-1b99-4a56-b653-dab17210b3b7"
       responses:
         200:
-          description: Email Response
+          description: Email by ID
+          $ref: '#/components/schemas/Email+Content'
         404:
           description: Not Found
 
