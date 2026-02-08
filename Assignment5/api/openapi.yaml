@@ -19,33 +19,49 @@ servers:
 
 components:
   schemas:
-    description: Email Data - Content
+    newEmail:
+      description: Client Input
+      to-name:
+        type: string
+        example: "CSE186 Student"
+      to-email:
+        type: string
+        format: email
+        example: "cse186-student@ucsc.edu"
+      subject:
+        type: string
+        example: "Broderskab (Brotherhood)"
+      content:
+        type: string
+        example: "Duis aliquam convallis nunc."
+
     Email:
-    id:
-      type: string 
-      format: uuid
-      example: "591b428e-1b99-4a56-b653-dab17210b3b7"
-    to-name: 
-      type: string
-      example: "CSE186 Student"
-    to-email: 
-      type: string
-      format: email
-      example: "cse186-student@ucsc.edu"
-    from-name:
-      type: string
-      example: "Cherye O'Loughane"
-    from-email:
-      type: string 
-      format: email
-      example: "Cherye O'Loughane"
-    subject:
-      type: string
-      example: "Broderskab (Brotherhood)"
-    recieved:
-      type: string 
-      format: date-time
-      example: "2020-07-07T00:18:37Z"
+      description: Email Data - Content
+      id:
+        type: string 
+        format: uuid
+        example: "591b428e-1b99-4a56-b653-dab17210b3b7"
+      to-name: 
+        type: string
+        example: "CSE186 Student"
+      to-email: 
+        type: string
+        format: email
+        example: "cse186-student@ucsc.edu"
+      from-name:
+        type: string
+        example: "Cherye O'Loughane"
+      from-email:
+        type: string 
+        format: email
+        example: "Cherye O'Loughane"
+      subject:
+        type: string
+        example: "Broderskab (Brotherhood)"
+      received:
+        type: string 
+        format: date-time
+        example: "2020-07-07T00:18:37Z"
 
     Email+Content:
       description: Email Date + Content
@@ -78,13 +94,22 @@ paths:
                       type: array
                       items: # Reuse Email Schema
                         $ref: '#/components/schemas/Email'
-        404:
-          description: Not Found
-
-    post: 
+    post:
       description: Save new email and return newly created
-      responses:
-        400: Unexpected Properties
+      requestBody: # Client Input
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/newEmail'
+      201:
+        description: Created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Email'  
+      400:
+        description: Unexpected properties
 
   # GET Complete
   /mail?mailbox={mailbox}:
@@ -118,7 +143,7 @@ paths:
   /mail/{id}:
     get: # Include Content Property
       description: Returns email identified by ID
-      parameter:
+      parameters:
       - name: id
         in: path
         required: true
@@ -136,8 +161,28 @@ paths:
   # WIP
   /mail/{id}?mailbox={mailbox}:
     put:
-    description: Move email with id into named mailbox
-    responses:
-      409:
+      description: Make sure email has correct format
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: "591b428e-1b99-4a56-b653-dab17210b3b7"    
+      responses:
+      204:
+        description: Check mailbox
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  name: 
+                    type: string
+                    example: "inbox"
+      404:
         description: If (named mailbox === 'sent') && mail id 
           not already in sent mailbox
