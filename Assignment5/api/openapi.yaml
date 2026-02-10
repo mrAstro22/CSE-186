@@ -22,7 +22,14 @@ paths:
   # GET Complete
   /mail:
     get: # Should have content property removed
-      summary: Return all Mail, Content Removed ehe
+      summary: Return all Mail, Content Removed
+      parameters:
+        - name: mailbox
+          in: query
+          required: false
+          schema:
+            type: string
+            example: "inbox"
       responses:
         200:
           description: List of Mail
@@ -32,70 +39,49 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Mailbox'
+        404:
+          description: Mailbox unknown
 
-  #   post:
-  #     description: Save new email and return newly created
-  #     requestBody: # Client Input
-  #       required: true
-  #       content:
-  #         application/json:
-  #           schema:
-  #             $ref: '#/components/schemas/newEmail'
-  #     201:
-  #       description: Created
-  #       content:
-  #         application/json:
-  #           schema:
-  #             $ref: '#/components/schemas/Email'  
-  #     400:
-  #       description: Unexpected properties
+    post:
+      summary: Save new email and return newly created
+      requestBody: # Client Input
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/newEmail'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Email'  
+        400:
+          description: Unexpected properties
 
-  # # GET Complete
-  # /mail?mailbox={mailbox}:
-  # get:
-  #   description: Returns all Emails in 
-  #    Specified Mailbox as an Array
-  #   parameters:
-  #   - name: mailbox
-  #     in: query
-  #     required: true
-  #   responses:
-  #     200:
-  #       description: Emails in Requested Mailbox
-  #       content:
-  #         application/json:
-  #           schema:
-  #             type: array
-  #             items:
-  #               type: object
-  #               properties:
-  #                 name: 
-  #                   type: string
-  #                   example: "inbox"
-  #                 mail:
-  #                   type: array
-  #                   items: # Reuse Email Schema
-  #                     $ref: '#/components/schemas/Email'
-  #     404: Mailbox Unknown
 
   # # WIP
-  # /mail/{id}:
-  #   get: # Include Content Property
-  #     description: Returns email identified by ID
-  #     parameters:
-  #     - name: id
-  #       in: path
-  #       required: true
-  #       schema:
-  #         type: string
-  #         format: uuid
-  #         example: "591b428e-1b99-4a56-b653-dab17210b3b7"
-  #     responses:
-  #       200:
-  #         description: Email by ID
-  #         $ref: '#/components/schemas/EmailandContent'
-  #       404:
-  #         description: Not Found
+  /mail/{id}:
+    get: # Include Content Property
+      summary: Returns email identified by ID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: "591b428e-1b99-4a56-b653-dab17210b3b7"
+      responses:
+        200:
+          description: Email by ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailandContent'
+        404:
+          description: Not Found
 
   # # WIP
   # /mail/{id}?mailbox={mailbox}:
@@ -143,29 +129,28 @@ components:
         - name
         - mail
 
-    # newEmail:
-    #   type: object
-    #   description: Client Input
-    #   properties:
-    #     to-name:
-    #       type: string
-    #       example: "CSE186 Student"
-    #     to-email:
-    #       type: string
-    #       format: email
-    #       example: "cse186-student@ucsc.edu"
-    #     subject:
-    #       type: string
-    #       example: "Broderskab (Brotherhood)"
-    #     content:
-    #       type: string
-    #       example: "Duis aliquam convallis nunc."
-    #   required: [
-    #       to-name, 
-    #       to-email, 
-    #       subject, 
-    #       content
-    #     ]
+    newEmail:
+      type: object
+      description: Client Input
+      properties:
+        to-name:
+          type: string
+          example: "John Pork"
+        to-email:
+          type: string
+          format: email
+          example: "johnpork@ucsc.edu"
+        subject:
+          type: string
+          example: "Broderskab (Brotherhood)"
+        content:
+          type: string
+          example: "Duis aliquam convallis nunc."
+      required:
+        - to-name
+        - to-email
+        - subject
+        - content
 
     Email:
       type: object
@@ -205,14 +190,14 @@ components:
         - subject
         - received
 
-
-    # EmailandContent:
-    #   description: Email Date + Content
-    #   allOf: # Allows extra properties to be added
-    #     - $ref: '#/components/schemas/Email'
-    #     - type: object
-    #       properties:
-    #         content:
-    #           type: string
-    #           example: "Duis aliquam convallis nunc."
-    #       required: [content]
+    EmailandContent:
+      description: Email Date + Content
+      allOf: # Allows extra properties to be added
+        - $ref: '#/components/schemas/Email'
+        - type: object
+          properties:
+            content:
+              type: string
+              example: "Duis aliquam convallis nunc."
+          required: 
+            - content

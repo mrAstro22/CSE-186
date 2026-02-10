@@ -11,20 +11,20 @@
     "bestzip": "*",
     "eslint": "*",
     "eslint-config-google": "*",
-    "eslint-plugin-jsdoc": "*", 
+    "eslint-plugin-jsdoc": "*",
     "globals": "8",
     "nodemon": "*",
     "strip-comments": "*",
     "supertest": "*",
-    "vitest": "*",
-    "vite-plugin-eslint": "*"
+    "vite-plugin-eslint": "*",
+    "vitest": "*"
   },
   "dependencies": {
     "express": "*",
     "express-openapi-validator": "*",
     "js-yaml": "*",
     "swagger-ui-express": "*",
-    "uuid": "*"
+    "uuid": "^13.0.0"
   },
   "scripts": {
     "lint": "eslint src test --no-inline-config --max-warnings 0",
