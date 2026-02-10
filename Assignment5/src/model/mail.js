@@ -6,19 +6,11 @@ import {v4 as uuidv4} from 'uuid';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-let dataDir = path.join(__dirname, '../../data'); // default directory
-
-// Allows Directory to be Overwritten
-/**
- * @param {string} dir - Path to mailbox data directory
- */
-export function setDataDirectory(dir) {
-  dataDir = dir;
-}
+const dataDir = path.join(__dirname, '../../data'); // default directory
 
 // Reads all mailboxes and strips content from emails
 /**
- *
+ * @returns {object} - stripped email
  */
 export function retrieveAllMailboxes() {
   const files = fs.readdirSync(dataDir).filter((f) => f.endsWith('.json'));
@@ -38,7 +30,8 @@ export function retrieveAllMailboxes() {
 // Reads a single mailbox by name and strips content
 /**
  *
- * @param name
+ * @param {object} name - mailboxName
+ * @returns {object} - stripped email
  */
 export function retrieveMailbox(name) {
   const filePath = path.join(dataDir, `${name}.json`);
@@ -51,7 +44,8 @@ export function retrieveMailbox(name) {
 // Retrieve a single email by ID (include content)
 /**
  *
- * @param id
+ * @param {object} id - email with id
+ * @returns {object} with content
  */
 export function retrieveEmailByID(id) {
   const files = fs.readdirSync(dataDir).filter((f) => f.endsWith('.json'));
@@ -69,16 +63,18 @@ export function retrieveEmailByID(id) {
 
 /**
  *
- * @param newEmail
- * @param mailboxName
+ * @param {object} newEmail - req
+ * @returns {object} Created Email
  */
-export function create(newEmail, mailboxName = 'sent') {
-  const filePath = path.join(dataDir, `${mailboxName}.json`);
+export function create(newEmail) {
+  // const filePath = path.join(dataDir, `${mailboxName}.json`);
 
   // Read existing mailbox
-  const mailbox = fs.existsSync(filePath) ?
-    JSON.parse(fs.readFileSync(filePath, 'utf8')) :
-    [];
+  // const mailbox = fs.existsSync(filePath) ?
+  //   JSON.parse(fs.readFileSync(filePath, 'utf8')) :
+  //   [];
+
+  const mailbox = [];
 
   const emailToAdd = {
     'to-name': newEmail['to-name'],
@@ -94,7 +90,7 @@ export function create(newEmail, mailboxName = 'sent') {
   mailbox.push(emailToAdd);
 
   // Write updated mailbox back to disk
-  fs.writeFileSync(filePath, JSON.stringify(mailbox, null, 2));
+  // fs.writeFileSync(filePath, JSON.stringify(mailbox, null, 2));
 
   return emailToAdd;
 }

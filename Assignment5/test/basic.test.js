@@ -43,7 +43,6 @@ it('Serves API Docs as HTML', async () => {
       .expect('Content-Type', /text\/html/);
 });
 
-
 /*
 ####################
 #     GET Mail     #
@@ -86,13 +85,30 @@ it('Emails do not contain content property', async () => {
 ####################
 */
 
-it('GET all emails in a specified mailbox', async () => {
-  await request.get('/api/v0/mail?mailbox=inbox')
-      .expect(200)
-      .expect('Content-Type', /json/)
-      .then((data) => {
-        expect(data.name == 'inbox');
-      });
+it('GET all emails in a inbox mailbox', async () => {
+  const res = await request.get('/api/v0/mail?mailbox=inbox');
+
+  // res.body is an array with one mailbox
+  expect(res.body[0].name).toBe('inbox');
+});
+
+it('GET all emails in a trash mailbox', async () => {
+  const res = await request.get('/api/v0/mail?mailbox=trash');
+
+  // res.body is an array with one mailbox
+  expect(res.body[0].name).toBe('trash');
+});
+
+it('GET all emails in a sent mailbox', async () => {
+  const res = await request.get('/api/v0/mail?mailbox=sent');
+
+  // res.body is an array with one mailbox
+  expect(res.body[0].name).toBe('sent');
+});
+
+it('GET return 404, unknown mailbox', async () => {
+  await request.get('/api/v0/mail?mailbox=empty')
+      .expect(404);
 });
 
 /*
@@ -156,4 +172,61 @@ it('should return an email 400, unexpected properties', async () => {
       .send(badnewEmail);
   expect(400);
 });
-/* Add additional tests below here */
+
+/*
+####################
+#       PUT        #
+####################
+*/
+
+// it('moves an email from sent to inbox', async () => {
+//   // Use a valid UUID that exists in your sent mailbox for this test
+//   const existingSentId = 'b50fb70c-3c56-4044-8b8d-f0170b29bd6c';
+
+//   await request
+//       .put(`/api/v0/mail/${existingSentId}?mailbox=inbox`)
+//       .expect(204);
+// });
+
+// it('returns 404 for unknown email', async () => {
+//   await request
+//       .put('/api/v0/mail/00000000-0000-0000-0000-000000000000?mailbox=inbox')
+//       .expect(404);
+// });
+
+// it('returns 400 if mailbox query is missing', async () => {
+//   await request
+//       .put('/api/v0/mail/00000000-0000-0000-0000-000000000000')
+//       .expect(400);
+// });
+
+// it('returns 409 if email is not already in sent', async () => {
+//   // Use a valid UUID that is not in 'sent'
+//   const fakeId = 'b50fb70c-3c56-4044-8b8d-f0170b29bd6c';
+//   await request
+//       .put(`/api/v0/mail/${fakeId}?mailbox=sent`)
+//       .expect(409);
+// });
+
+// it('removes the email from its original mailbox after moving', async () => {
+//   const emailId =
+// 'b50fb70c-3c56-4044-8b8d-f0170b29bd6c'; // must exist in inbox
+//   const originalMailbox = 'inbox';
+//   const targetMailbox = 'trash';
+
+//   // Confirm email is in the original mailbox first
+//   const before =
+//  await request.get(`/api/v0/mail?mailbox=${originalMailbox}`);
+//   const foundBefore = before.body[0].mail.some((e) => e.id === emailId);
+//   expect(foundBefore).toBe(true);
+
+//   // Move it
+//   await request.put(
+//       `/api/v0/mail/${emailId}?mailbox=${targetMailbox}`,
+//   ).expect(204);
+
+//   // Confirm it is gone from the original mailbox
+//   const after = await request.get(`/api/v0/mail?mailbox=${originalMailbox}`);
+//   const foundAfter = after.body[0].mail.some((e) => e.id === emailId);
+//   expect(foundAfter).toBe(false);
+// });

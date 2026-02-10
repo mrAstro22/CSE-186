@@ -56,4 +56,7 @@ app.get('/api/v0/mail/:id', mail.getById);
 // POST new Email
 app.post('/api/v0/mail', mail.post);
 
+// PUT Email Into Other Mailbox
+// app.put('/api/v0/mail/:id', mail.put);
+
 export default app;

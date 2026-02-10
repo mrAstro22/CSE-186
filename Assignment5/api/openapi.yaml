@@ -82,36 +82,27 @@ paths:
                 $ref: '#/components/schemas/EmailandContent'
         404:
           description: Not Found
-
-  # # WIP
-  # /mail/{id}?mailbox={mailbox}:
-  #   put:
-  #     description: Make sure email has correct format
-  #     parameters:
-  #     - name: id
-  #       in: path
-  #       required: true
-  #       schema:
-  #         type: string
-  #         format: uuid
-  #         example: "591b428e-1b99-4a56-b653-dab17210b3b7"    
-  #     responses:
-  #     204:
-  #       description: Check mailbox
-  #       content:
-  #         application/json:
-  #           schema:
-  #             type: array
-  #             items:
-  #               type: object
-  #               properties:
-  #                 name: 
-  #                   type: string
-  #                   example: "inbox"
-  #     404:
-  #       description: If (named mailbox === 'sent') && mail id 
-  #         not already in sent mailbox
-
+    put:
+      summary: Move Email into Named Mailbox
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: "591b428e-1b99-4a56-b653-dab17210b3b7"    
+        - name: mailbox
+          in: query
+          required: true
+          schema:
+            type: string
+            example: "inbox"
+      responses:
+        204:
+          description: Email Successfully moved
+        404:
+          description: Email not found
 
 components:
   schemas:
