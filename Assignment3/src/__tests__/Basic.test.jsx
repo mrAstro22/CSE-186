@@ -12,11 +12,12 @@ import {expect, it} from 'vitest';
 import {render, screen} from '@testing-library/react';
 import Tree from '../view/Tree';
 import data from '../model/data';
+import Branch from '../model/Branch';
 import userEvent from '@testing-library/user-event';
 
 it('renders tree data', () => {
-  render(<Tree data={data} />);
-  screen.getByText(/Folder 1/);
+  render(<Tree data={[new Branch('some-id', 'Test Folder 1')]}/>);
+  screen.getByText('Test Folder 1');
 });
 
 it('Checkboxes exist', () => {

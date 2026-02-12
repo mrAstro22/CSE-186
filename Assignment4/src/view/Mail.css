@@ -1,0 +1,22 @@
+.mail-list {
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;}
+
+
+.selected-mail {
+    margin-block: 20px;
+}
+
+.selected-mail:hover {
+    cursor: pointer;
+    background-color: aliceblue;
+}
+
+.emailElements {
+    margin-top: 60px;
+}
+
+.menu-icon {
+  margin-left: 10px;
+}

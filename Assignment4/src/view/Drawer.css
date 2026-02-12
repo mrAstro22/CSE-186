@@ -1,0 +1,8 @@
+:root {
+  --header-height: 64px;
+}
+
+.app-drawer .MuiDrawer-paper {
+  top: 42px;
+  width: 200px;
+}

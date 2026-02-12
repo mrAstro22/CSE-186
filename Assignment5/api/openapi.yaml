@@ -1,0 +1,194 @@
+#######################################################################
+#
+# Copyright (C) 2020-2026 David C. Harrison. All right reserved.
+#
+# You may not use, distribute, publish, or modify this code without
+# the express written permission of the copyright holder.
+#
+#######################################################################
+
+openapi: '3.0.3'
+
+info:
+  description: CSE186 Assignment 5
+  version: 0.1.0
+  title: CSE186 Assignment 5
+
+servers:
+  - url: http://localhost:3010/api/v0
+
+
+paths:
+  # GET Complete
+  /mail:
+    get: # Should have content property removed
+      summary: Return all Mail, Content Removed
+      parameters:
+        - name: mailbox
+          in: query
+          required: false
+          schema:
+            type: string
+            example: "inbox"
+      responses:
+        200:
+          description: List of Mail
+          content:
+            application/json:
+              schema: # Reuse Email Schema
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mailbox'
+        404:
+          description: Mailbox unknown
+
+    post:
+      summary: Save new email and return newly created
+      requestBody: # Client Input
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/newEmail'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Email'  
+        400:
+          description: Unexpected properties
+
+
+  # # WIP
+  /mail/{id}:
+    get: # Include Content Property
+      summary: Returns email identified by ID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: "591b428e-1b99-4a56-b653-dab17210b3b7"
+      responses:
+        200:
+          description: Email by ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailandContent'
+        404:
+          description: Not Found
+    put:
+      summary: Move Email into Named Mailbox
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: "591b428e-1b99-4a56-b653-dab17210b3b7"    
+        - name: mailbox
+          in: query
+          required: true
+          schema:
+            type: string
+            example: "inbox"
+      responses:
+        204:
+          description: Email Successfully moved
+        404:
+          description: Email not found
+
+components:
+  schemas:
+    Mailbox:
+      type: object
+      properties:
+        name:
+          type: string
+          example: inbox
+        mail:
+          type: array
+          items:
+            $ref: '#/components/schemas/Email'
+      required: 
+        - name
+        - mail
+
+    newEmail:
+      type: object
+      description: Client Input
+      properties:
+        to-name:
+          type: string
+          example: "John Pork"
+        to-email:
+          type: string
+          format: email
+          example: "johnpork@ucsc.edu"
+        subject:
+          type: string
+          example: "Broderskab (Brotherhood)"
+        content:
+          type: string
+          example: "Duis aliquam convallis nunc."
+      required:
+        - to-name
+        - to-email
+        - subject
+        - content
+
+    Email:
+      type: object
+      description: Email Data - No Content
+      properties:
+        id:
+          type: string 
+          format: uuid
+          example: "591b428e-1b99-4a56-b653-dab17210b3b7"
+        to-name: 
+          type: string
+          example: "CSE186 Student"
+        to-email: 
+          type: string
+          format: email
+          example: "cse186-student@ucsc.edu"
+        from-name:
+          type: string
+          example: "Cherye O'Loughane"
+        from-email:
+          type: string 
+          format: email
+          example: "Cherye O'Loughane"
+        subject:
+          type: string
+          example: "Broderskab (Brotherhood)"
+        received:
+          type: string 
+          format: date-time
+          example: "2020-07-07T00:18:37Z"
+      required:
+        - id
+        - to-name
+        - to-email
+        - from-name
+        - from-email 
+        - subject
+        - received
+
+    EmailandContent:
+      description: Email Date + Content
+      allOf: # Allows extra properties to be added
+        - $ref: '#/components/schemas/Email'
+        - type: object
+          properties:
+            content:
+              type: string
+              example: "Duis aliquam convallis nunc."
+          required: 
+            - content

@@ -40,9 +40,9 @@ class Tree extends React.Component {
       });
     };
 
-    initState(data);
+    initState(props.data);
     this.state = {
-      treeData: data, // React Tree
+      treeData: props.data, // React Tree
       expanded,
       checked,
       highlight: new Set(),
