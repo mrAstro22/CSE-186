@@ -2,15 +2,39 @@ import {pool} from './pool.js'
 
 import {pool} from './pool.js'
 
-export async function selectAll(mailbox) {
+    // Access JSON Properties
+    // ->> - Leaf
+    // ->  - Branch
+
+    // From and To are JSON within JSON for this asgn
+
+export async function selectAll() {
   let selectName = `
-    SELECT data->> 'name' AS mailbox_name
-    FROM mailbox
+    SELECT mailbox.data->> 'name', mail.data
+    FROM mail, mailbox
+    WHERE mail.mailbox = mailbox.id
     `
-    
+  
   const query = {
-    name: selectName,
-    values: author ? [ `${author}` ] : [ ]
+    mailbox: selectName,
+  };
+  const {rows} = await pool.query(query);
+  const books = [];
+  for (const row of rows) {
+    books.push(row.book);
+  }
+  return books;
+}
+
+export async function selectAll() {
+  let selectName = `
+    SELECT mailbox.data->> 'name' AS mailbox_name
+    FROM mail, mailbox
+    WHERE mail.mailbox = mailbox.id
+    `
+  
+  const query = {
+    mailbox: selectName,
   };
   const {rows} = await pool.query(query);
   const books = [];
