@@ -15,6 +15,7 @@ import fs from 'fs';
 import path from 'node:path';
 import OpenApiValidator from 'express-openapi-validator';
 import {fileURLToPath} from 'node:url';
+import * as mail from './router/route.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -50,5 +51,5 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.get('/api/v0/mail',       mail.getAll);
+app.get('/api/v0/mail', mail.getAll);
 export default app;

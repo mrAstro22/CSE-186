@@ -15,7 +15,7 @@ info:
   title: CSE186 Assignment 5
 
 servers:
-  - url: http://localhost:3010/api/v0
+  - url: http://localhost:3010/api
 
 
 paths:

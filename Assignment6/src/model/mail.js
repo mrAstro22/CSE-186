@@ -1,47 +1,43 @@
-import {pool} from './pool.js'
+import {pool} from './pool.js';
 
-import {pool} from './pool.js'
+// Access JSON Properties
+// ->> - Leaf
+// ->  - Branch
 
-    // Access JSON Properties
-    // ->> - Leaf
-    // ->  - Branch
+// From and To are JSON within JSON for this asgn
 
-    // From and To are JSON within JSON for this asgn
-
-export async function selectAll() {
-  let selectName = `
-    SELECT mailbox.data->> 'name', mail.data
+// Reads all mailboxes and strips content from emails
+/**
+ * @returns {object} - stripped email
+ */
+export async function retrieveAllMailboxes() {
+  const selectAll = `
+    SELECT mailbox.data->> 'name' AS name, 
+    mail.data AS mail
     FROM mail, mailbox
     WHERE mail.mailbox = mailbox.id
-    `
-  
+    `;
   const query = {
-    mailbox: selectName,
+    text: selectAll,
   };
   const {rows} = await pool.query(query);
-  const books = [];
-  for (const row of rows) {
-    books.push(row.book);
-  }
-  return books;
-}
 
-export async function selectAll() {
-  let selectName = `
-    SELECT mailbox.data->> 'name' AS mailbox_name
-    FROM mail, mailbox
-    WHERE mail.mailbox = mailbox.id
-    `
-  
-  const query = {
-    mailbox: selectName,
-  };
-  const {rows} = await pool.query(query);
-  const books = [];
+  const mailboxMap = new Map();
+
   for (const row of rows) {
-    books.push(row.book);
+    // Strip Content from Row
+    const stripped = (({content, ...rest}) => rest)(row.mail);
+
+    // Check if Mailbox Exists
+    if (!mailboxMap.has(row.name)) {
+      mailboxMap.set(row.name, []);
+    }
+
+    mailboxMap.get(row.name).push(stripped);
   }
-  return books;
+  // Chat GPT API friendly return
+  const arr = Array.from(mailboxMap, ([name, mail]) => ({name, mail}));
+  return arr;
 }
 
 // export async function selectOne(isbn) {

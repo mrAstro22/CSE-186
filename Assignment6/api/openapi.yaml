@@ -10,7 +10,7 @@ info:
   title: CSE186 Assignment 6
 
 servers:
-  - url: http://localhost:3010/api
+  - url: http://localhost:3010/api/v0
 
 paths:
   # GET Complete
@@ -36,67 +36,67 @@ paths:
         404:
           description: Mailbox unknown
 
-    post:
-      summary: Save new email and return newly created
-      requestBody: # Client Input
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/newEmail'
-      responses:
-        201:
-          description: Created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Email'  
-        400:
-          description: Unexpected properties
+  #   post:
+  #     summary: Save new email and return newly created
+  #     requestBody: # Client Input
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/newEmail'
+  #     responses:
+  #       201:
+  #         description: Created
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/Email'  
+  #       400:
+  #         description: Unexpected properties
 
 
-  # # WIP
-  /mail/{id}:
-    get: # Include Content Property
-      summary: Returns email identified by ID
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
-          example: "591b428e-1b99-4a56-b653-dab17210b3b7"
-      responses:
-        200:
-          description: Email by ID
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EmailandContent'
-        404:
-          description: Not Found
-    put:
-      summary: Move Email into Named Mailbox
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: "591b428e-1b99-4a56-b653-dab17210b3b7"    
-        - name: mailbox
-          in: query
-          required: true
-          schema:
-            type: string
-            example: "inbox"
-      responses:
-        204:
-          description: Email Successfully moved
-        404:
-          description: Email not found
+  # # # WIP
+  # /mail/{id}:
+  #   get: # Include Content Property
+  #     summary: Returns email identified by ID
+  #     parameters:
+  #     - name: id
+  #       in: path
+  #       required: true
+  #       schema:
+  #         type: string
+  #         format: uuid
+  #         example: "591b428e-1b99-4a56-b653-dab17210b3b7"
+  #     responses:
+  #       200:
+  #         description: Email by ID
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/EmailandContent'
+  #       404:
+  #         description: Not Found
+  #   put:
+  #     summary: Move Email into Named Mailbox
+  #     parameters:
+  #       - name: id
+  #         in: path
+  #         required: true
+  #         schema:
+  #           type: string
+  #           format: uuid
+  #           example: "591b428e-1b99-4a56-b653-dab17210b3b7"    
+  #       - name: mailbox
+  #         in: query
+  #         required: true
+  #         schema:
+  #           type: string
+  #           example: "inbox"
+  #     responses:
+  #       204:
+  #         description: Email Successfully moved
+  #       404:
+  #         description: Email not found
 
 components:
   schemas:
@@ -114,28 +114,32 @@ components:
         - name
         - mail
 
-    newEmail:
-      type: object
-      description: Client Input
-      properties:
-        to-name:
-          type: string
-          example: "John Pork"
-        to-email:
-          type: string
-          format: email
-          example: "johnpork@ucsc.edu"
-        subject:
-          type: string
-          example: "Broderskab (Brotherhood)"
-        content:
-          type: string
-          example: "Duis aliquam convallis nunc."
-      required:
-        - to-name
-        - to-email
-        - subject
-        - content
+    # newEmail:
+    #   type: object
+    #   description: Client Input
+    #   properties:
+    #     to:
+    #       type: object
+    #       properties:
+    #         to-name:
+    #           type: string
+    #           example: "CSE-Student"
+    #         to-email:
+    #           type: string
+    #           example: "csestudent@gmail.com"
+    #       required:
+    #         - to-name
+    #         - to-email
+    #     subject:
+    #       type: string
+    #       example: "Broderskab (Brotherhood)"
+    #     content:
+    #       type: string
+    #       example: "Duis aliquam convallis nunc."
+    #   required:
+    #     - to
+    #     - subject
+    #     - content
 
     Email:
       type: object
@@ -145,20 +149,30 @@ components:
           type: string 
           format: uuid
           example: "591b428e-1b99-4a56-b653-dab17210b3b7"
-        from-name:
-          type: string
-          example: "Cherye O'Loughane"
-        from-email:
-          type: string 
-          format: email
-          example: "Cherye O'Loughane"
-        to-name: 
-          type: string
-          example: "CSE186 Student"
-        to-email: 
-          type: string
-          format: email
-          example: "cse186-student@ucsc.edu"
+        from:
+          type: object
+          properties:
+            from-name:
+              type: string
+              example: "John Pork"
+            from-email:
+              type: string
+              example: "johnpork@gmail.com"
+          required:
+            - from-name
+            - from-email
+        to:
+          type: object
+          properties:
+            to-name:
+              type: string
+              example: "CSE-Student"
+            to-email:
+              type: string
+              example: "csestudent@gmail.com"
+          required:
+            - to-name
+            - to-email
         subject:
           type: string
           example: "Broderskab (Brotherhood)"
@@ -172,22 +186,20 @@ components:
           example: "2020-07-07T00:18:37Z"
       required:
         - id
-        - from-name
-        - from-email
-        - to-name
-        - to-email
+        - from
+        - to
         - subject
         - sent
         - received
 
-    EmailandContent:
-      description: Email Date + Content
-      allOf: # Allows extra properties to be added
-        - $ref: '#/components/schemas/Email'
-        - type: object
-          properties:
-            content:
-              type: string
-              example: "Duis aliquam convallis nunc."
-          required: 
-            - content
+    # EmailandContent:
+    #   description: Email Date + Content
+    #   allOf: # Allows extra properties to be added
+    #     - $ref: '#/components/schemas/Email'
+    #     - type: object
+    #       properties:
+    #         content:
+    #           type: string
+    #           example: "Duis aliquam convallis nunc."
+    #       required: 
+    #         - content

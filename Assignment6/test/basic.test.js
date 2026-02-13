@@ -9,7 +9,7 @@
 #######################################################################
 */
 
-import {it, beforeAll, afterAll} from 'vitest';
+import {it, beforeAll, afterAll, expect} from 'vitest';
 import supertest from 'supertest';
 import http from 'http';
 
@@ -34,5 +34,26 @@ afterAll(async () => {
 it('Errors on GET Invalid URL', async () => {
   await request.get('/api/v0/so-not-a-real-end-point')
       .expect(404);
+});
+
+/*
+####################
+#     GET Mail     #
+####################
+*/
+
+it('GET all emails returns 200', async () => {
+  await request.get('/api/v0/mail')
+      .expect(200);
+});
+
+it('GET all emails returns JSON', async () => {
+  await request.get('/api/v0/mail')
+      .expect('Content-Type', /json/);
+});
+
+it('GET all emails returns an array', async () => {
+  const res = await request.get('/api/v0/mail');
+  expect(Array.isArray(res.body)).toBe(true);
 });
 
