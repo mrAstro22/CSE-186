@@ -13,7 +13,8 @@ import {pool} from './pool.js';
 export async function retrieveAllMailboxes() {
   const selectAll = `
     SELECT mailbox.data->> 'name' AS name, 
-    mail.data AS mail
+      mail.data AS mail,
+      mail.id as id
     FROM mail, mailbox
     WHERE mail.mailbox = mailbox.id
     `;
@@ -26,7 +27,13 @@ export async function retrieveAllMailboxes() {
 
   for (const row of rows) {
     // Strip Content from Row
-    const stripped = (({content, ...rest}) => rest)(row.mail);
+    const {...rest} = row.mail;
+    delete rest.content;
+
+    const stripped = {
+      id: row.id, // uuid
+      ...rest,
+    };
 
     // Check if Mailbox Exists
     if (!mailboxMap.has(row.name)) {
@@ -40,30 +47,20 @@ export async function retrieveAllMailboxes() {
   return arr;
 }
 
-// export async function selectOne(isbn) {
-//   const select = `
-//     SELECT data || jsonb_build_object('isbn', isbn)
-//     AS book FROM book WHERE isbn = $1
-//   `;
-//   const query = {
-//     text: select,
-//     values: [ isbn ]
-//   };
-//   const {rows} = await pool.query(query);
-//   if (rows.length == 0) {
-//     return undefined;
-//   }
-//   return rows[0].book;
-// }
+// Retrieve Queried Mailbox
+/**
+ *
+ * @param mailbox
+ */
+export async function retrieveMailbox(mailbox) {
+  const emails = await retrieveAllMailboxes();
 
-// export async function insertOne(book) {
-//   const insert = `
-//     INSERT INTO book(isbn, data)
-//     VALUES ($1, $2)
-//   `;
-//   const query = {
-//     text: insert,
-//     values: [ book.isbn, book ]
-//   };
-//   await pool.query(query);
-// }
+  // Find Mailbox with given name
+  const selectedMailbox = emails.find((e) => e.name === mailbox);
+
+  if (!selectedMailbox) {
+    return [];
+  }
+
+  return selectedMailbox;
+}

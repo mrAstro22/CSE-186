@@ -7,29 +7,20 @@ import * as model from '../model/mail.js';
  * @returns {object} mail
  */
 export async function getAll(req, res) {
-  // const {mailbox} = req.query;
+  const {mailbox} = req.query;
 
   // Case 1 - Specific Mailbox Requested
-  // if (mailbox) {
-  //   const emails = model.retrieveMailbox(mailbox);
-  //   if (!emails) {
-  //     return res.status(404).send();
-  //   }
-  //   return res.status(200).json([
-  //     {
-  //       name: mailbox,
-  //       mail: emails,
-  //     },
-  //   ]);
-  // }
+  if (mailbox) {
+    const emails = await model.retrieveMailbox(mailbox);
+
+    if (!emails || emails.mail.length === 0) {
+      return res.status(404).send();
+    }
+    return res.status(200).json([emails]);
+  }
   // Case 2 - return all mailboxes
   try {
     const mailboxes = await model.retrieveAllMailboxes();
-    console.log('--- TEST RESPONSE BODY ---');
-    console.log(res.body);
-    console.log('Type:', typeof res.body);
-    console.log('Is array?', Array.isArray(res.body));
-    console.log('--------------------------');
     res.status(200).json(mailboxes);
   } catch (err) {
     console.error(err);

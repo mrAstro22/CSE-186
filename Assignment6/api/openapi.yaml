@@ -121,15 +121,15 @@ components:
     #     to:
     #       type: object
     #       properties:
-    #         to-name:
+    #         name:
     #           type: string
     #           example: "CSE-Student"
-    #         to-email:
+    #         email:
     #           type: string
     #           example: "csestudent@gmail.com"
     #       required:
-    #         - to-name
-    #         - to-email
+    #         - name
+    #         - email
     #     subject:
     #       type: string
     #       example: "Broderskab (Brotherhood)"
@@ -152,15 +152,15 @@ components:
         from:
           type: object
           properties:
-            from-name:
+            name:
               type: string
               example: "John Pork"
-            from-email:
+            email:
               type: string
               example: "johnpork@gmail.com"
           required:
-            - from-name
-            - from-email
+            - name
+            - email
         to:
           type: object
           properties:
@@ -171,8 +171,8 @@ components:
               type: string
               example: "csestudent@gmail.com"
           required:
-            - to-name
-            - to-email
+            - name
+            - email
         subject:
           type: string
           example: "Broderskab (Brotherhood)"
