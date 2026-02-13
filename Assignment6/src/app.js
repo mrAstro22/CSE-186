@@ -51,5 +51,9 @@ app.use((err, req, res, next) => {
   });
 });
 
+// Get All Mail/Mailbox
 app.get('/api/v0/mail', mail.getAll);
+
+// GET email by ID
+app.get('/api/v0/mail/:id', mail.getByID);
 export default app;

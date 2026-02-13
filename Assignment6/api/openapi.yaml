@@ -56,26 +56,26 @@ paths:
 
 
   # # # WIP
-  # /mail/{id}:
-  #   get: # Include Content Property
-  #     summary: Returns email identified by ID
-  #     parameters:
-  #     - name: id
-  #       in: path
-  #       required: true
-  #       schema:
-  #         type: string
-  #         format: uuid
-  #         example: "591b428e-1b99-4a56-b653-dab17210b3b7"
-  #     responses:
-  #       200:
-  #         description: Email by ID
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/EmailandContent'
-  #       404:
-  #         description: Not Found
+  /mail/{id}:
+    get: # Include Content Property
+      summary: Returns email identified by ID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: "8d3e2912-9b8d-49cc-8b4e-772c07fb3c52"
+      responses:
+        200:
+          description: Email by ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailandContent'
+        404:
+          description: Not Found
   #   put:
   #     summary: Move Email into Named Mailbox
   #     parameters:
@@ -164,10 +164,10 @@ components:
         to:
           type: object
           properties:
-            to-name:
+            name:
               type: string
               example: "CSE-Student"
-            to-email:
+            email:
               type: string
               example: "csestudent@gmail.com"
           required:
@@ -192,14 +192,14 @@ components:
         - sent
         - received
 
-    # EmailandContent:
-    #   description: Email Date + Content
-    #   allOf: # Allows extra properties to be added
-    #     - $ref: '#/components/schemas/Email'
-    #     - type: object
-    #       properties:
-    #         content:
-    #           type: string
-    #           example: "Duis aliquam convallis nunc."
-    #       required: 
-    #         - content
+    EmailandContent:
+      description: Email Date + Content
+      allOf: # Allows extra properties to be added
+        - $ref: '#/components/schemas/Email'
+        - type: object
+          properties:
+            content:
+              type: string
+              example: "Duis aliquam convallis nunc."
+          required: 
+            - content

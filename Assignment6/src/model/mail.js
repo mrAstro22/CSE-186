@@ -8,7 +8,7 @@ import {pool} from './pool.js';
 
 // Reads all mailboxes and strips content from emails
 /**
- * @returns {object} - stripped email
+ * @returns {Array} - stripped email
  */
 export async function retrieveAllMailboxes() {
   const selectAll = `
@@ -50,7 +50,8 @@ export async function retrieveAllMailboxes() {
 // Retrieve Queried Mailbox
 /**
  *
- * @param mailbox
+ * @param {object } mailbox - allMail from Query
+ * @returns {Array} selectedMailbox
  */
 export async function retrieveMailbox(mailbox) {
   const emails = await retrieveAllMailboxes();
@@ -58,9 +59,33 @@ export async function retrieveMailbox(mailbox) {
   // Find Mailbox with given name
   const selectedMailbox = emails.find((e) => e.name === mailbox);
 
-  if (!selectedMailbox) {
-    return [];
-  }
+  return selectedMailbox || null;
+}
 
-  return selectedMailbox;
+/**
+ *
+ * @param {string} id UUID
+ * @returns {object} id + email
+ */
+export async function retrieveMailByID(id) {
+  // $1 is the UUID passed in the route
+  const selectID = `
+    SELECT mail.data AS mail,
+      mail.id AS id
+    FROM mail
+    WHERE id = $1;
+    `;
+
+  const query = {
+    text: selectID,
+    values: [id], // Route fills in
+  };
+
+  const result = await pool.query(query);
+
+  if (result.rowCount === 0) return null;
+
+  // Chat GPT assisted with putting the row in Mail Object
+  const {mail, id: mailID} = result.rows[0];
+  return {...mail, id: mailID};
 }
