@@ -19,13 +19,13 @@ export async function getAll(req, res) {
     return res.status(200).json([emails]);
   }
   // Case 2 - return all mailboxes
-  try {
-    const mailboxes = await model.retrieveAllMailboxes();
-    res.status(200).json(mailboxes);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({message: 'DB query failed', error: err.message});
-  }
+  const mailboxes = await model.retrieveAllMailboxes();
+  res.status(200).json(mailboxes);
+
+  // catch (err) {
+  //   console.error(err);
+  //   res.status(500).json({message: 'DB query failed', error: err.message});
+  // }
 }
 
 /**
@@ -36,16 +36,22 @@ export async function getAll(req, res) {
  */
 export async function getByID(req, res) {
   const {id} = req.params;
-  try {
-    const mail = await model.retrieveMailByID(id);
-    if (!mail) {
-      return res.status(404).send();
-    }
-    return res.status(200).json(mail);
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json(
-        {message: 'DB query failed', error: err.message},
-    );
+
+  const mail = await model.retrieveMailByID(id);
+  if (!mail) {
+    return res.status(404).send();
   }
+  return res.status(200).json(mail);
+
+  // catch (err) {
+  //   console.error(err);
+  //   return res.status(500).json(
+  //       {message: 'DB query failed', error: err.message},
+  //   );
+  // }
+}
+
+export async function post(req, res) {
+  const email = await model.create(req.body, 'sent');
+  res.status(201).send(email);
 }

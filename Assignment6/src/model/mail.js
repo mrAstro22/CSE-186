@@ -30,9 +30,14 @@ export async function retrieveAllMailboxes() {
     const {...rest} = row.mail;
     delete rest.content;
 
+    // Set Correct Order
     const stripped = {
       id: row.id, // uuid
-      ...rest,
+      from: row.mail.from,
+      to: row.mail.to,
+      subject: row.mail.subject,
+      sent: row.mail.sent,
+      received: row.mail.received,
     };
 
     // Check if Mailbox Exists
@@ -73,7 +78,7 @@ export async function retrieveMailByID(id) {
     SELECT mail.data AS mail,
       mail.id AS id
     FROM mail
-    WHERE id = $1;
+    WHERE id = $1::uuid;
     `;
 
   const query = {
@@ -87,5 +92,58 @@ export async function retrieveMailByID(id) {
 
   // Chat GPT assisted with putting the row in Mail Object
   const {mail, id: mailID} = result.rows[0];
-  return {...mail, id: mailID};
+  return {
+    id: mailID,
+    from: mail.from,
+    to: mail.to,
+    subject: mail.subject,
+    sent: mail.sent,
+    received: mail.received,
+    content: mail.content
+  };
+}
+
+export async function create(newEmail) {
+  const insert = `
+    INSERT INTO mail(id, mailbox, data)
+    VALUES (
+    gen_random_uuid(),
+    $1, $2)
+    RETURNING id, data
+  `;
+
+  // Set time and date 
+  const currDate = new Date().toISOString();
+
+   const emailToAdd = {
+    'from': {
+      'name': 'CSE186 Student', 
+      'email': 'CSEstudent@ucsc.edu'
+    },
+    'to': newEmail['to'],
+    'subject': newEmail.subject,
+    'content': newEmail.content,
+    'sent': currDate,
+    'received': currDate,
+  };
+
+  const result = await pool.query({
+    text: insert,
+    values: [
+      'ad025332-0bc0-466d-a65f-49f55d8f785f',
+      JSON.stringify(emailToAdd)
+    ]
+  });
+
+// Specify Order of Properties
+const data = result.rows[0].data;
+  return {
+    id: result.rows[0].id,
+    from: data.from,
+    to: data.to,
+    subject: data.subject,
+    sent: data.sent,
+    received: data.received,
+    content: data.content
+  };
 }

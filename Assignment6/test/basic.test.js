@@ -77,6 +77,11 @@ it('Emails do not contain content property', async () => {
   }
 });
 
+it('GET all emails returns 200', async () => {
+  await request.get('/api/v0/mail')
+      .expect(200);
+});
+
 /*
 ####################
 #    GET Mailbox   #
@@ -104,11 +109,10 @@ it('GET all emails in a sent mailbox', async () => {
   expect(res.body[0].name).toBe('sent');
 });
 
-// FLAG FOR REVIEW
-// it('GET return 404, unknown mailbox', async () => {
-//   await request.get('/api/v0/mail?mailbox=')
-//       .expect(404);
-// });
+it('GET return 404, unknown mailbox', async () => {
+  await request.get('/api/v0/mail?mailbox=empty')
+      .expect(404);
+});
 
 /*
 ####################
@@ -117,26 +121,47 @@ it('GET all emails in a sent mailbox', async () => {
 */
 
 it('should return 200 OK', async () => {
-  await request.get('/api/v0/mail/d7d39a85-a34e-4d39-ac28-dc1e35da47b9')
+  const response = await request.get('/api/v0/mail');
+  const thirdMail = response.body[0].mail[2]; // Get third email
+  const validId = thirdMail.id;
+
+  // Now test with that valid ID
+  await request.get(`/api/v0/mail/${validId}`)
       .expect(200);
 });
 
+
 it('should return JSON Content', async () => {
-  await request.get('/api/v0/mail/8d3e2912-9b8d-49cc-8b4e-772c07fb3c52')
+  const response = await request.get('/api/v0/mail');
+  const thirdMail = response.body[0].mail[2]; // Get third email
+  const validId = thirdMail.id;
+
+  // Now test with that valid ID
+  await request.get(`/api/v0/mail/${validId}`)
       .expect('Content-Type', /json/);
 });
 
 it('ID should Match Inputted ID', async () => {
-  await request.get('/api/v0/mail/8d3e2912-9b8d-49cc-8b4e-772c07fb3c52')
+  const response = await request.get('/api/v0/mail');
+  const thirdMail = response.body[0].mail[2]; // Get third email
+  const validId = thirdMail.id;
+
+  // Now test with that valid ID
+  await request.get(`/api/v0/mail/${validId}`)
       .then((res) => {
-        expect(res.body.id).toBe('b50fb70c-3c56-4044-8b8d-f0170b29bd6c');
+        expect(res.body.id).toBe(`${validId}`);
       });
 });
 
 it('Expected Subject Should Pass', async () => {
-  await request.get('/api/v0/mail/8d3e2912-9b8d-49cc-8b4e-772c07fb3c52')
+  const response = await request.get('/api/v0/mail');
+  const thirdMail = response.body[0].mail[2]; // Get third email
+  const validId = thirdMail.id;
+
+  // Now test with that valid ID
+  await request.get(`/api/v0/mail/${validId}`)
       .then((res) => {
-        expect(res.body.subject).toBe('Synergized coherent throughput');
+        expect(res.body.subject).toBe(`Diverse zero defect alliance`);
       });
 });
 
@@ -144,3 +169,19 @@ it('Return 404 on unknown ID', async () => {
   await request.get('/api/v0/mail/b50fb70c-3c56-4044-8b8d-f0170b29bd6d')
       .expect(404);
 });
+
+// it('Debug: Check mailbox structure', async () => {
+//   const response = await request.get('/api/v0/mail');
+
+//   // Log all mailboxes
+//   response.body.forEach((mailbox, i) => {
+//     console.log(`\nMailbox [${i}]: ${mailbox.name}`);
+//     mailbox.mail.forEach((email, j) => {
+//       console.log(`  [${j}]: ${email.subject}`);
+//     });
+//   });
+
+//   // Now check what's at [2][2]
+//   console.log('\nresponse.body[2].mail[2]:');
+//   console.log(response.body[2].mail[2].subject);
+// });

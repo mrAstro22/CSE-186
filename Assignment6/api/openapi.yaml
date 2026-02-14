@@ -36,23 +36,23 @@ paths:
         404:
           description: Mailbox unknown
 
-  #   post:
-  #     summary: Save new email and return newly created
-  #     requestBody: # Client Input
-  #       required: true
-  #       content:
-  #         application/json:
-  #           schema:
-  #             $ref: '#/components/schemas/newEmail'
-  #     responses:
-  #       201:
-  #         description: Created
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/Email'  
-  #       400:
-  #         description: Unexpected properties
+    post:
+      summary: Save new email and return newly created
+      requestBody: # Client Input
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/newEmail'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Email'  
+        400:
+          description: Unexpected properties
 
 
   # # # WIP
@@ -114,32 +114,34 @@ components:
         - name
         - mail
 
-    # newEmail:
-    #   type: object
-    #   description: Client Input
-    #   properties:
-    #     to:
-    #       type: object
-    #       properties:
-    #         name:
-    #           type: string
-    #           example: "CSE-Student"
-    #         email:
-    #           type: string
-    #           example: "csestudent@gmail.com"
-    #       required:
-    #         - name
-    #         - email
-    #     subject:
-    #       type: string
-    #       example: "Broderskab (Brotherhood)"
-    #     content:
-    #       type: string
-    #       example: "Duis aliquam convallis nunc."
-    #   required:
-    #     - to
-    #     - subject
-    #     - content
+    newEmail:
+      type: object
+      description: Client Input
+      additionalProperties: false
+      properties:
+        to:
+          type: object
+          additionalProperties: false
+          properties:
+            name:
+              type: string
+              example: "Bill Murray"
+            email:
+              type: string
+              example: "garfield@ucsc.edu"
+          required:
+            - name
+            - email
+        subject:
+          type: string
+          example: "Broderskab (Brotherhood)"
+        content:
+          type: string
+          example: "Duis aliquam convallis nunc."
+      required:
+        - to
+        - subject
+        - content
 
     Email:
       type: object

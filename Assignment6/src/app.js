@@ -56,4 +56,8 @@ app.get('/api/v0/mail', mail.getAll);
 
 // GET email by ID
 app.get('/api/v0/mail/:id', mail.getByID);
+
+// POST new Email
+app.post('/api/v0/mail', mail.post);
+
 export default app;
