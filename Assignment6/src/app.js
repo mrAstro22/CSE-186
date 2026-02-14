@@ -43,14 +43,6 @@ app.use(
 // to their exports. Those handlers should delegate to models in
 // the "model" folder.
 
-app.use((err, req, res, next) => {
-  res.status(err.status).json({
-    message: err.message,
-    errors: err.errors,
-    status: err.status,
-  });
-});
-
 // Get All Mail/Mailbox
 app.get('/api/v0/mail', mail.getAll);
 
@@ -60,4 +52,14 @@ app.get('/api/v0/mail/:id', mail.getByID);
 // POST new Email
 app.post('/api/v0/mail', mail.post);
 
+// PUT Email into
+app.put('/api/v0/mail/:id', mail.put);
+
+app.use((err, req, res, next) => {
+  res.status(err.status).json({
+    message: err.message,
+    errors: err.errors,
+    status: err.status,
+  });
+});
 export default app;

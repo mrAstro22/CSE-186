@@ -51,7 +51,38 @@ export async function getByID(req, res) {
   // }
 }
 
+/**
+ *
+ * @param {object} req - newEmail input
+ * @param {string} res - status code
+ */
 export async function post(req, res) {
   const email = await model.create(req.body, 'sent');
   res.status(201).send(email);
+}
+
+/**
+ *
+ * @param {string} req - id and mailbox input
+ * @param {string} res - status code
+ * @returns {string} status
+ */
+export async function put(req, res) {
+  const {id} = req.params;
+  const {mailbox} = req.query;
+
+  try {
+    // Error Handle
+    const email = await model.puttingIt(mailbox, id);
+    if (!email) {
+      return res.status(404).send();
+    }
+    // Success
+    return res.status(204).send();
+  } catch (err) {
+    // 409 Conflict
+    if (err.message === '409') {
+      return res.status(409).send();
+    }
+  }
 }

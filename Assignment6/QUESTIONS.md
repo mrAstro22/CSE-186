@@ -1,12 +1,13 @@
+Row by Row
 Parse the row. Check the name. 
+    strip content
 
 If mailbox exists
-    send it into its respective mailbox
-    strip content
+    push into its respective mailbox
 else
     create mailbox
     w name and mail
-    parse mail, remove its content
+    push into mailbox
 
 POST
 
