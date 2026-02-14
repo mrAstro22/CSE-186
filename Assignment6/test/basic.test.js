@@ -215,13 +215,13 @@ describe('POST', () => {
     'content': 'This is a test email',
   };
 
-  it('should return an email 201', async () => {
+  it('201 Success', async () => {
     await request.post('/api/v0/mail')
         .send(newEmail)
         .expect(201);
   });
 
-  it('Should see UUID', async () => {
+  it('Sees Generated UUID', async () => {
     await request.post('/api/v0/mail')
         .send(newEmail)
         .then((res) => {
@@ -229,9 +229,111 @@ describe('POST', () => {
         });
   });
 
-  it('should return an email 400, unexpected properties', async () => {
+  it('returns json', async () => {
+    await request.post('/api/v0/mail')
+        .send(newEmail)
+        .expect('Content-Type', /json/);
+  });
+
+  it('accept email and returns correct from name', async () => {
+    const res = await request.post('/api/v0/mail')
+        .send(newEmail);
+
+    expect(res.body.from.name)
+        .toBe('CSE186 Student');
+  });
+
+  it('accept email and returns correct from email', async () => {
+    const res = await request.post('/api/v0/mail')
+        .send(newEmail);
+
+    expect(res.body.from.email)
+        .toBe('CSEstudent@ucsc.edu');
+  });
+
+  it('return 400, unexpected properties', async () => {
     await request.post('/api/v0/mail')
         .send(badnewEmail)
         .expect(400);
+  });
+});
+
+/*
+####################
+#       PUT       #
+####################
+*/
+describe('PUT', () => {
+  it('should return 204', async () => {
+    const response = await request.get('/api/v0/mail');
+    const thirdMail = response.body[0].mail[2]; // Get third email
+    const validId = thirdMail.id;
+
+    // Now test with that valid ID
+    await request.put(`/api/v0/mail/${validId}?mailbox=trash`)
+        .expect(204);
+  });
+
+  it('Invalid ID: 404', async () => {
+    await request.put(
+        `/api/v0/mail/c714d184-cb24-43ce-8e2f-d60b37b86d56?mailbox=trash`)
+        .expect(404);
+  });
+
+  it('should return 204 Created', async () => {
+    const response = await request.get('/api/v0/mail');
+    const thirdMail = response.body[0].mail[2]; // Get third email
+    const validId = thirdMail.id;
+
+    // Now test with that valid ID
+    await request.put(`/api/v0/mail/${validId}?mailbox=newBox`)
+        .expect(204);
+  });
+
+  it('newMailbox: 204', async () => {
+    const response = await request.get('/api/v0/mail');
+    const thirdMail = response.body[0].mail[2]; // Get third email
+    const validId = thirdMail.id;
+
+    // Now test with that valid ID
+    await request.put(`/api/v0/mail/${validId}?mailbox=trash`)
+        .expect(204);
+  });
+
+  it('Succesful Transfer', async () => {
+    const response = await request.get('/api/v0/mail');
+    const thirdMail = response.body[0].mail[2]; // Get third email
+    const validId = thirdMail.id;
+
+    // Now test with that valid ID
+    await request.put(`/api/v0/mail/${validId}?mailbox=trash`)
+        .expect(204);
+  });
+
+  it('New Mailbox Created and Filled', async () => {
+    const response = await request.get('/api/v0/mail');
+    const thirdMail = response.body[0].mail[2];
+    const validId = thirdMail.id;
+    await request.put(`/api/v0/mail/${validId}?mailbox=newBox`);
+
+    const res = await request.get('/api/v0/mail?mailbox=newBox');
+    expect(res.body[0].mail.length).toBeGreaterThan(0);
+  });
+
+  it('Putting In Sent Not Allowed', async () => {
+    const response = await request.get('/api/v0/mail');
+    const thirdMail = response.body[0].mail[2];
+    const validId = thirdMail.id;
+    await request.put(`/api/v0/mail/${validId}?mailbox=sent`)
+        .expect(409);
+  });
+
+  it('Putting In Sent Allowed if in Sent Already', async () => {
+    const response = await request.get('/api/v0/mail');
+    const thirdMail = response.body[0].mail[1];
+    const validId = thirdMail.id;
+
+    await request.put(`/api/v0/mail/${validId}?mailbox=sent`)
+        .expect(204);
   });
 });

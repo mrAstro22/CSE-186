@@ -75,14 +75,14 @@ export async function put(req, res) {
     // Error Handle
     const email = await model.puttingIt(mailbox, id);
     if (!email) {
-      return res.status(404).send();
+      return res.sendStatus(404);
     }
     // Success
-    return res.status(204).send();
+    return res.sendStatus(204);
   } catch (err) {
     // 409 Conflict
     if (err.message === '409') {
-      return res.status(409).send();
+      return res.sendStatus(409);
     }
   }
 }

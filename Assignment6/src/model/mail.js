@@ -168,7 +168,7 @@ export async function puttingIt(mailbox, id) {
   SELECT 
     mail.data AS mail,
     mail.id AS id,
-    mailbox.data->>'name' AS current_mailbox
+    mailbox.data->>'name' AS currentMailbox
   FROM mail
   JOIN mailbox ON mail.mailbox = mailbox.id
   WHERE mail.id = $1::uuid;
@@ -189,7 +189,7 @@ export async function puttingIt(mailbox, id) {
 
   const {currentMailbox} = currEmail.rows[0];
 
-  if (mailbox === 'sent' && currentMailbox != 'sent') {
+  if (mailbox === 'sent' && currentMailbox !== 'sent') {
     throw new Error('409'); ;
   }
   // ---------------------------------------------------
