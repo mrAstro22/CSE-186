@@ -256,9 +256,15 @@ export async function puttingIt(mailbox, id) {
  */
 export async function getFromNameEmail(nameInput) {
   // Input is an Email
-  const isEmail = nameInput.search('@');
+
+  // Chat GPT REGEX
+  // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  // const itisEmail = emailRegex.test(nameInput);
+
+  const isEmail = nameInput.includes('@');
   let itisEmail = false;
-  if (isEmail.length > 0) {
+
+  if (isEmail) {
     itisEmail = true;
   }
 
@@ -268,14 +274,14 @@ export async function getFromNameEmail(nameInput) {
     SELECT mail.data as mail,
       mail.id,
       mail.data AS mail,
-      mailbox.data->> 'name' AS mailbox_name
+      mailbox.data->> 'name' AS mailboxname
     FROM mail
     JOIN mailbox ON mail.mailbox = mailbox.id
   `;
 
   // Decides between Email or From
   if (itisEmail) {
-    select += ` WHERE mail.data->> 'email' ~* $1`;
+    select += ` WHERE mail.data-> 'from' ->> 'email' ILIKE $1`;
   } else {
     select += ` WHERE mail.data-> 'from' ->> 'name' ~* $1`;
   }
@@ -293,7 +299,7 @@ export async function getFromNameEmail(nameInput) {
 
   // Remove content from each mail
   for (const r of rows) {
-    const { mail, mailbox_name } = r;
+    const {mail, mailboxname} = r;
     const stripped = {
       id: r.id,
       from: mail.from,
@@ -301,14 +307,13 @@ export async function getFromNameEmail(nameInput) {
       subject: mail.subject,
       sent: mail.sent,
       received: mail.received,
-      mailbox: mailbox_name,
     };
 
-    if (!mailboxMap.has(mailbox_name)) {
-      mailboxMap.set(mailbox_name, []);
+    if (!mailboxMap.has(mailboxname)) {
+      mailboxMap.set(mailboxname, []);
     }
-    mailboxMap.get(mailbox_name).push(stripped);
+    mailboxMap.get(mailboxname).push(stripped);
   }
 
-  return Array.from(mailboxMap, ([name, mail]) => ({ name, mail }));
+  return Array.from(mailboxMap, ([name, mail]) => ({name, mail}));
 }

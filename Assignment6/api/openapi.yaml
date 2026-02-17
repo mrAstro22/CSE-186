@@ -59,11 +59,11 @@ paths:
       summary: Return specific sender
       parameters:
         - name: from
-          in: query
+          in: path
           required: true
           schema:
             type: string
-            example: 'jOhn PoRk'
+            example: 'ete'
       responses:
         200:
           description: List of Mail

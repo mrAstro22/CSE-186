@@ -380,3 +380,53 @@ describe('PUT', () => {
         .expect(500);
   });
 });
+
+/*
+####################
+#     GET FROM     #
+####################
+*/
+describe('GET From', () => {
+  it('GET from sender name returns 200', async () => {
+    await request
+        .get('/api/v0/mail/from/CSE186')
+        .expect(200);
+  });
+
+  it('GET from sender email returns 200', async () => {
+    await request
+        .get('/api/v0/mail/from/CSEstudent@ucsc.edu')
+        .expect(200);
+  });
+
+  it('GET from partial name returns 200', async () => {
+    await request
+        .get('/api/v0/mail/from/student')
+        .expect(200);
+  });
+
+  it('GET invalid sender returns 404', async () => {
+    await request
+        .get('/api/v0/mail/from/doesnotexist')
+        .expect(404);
+  });
+
+  it('GET from returns mailbox array', async () => {
+    const res = await request
+        .get('/api/v0/mail/from/CSE186 Student');
+    expect(Array.isArray(res.body)).toBe(true);
+  });
+
+  it('Mailbox array has correct name', async () => {
+    const res = await request
+        .get('/api/v0/mail/from/CSE186 Student');
+
+    expect(res.body[0]).toHaveProperty('name');
+  });
+
+  it('Mailbox array has correct mail', async () => {
+    const res = await request
+        .get('/api/v0/mail/from/CSE186 Student');
+    expect(res.body[0]).toHaveProperty('mail');
+  });
+});
