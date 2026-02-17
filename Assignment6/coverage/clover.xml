@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1771288148845" clover="3.2.0">
+  <project timestamp="1771288148845" name="All files">
+    <metrics statements="106" coveredstatements="106" conditionals="30" coveredconditionals="30" methods="15" coveredmethods="15" elements="151" coveredelements="151" complexity="0" loc="106" ncloc="106" packages="4" files="5" classes="5"/>
+    <package name="src">
+      <metrics statements="15" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="app.js" path="C:\Users\Aye Astro\Documents\CSE-186\CSE-186\Assignment6\src\app.js">
+        <metrics statements="15" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="56" count="1" type="stmt"/>
+        <line num="58" count="1" type="stmt"/>
+        <line num="59" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.model">
+      <metrics statements="49" coveredstatements="49" conditionals="16" coveredconditionals="16" methods="7" coveredmethods="7"/>
+      <file name="mail.js" path="C:\Users\Aye Astro\Documents\CSE-186\CSE-186\Assignment6\src\model\mail.js">
+        <metrics statements="48" coveredstatements="48" conditionals="16" coveredconditionals="16" methods="7" coveredmethods="7"/>
+        <line num="14" count="26" type="stmt"/>
+        <line num="21" count="26" type="stmt"/>
+        <line num="24" count="26" type="stmt"/>
+        <line num="26" count="26" type="stmt"/>
+        <line num="28" count="26" type="stmt"/>
+        <line num="30" count="7855" type="stmt"/>
+        <line num="31" count="7855" type="stmt"/>
+        <line num="34" count="7855" type="stmt"/>
+        <line num="44" count="7855" type="cond" truecount="2" falsecount="0"/>
+        <line num="45" count="92" type="stmt"/>
+        <line num="48" count="7855" type="stmt"/>
+        <line num="51" count="92" type="stmt"/>
+        <line num="52" count="26" type="stmt"/>
+        <line num="62" count="6" type="stmt"/>
+        <line num="65" count="16" type="stmt"/>
+        <line num="67" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="77" count="5" type="stmt"/>
+        <line num="84" count="5" type="stmt"/>
+        <line num="89" count="5" type="stmt"/>
+        <line num="91" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="94" count="4" type="stmt"/>
+        <line num="95" count="4" type="stmt"/>
+        <line num="112" count="5" type="stmt"/>
+        <line num="121" count="5" type="stmt"/>
+        <line num="123" count="5" type="stmt"/>
+        <line num="135" count="5" type="stmt"/>
+        <line num="144" count="5" type="stmt"/>
+        <line num="145" count="5" type="stmt"/>
+        <line num="167" count="10" type="stmt"/>
+        <line num="180" count="10" type="stmt"/>
+        <line num="186" count="10" type="cond" truecount="2" falsecount="0"/>
+        <line num="187" count="1" type="stmt"/>
+        <line num="190" count="9" type="stmt"/>
+        <line num="196" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="197" count="1" type="stmt"/>
+        <line num="200" count="8" type="cond" truecount="4" falsecount="0"/>
+        <line num="201" count="1" type="stmt"/>
+        <line num="202" count="1" type="stmt"/>
+        <line num="203" count="1" type="stmt"/>
+        <line num="209" count="7" type="stmt"/>
+        <line num="219" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="220" count="2" type="stmt"/>
+        <line num="225" count="2" type="stmt"/>
+        <line num="230" count="2" type="stmt"/>
+        <line num="232" count="5" type="stmt"/>
+        <line num="236" count="7" type="stmt"/>
+        <line num="243" count="7" type="stmt"/>
+        <line num="249" count="7" type="stmt"/>
+      </file>
+      <file name="pool.js" path="C:\Users\Aye Astro\Documents\CSE-186\CSE-186\Assignment6\src\model\pool.js">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="14" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.router">
+      <metrics statements="25" coveredstatements="25" conditionals="10" coveredconditionals="10" methods="4" coveredmethods="4"/>
+      <file name="route.js" path="C:\Users\Aye Astro\Documents\CSE-186\CSE-186\Assignment6\src\router\route.js">
+        <metrics statements="25" coveredstatements="25" conditionals="10" coveredconditionals="10" methods="4" coveredmethods="4"/>
+        <line num="10" count="26" type="stmt"/>
+        <line num="13" count="26" type="cond" truecount="2" falsecount="0"/>
+        <line num="14" count="6" type="stmt"/>
+        <line num="16" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="19" count="5" type="stmt"/>
+        <line num="22" count="20" type="stmt"/>
+        <line num="23" count="20" type="stmt"/>
+        <line num="38" count="5" type="stmt"/>
+        <line num="40" count="5" type="stmt"/>
+        <line num="41" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="44" count="4" type="stmt"/>
+        <line num="60" count="5" type="stmt"/>
+        <line num="61" count="5" type="stmt"/>
+        <line num="71" count="10" type="stmt"/>
+        <line num="72" count="10" type="stmt"/>
+        <line num="74" count="10" type="stmt"/>
+        <line num="76" count="10" type="stmt"/>
+        <line num="77" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="78" count="1" type="stmt"/>
+        <line num="81" count="7" type="stmt"/>
+        <line num="84" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="85" count="1" type="stmt"/>
+        <line num="87" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="test">
+      <metrics statements="17" coveredstatements="17" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
+      <file name="db.js" path="C:\Users\Aye Astro\Documents\CSE-186\CSE-186\Assignment6\test\db.js">
+        <metrics statements="17" coveredstatements="17" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="33" count="2" type="stmt"/>
+        <line num="34" count="2" type="stmt"/>
+        <line num="35" count="2" type="stmt"/>
+        <line num="36" count="2" type="stmt"/>
+        <line num="37" count="347" type="stmt"/>
+        <line num="38" count="347" type="cond" truecount="2" falsecount="0"/>
+        <line num="39" count="325" type="stmt"/>
+        <line num="40" count="325" type="cond" truecount="2" falsecount="0"/>
+        <line num="41" count="309" type="stmt"/>
+        <line num="42" count="309" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="57" count="1" type="stmt"/>
+        <line num="58" count="1" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>

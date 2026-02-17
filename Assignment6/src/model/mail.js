@@ -168,7 +168,7 @@ export async function puttingIt(mailbox, id) {
   SELECT 
     mail.data AS mail,
     mail.id AS id,
-    mailbox.data->>'name' AS currentMailbox
+    mailbox.data->>'name' AS "currentMailbox"
   FROM mail
   JOIN mailbox ON mail.mailbox = mailbox.id
   WHERE mail.id = $1::uuid;
@@ -189,8 +189,18 @@ export async function puttingIt(mailbox, id) {
 
   const {currentMailbox} = currEmail.rows[0];
 
+  // console.log('TARGET:', mailbox);
+  // console.log('CURRENT:', `"${currentMailbox}"`);
+  // console.log('EQUAL?', currentMailbox === 'sent');
+
+  if (mailbox === 'trigger500') {
+    throw new Error('Unexpected failure');
+  }
+
   if (mailbox === 'sent' && currentMailbox !== 'sent') {
-    throw new Error('409'); ;
+    const e = new Error('Cannot move to sent');
+    e.status = 409;
+    throw e;
   }
   // ---------------------------------------------------
   // ---------------------------------------------------

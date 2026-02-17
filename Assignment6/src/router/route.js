@@ -81,8 +81,9 @@ export async function put(req, res) {
     return res.sendStatus(204);
   } catch (err) {
     // 409 Conflict
-    if (err.message === '409') {
-      return res.sendStatus(409);
+    if (err.status) {
+      return res.sendStatus(err.status);
     }
+    return res.sendStatus(500);
   }
 }

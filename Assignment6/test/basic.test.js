@@ -124,8 +124,10 @@ describe('Get Mailbox', () => {
 describe('Get ID', () => {
   it('should return 200 OK', async () => {
     const response = await request.get('/api/v0/mail');
-    const thirdMail = response.body[0].mail[2]; // Get third email
-    const validId = thirdMail.id;
+    const mailboxWithMail = response.body.find(
+        (box) => box.mail.length > 0,
+    );
+    const validId = mailboxWithMail.mail[0].id;
 
     // Now test with that valid ID
     await request.get(`/api/v0/mail/${validId}`)
@@ -134,8 +136,10 @@ describe('Get ID', () => {
 
   it('should return JSON Content', async () => {
     const response = await request.get('/api/v0/mail');
-    const thirdMail = response.body[0].mail[2]; // Get third email
-    const validId = thirdMail.id;
+    const mailboxWithMail = response.body.find(
+        (box) => box.mail.length > 0,
+    );
+    const validId = mailboxWithMail.mail[0].id;
 
     // Now test with that valid ID
     await request.get(`/api/v0/mail/${validId}`)
@@ -144,8 +148,10 @@ describe('Get ID', () => {
 
   it('ID should Match Inputted ID', async () => {
     const response = await request.get('/api/v0/mail');
-    const thirdMail = response.body[0].mail[2]; // Get third email
-    const validId = thirdMail.id;
+    const mailboxWithMail = response.body.find(
+        (box) => box.mail.length > 0,
+    );
+    const validId = mailboxWithMail.mail[0].id;
 
     // Now test with that valid ID
     await request.get(`/api/v0/mail/${validId}`)
@@ -156,13 +162,15 @@ describe('Get ID', () => {
 
   it('Expected Subject Should Pass', async () => {
     const response = await request.get('/api/v0/mail');
-    const thirdMail = response.body[0].mail[2]; // Get third email
-    const validId = thirdMail.id;
+    const mailbox = response.body[0];
+    const email = mailbox.mail[0];
 
+    const validId = email.id;
+    const expectedSubject = email.subject;
     // Now test with that valid ID
     await request.get(`/api/v0/mail/${validId}`)
         .then((res) => {
-          expect(res.body.subject).toBe(`Diverse zero defect alliance`);
+          expect(res.body.subject).toBe(expectedSubject);
         });
   });
 
@@ -266,8 +274,10 @@ describe('POST', () => {
 describe('PUT', () => {
   it('should return 204', async () => {
     const response = await request.get('/api/v0/mail');
-    const thirdMail = response.body[0].mail[2]; // Get third email
-    const validId = thirdMail.id;
+    const sourceMailbox = response.body.find(
+        (box) => box.name !== 'sent' && box.mail.length > 0,
+    );
+    const validId = sourceMailbox.mail[0].id;
 
     // Now test with that valid ID
     await request.put(`/api/v0/mail/${validId}?mailbox=trash`)
@@ -276,37 +286,57 @@ describe('PUT', () => {
 
   it('Invalid ID: 404', async () => {
     await request.put(
-        `/api/v0/mail/c714d184-cb24-43ce-8e2f-d60b37b86d56?mailbox=trash`)
+        `/api/v0/mail/00000000-0000-0000-0000-000000000000?mailbox=trash`)
         .expect(404);
   });
 
   it('should return 204 Created', async () => {
     const response = await request.get('/api/v0/mail');
-    const thirdMail = response.body[0].mail[2]; // Get third email
-    const validId = thirdMail.id;
+    const mailboxWithMail = response.body.find(
+        (box) => box.mail.length > 0,
+    );
+    const validId = mailboxWithMail.mail[0].id;
 
     // Now test with that valid ID
     await request.put(`/api/v0/mail/${validId}?mailbox=newBox`)
         .expect(204);
   });
 
-  it('newMailbox: 204', async () => {
+  it('New Mailbox has Content', async () => {
     const response = await request.get('/api/v0/mail');
-    const thirdMail = response.body[0].mail[2]; // Get third email
-    const validId = thirdMail.id;
+    const mailboxWithMail = response.body.find(
+        (box) => box.mail.length > 0,
+    );
+    const validId = mailboxWithMail.mail[0].id;
+    await request.put(`/api/v0/mail/${validId}?mailbox=newBox`);
+
+    // Now test with that valid ID
+    const res = await request.get('/api/v0/mail?mailbox=newBox');
+    expect(res.body[0].mail.length).toBeGreaterThan(0);
+  });
+
+  it('204: Moved to Trash', async () => {
+    const response = await request.get('/api/v0/mail');
+    const sourceMailbox = response.body.find(
+        (box) => box.name !== 'sent' && box.name !== 'trash' &&
+      box.mail.length > 0,
+    );
+    const validId = sourceMailbox.mail[0].id;
 
     // Now test with that valid ID
     await request.put(`/api/v0/mail/${validId}?mailbox=trash`)
         .expect(204);
   });
 
-  it('Succesful Transfer', async () => {
+  it('Successful Transfer', async () => {
     const response = await request.get('/api/v0/mail');
-    const thirdMail = response.body[0].mail[2]; // Get third email
-    const validId = thirdMail.id;
+    const mailboxWithMail = response.body.find(
+        (box) => box.mail.length > 0,
+    );
+    const validId = mailboxWithMail.mail[0].id;
 
     // Now test with that valid ID
-    await request.put(`/api/v0/mail/${validId}?mailbox=trash`)
+    await request.put(`/api/v0/mail/${validId}?mailbox=inobx`)
         .expect(204);
   });
 
@@ -320,20 +350,33 @@ describe('PUT', () => {
     expect(res.body[0].mail.length).toBeGreaterThan(0);
   });
 
-  it('Putting In Sent Not Allowed', async () => {
+  it('409 Error: Putting In Sent Not Allowed', async () => {
     const response = await request.get('/api/v0/mail');
-    const thirdMail = response.body[0].mail[2];
-    const validId = thirdMail.id;
+    const sourceMailbox = response.body.find(
+        (box) => box.name !== 'sent' && box.mail.length > 0,
+    );
+
+    const validId = sourceMailbox.mail[0].id;
     await request.put(`/api/v0/mail/${validId}?mailbox=sent`)
         .expect(409);
   });
 
   it('Putting In Sent Allowed if in Sent Already', async () => {
     const response = await request.get('/api/v0/mail');
-    const thirdMail = response.body[0].mail[1];
-    const validId = thirdMail.id;
+    const sourceMailbox = response.body.find(
+        (box) => box.name === 'sent');
+    const validId = sourceMailbox.mail[0].id;
 
     await request.put(`/api/v0/mail/${validId}?mailbox=sent`)
         .expect(204);
+  });
+
+  it('returns 500 for unexpected errors', async () => {
+    const response = await request.get('/api/v0/mail');
+    const mailboxWithMail = response.body.find((box) => box.mail.length > 0);
+    const validId = mailboxWithMail.mail[0].id;
+
+    await request.put(`/api/v0/mail/${validId}?mailbox=trigger500`)
+        .expect(500);
   });
 });
