@@ -34,7 +34,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Mailbox'
         404:
-          description: Mailbox unknown
+          description: Not Found
 
     post:
       summary: Save new email and return newly created
@@ -54,8 +54,29 @@ paths:
         400:
           description: Unexpected properties
 
+  /mail/from/{from}:
+    get:
+      summary: Return specific sender
+      parameters:
+        - name: from
+          in: query
+          required: true
+          schema:
+            type: string
+            example: 'jOhn PoRk'
+      responses:
+        200:
+          description: List of Mail
+          content:
+            application/json:
+              schema: # Reuse Email Schema
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mailbox'
+        404:
+          description: Not Found
 
-  # # # WIP
+  # WIP
   /mail/{id}:
     get: # Include Content Property
       summary: Returns email identified by ID

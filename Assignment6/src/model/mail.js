@@ -248,3 +248,67 @@ export async function puttingIt(mailbox, id) {
   // Return Email
   return result.rows[0];
 }
+
+/**
+ *
+ * @param {string} nameInput - sender info
+ * @returns {Array} - gathered emails
+ */
+export async function getFromNameEmail(nameInput) {
+  // Input is an Email
+  const isEmail = nameInput.search('@');
+  let itisEmail = false;
+  if (isEmail.length > 0) {
+    itisEmail = true;
+  }
+
+  // Do our from search
+  // Have a special condition when isEmail true
+  let select = `
+    SELECT mail.data as mail,
+      mail.id,
+      mail.data AS mail,
+      mailbox.data->> 'name' AS mailbox_name
+    FROM mail
+    JOIN mailbox ON mail.mailbox = mailbox.id
+  `;
+
+  // Decides between Email or From
+  if (itisEmail) {
+    select += ` WHERE mail.data->> 'email' ~* $1`;
+  } else {
+    select += ` WHERE mail.data-> 'from' ->> 'name' ~* $1`;
+  }
+
+  const {rows} = await pool.query({
+    text: select,
+    values: [nameInput],
+  });
+
+  if (rows.length === 0) {
+    return [];
+  }
+
+  const mailboxMap = new Map();
+
+  // Remove content from each mail
+  for (const r of rows) {
+    const { mail, mailbox_name } = r;
+    const stripped = {
+      id: r.id,
+      from: mail.from,
+      to: mail.to,
+      subject: mail.subject,
+      sent: mail.sent,
+      received: mail.received,
+      mailbox: mailbox_name,
+    };
+
+    if (!mailboxMap.has(mailbox_name)) {
+      mailboxMap.set(mailbox_name, []);
+    }
+    mailboxMap.get(mailbox_name).push(stripped);
+  }
+
+  return Array.from(mailboxMap, ([name, mail]) => ({ name, mail }));
+}

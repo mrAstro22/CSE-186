@@ -49,6 +49,9 @@ app.get('/api/v0/mail', mail.getAll);
 // GET email by ID
 app.get('/api/v0/mail/:id', mail.getByID);
 
+// GET From Sender
+app.get('/api/v0/mail/from/:from', mail.getFrom);
+
 // POST new Email
 app.post('/api/v0/mail', mail.post);
 

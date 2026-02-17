@@ -87,3 +87,21 @@ export async function put(req, res) {
     return res.sendStatus(500);
   }
 }
+
+/**
+ *
+ * @param {string} req - queried input
+ * @param {string} res - status
+ * @returns {Array} array of emails or status
+ */
+export async function getFrom(req, res) {
+  const {from} = req.query;
+
+  const result = await model.getFromNameEmail(from);
+
+  if (!result || result.length === 0) {
+    return res.sendStatus(404);
+  }
+
+  res.status(200).json(result);
+}
