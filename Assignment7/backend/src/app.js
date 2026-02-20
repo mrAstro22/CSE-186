@@ -17,6 +17,7 @@ import path from 'node:path';
 import OpenApiValidator from 'express-openapi-validator';
 import {fileURLToPath} from 'node:url';
 import http from 'http';
+import * as mail from './router/route.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -47,6 +48,15 @@ app.use(
 
 // Your routes go here; however, do NOT write then inline.
 // Create additional modules and delegate to their exports.
+
+// Get All Mailbox Names
+app.get('/api/v0/mail/names', mail.getName);
+
+// Get All Mail/Mailbox
+app.get('/api/v0/mail', mail.getAll);
+
+// PUT Email into
+app.put('/api/v0/mail/:id', mail.put);
 
 app.use((err, req, res, next) => {
   res.status(err.status).json({
