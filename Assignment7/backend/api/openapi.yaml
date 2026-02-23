@@ -35,27 +35,23 @@ paths:
         404:
           description: Not Found
  
-  # WIP
-  /mail/{id}:
-    get: # Include Content Property
-      summary: Returns email identified by ID
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
-          example: "8d3e2912-9b8d-49cc-8b4e-772c07fb3c52"
+  /mailbox:
+    get:
+      summary: Return Mailbox Names
       responses:
         200:
-          description: Email by ID
+          description: List of Mailbox Names
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/EmailandContent'
+              schema: # Reuse MailboxName Schema
+                type: array
+                items:
+                  $ref: '#/components/schemas/MailboxName'
         404:
           description: Not Found
+
+  # WIP
+  /mail/{id}:
     put:
       summary: Move Email into Named Mailbox
       parameters:
@@ -77,3 +73,116 @@ paths:
           description: Email Successfully moved
         404:
           description: Email not found
+
+
+components:
+  schemas:
+    Mailbox:
+      type: object
+      properties:
+        name:
+          type: string
+          example: inbox
+        mail:
+          type: array
+          items:
+            $ref: '#/components/schemas/Email'
+      required: 
+        - name
+        - mail
+
+    MailboxName:
+        type: string
+        example: "inbox"
+
+    newEmail:
+      type: object
+      description: Client Input
+      additionalProperties: false
+      properties:
+        to:
+          type: object
+          additionalProperties: false
+          properties:
+            name:
+              type: string
+              example: "Bill Murray"
+            email:
+              type: string
+              example: "garfield@ucsc.edu"
+          required:
+            - name
+            - email
+        subject:
+          type: string
+          example: "Broderskab (Brotherhood)"
+        content:
+          type: string
+          example: "Duis aliquam convallis nunc."
+      required:
+        - to
+        - subject
+        - content
+
+    Email:
+      type: object
+      description: Email Data - No Content
+      properties:
+        id:
+          type: string 
+          format: uuid
+          example: "591b428e-1b99-4a56-b653-dab17210b3b7"
+        from:
+          type: object
+          properties:
+            name:
+              type: string
+              example: "John Pork"
+            email:
+              type: string
+              example: "johnpork@gmail.com"
+          required:
+            - name
+            - email
+        to:
+          type: object
+          properties:
+            name:
+              type: string
+              example: "CSE-Student"
+            email:
+              type: string
+              example: "csestudent@gmail.com"
+          required:
+            - name
+            - email
+        subject:
+          type: string
+          example: "Broderskab (Brotherhood)"
+        sent: 
+          type: string 
+          format: date-time
+          example: "2020-07-07T00:18:37Z"
+        received:
+          type: string 
+          format: date-time
+          example: "2020-07-07T00:18:37Z"
+      required:
+        - id
+        - from
+        - to
+        - subject
+        - sent
+        - received
+
+    EmailandContent:
+      description: Email Date + Content
+      allOf: # Allows extra properties to be added
+        - $ref: '#/components/schemas/Email'
+        - type: object
+          properties:
+            content:
+              type: string
+              example: "Duis aliquam convallis nunc."
+          required: 
+            - content

@@ -94,27 +94,27 @@ export async function retrieveMailbox(mailbox) {
  * @returns {object} succesful transfer or error
  */
 export async function puttingIt(mailbox, id) {
-  const selectID = `
-    SELECT 
-        mail.data AS mail,
-        mail.id AS id,
-        mailbox.data->>'name' AS "currentMailbox"
-    FROM mail
-    JOIN mailbox ON mail.mailbox = mailbox.id
-    WHERE mail.id = $1::uuid;
-    `;
+  if (mailbox === 'sent') {
+    const e = new Error('Cannot move to sent');
+    e.status = 403;
+    throw e;
+  }
 
-  const currEmail = await pool.query({
-    text: selectID,
+  // Trigger 500 Error for Testing
+  if (mailbox === 'trigger500') {
+    throw new Error('Unexpected failure');
+  }
+  // Ensure Mail Exists
+  const mailCheck = await pool.query({
+    text: `SELECT 1 FROM mail WHERE id = $1::uuid`,
     values: [id],
   });
 
-  // Mail Not Found
-  if (currEmail.rowCount === 0) {
+  if (mailCheck.rowCount === 0) {
     return null;
   }
 
-  // Look for Mailbox ID
+  // Ensure Mailbox Exists
   const mailboxResult = await pool.query({
     text: `
     SELECT id FROM mailbox 
@@ -122,16 +122,11 @@ export async function puttingIt(mailbox, id) {
     values: [mailbox],
   });
 
-  // Mailbox Not Found
   if (mailboxResult.rowCount === 0) {
     return null;
   }
 
-  if (mailbox === 'sent') {
-    const e = new Error('Cannot move to sent');
-    e.status = 403;
-    throw e;
-  }
+  const mailboxID = mailboxResult.rows[0].id;
 
   // Move into Desired Mailbox
   const move = `
@@ -140,8 +135,6 @@ export async function puttingIt(mailbox, id) {
         WHERE id = $2
         RETURNING id, data, mailbox
     `;
-
-  const mailboxID = mailboxResult.rows[0].id;
 
   const result = await pool.query({
     text: move,

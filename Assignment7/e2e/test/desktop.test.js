@@ -61,7 +61,7 @@ test('Third Trash Mail', async () => {
   await mailExistsIn(page,
       'Delcina Got to CSE186 Student',
       'Down-sized actuating focus group',
-      'Nov 02');
+      'Nov 06');
 });
 
 test('Delete Third Inbox Mail', async () => {

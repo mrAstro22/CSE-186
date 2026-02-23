@@ -50,7 +50,7 @@ app.use(
 // Create additional modules and delegate to their exports.
 
 // Get All Mailbox Names
-app.get('/api/v0/mail/names', mail.getName);
+app.get('/api/v0/mailbox', mail.getName);
 
 // Get All Mail/Mailbox
 app.get('/api/v0/mail', mail.getAll);
