@@ -41,8 +41,8 @@ it('Errors on GET Invalid URL', async () => {
 */
 describe('Get Mailbox Names', () => {
   it('GET 200', async () => {
-    const res = await request.get('/api/v0/mailbox');
-    expect(res.status).toBe(200);
+    await request.get('/api/v0/mailbox')
+        .expect(200);
   });
 
   it('GET all mailbox names', async () => {
@@ -174,4 +174,21 @@ describe('PUT', () => {
     await request.put(`/api/v0/mail/${validId}?mailbox=trigger500`)
         .expect(500);
   });
+
+  // it('Moved email appears in target mailbox', async () => {
+  //   const response = await request.get('/api/v0/mail');
+  //   const sourceMailbox = response.body.find(
+  //     (box) => box.name !== 'sent' && box.mail.length > 0
+  //   );
+
+  //   const validId = sourceMailbox.mail[0].id;
+
+  //   await request.put(`/api/v0/mail/${validId}?mailbox=trash`);
+
+  //   const targetResponse = await request.get('/api/v0/mail');
+  //   const targetMailbox = targetResponse.body.find(box => box.name === 'trash');
+
+  //   const movedEmail = targetMailbox.mail.find(mail => mail.id === validId);
+  //   expect(movedEmail).toBeDefined();
+  // });
 });

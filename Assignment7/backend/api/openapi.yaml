@@ -61,7 +61,7 @@ paths:
           schema:
             type: string
             format: uuid
-            example: "8d3e2912-9b8d-49cc-8b4e-772c07fb3c52"    
+            example: "746c5739-ad9d-4052-8123-af6b33dd61a6"    
         - name: mailbox
           in: query
           required: true
