@@ -15,8 +15,6 @@ import IconButton from '@mui/material/IconButton';
 // https://mui.com/material-ui/react-drawer/#ClippedDrawer.js
 
 /**
- * @param {object} props - Mail Props
- * @param {Array<object>} props.initMail - Array for Mailbox
  * @returns {object} Mailbox List
  */
 function MailList() {

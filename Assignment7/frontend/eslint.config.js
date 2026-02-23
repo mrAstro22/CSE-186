@@ -42,7 +42,7 @@ export default [
           jsx: true,
         },
       },
-      ecmaVersion: 2024,
+      ecmaVersion: 2025,
       sourceType: 'module',
       globals: {
         ...globals.browser,

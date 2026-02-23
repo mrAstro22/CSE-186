@@ -1,12 +1,13 @@
 {
   "name": "cse186-assignment7-backend",
   "type": "module",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "CSE186 Assignment 7 - Backend",
   "author": "David Harrison <dcharris@ucsc.edu>",
   "license": "UNLICENSED",
   "repository": "none",
   "devDependencies": {
+    "@eslint/js": "*",
     "@vitest/coverage-v8": "*",
     "eslint": "*",
     "eslint-config-google": "*",
@@ -31,9 +32,10 @@
     "ws": "*"
   },
   "scripts": {
-    "cpd": "jscpd src/ --silent",
+    "cpd": "jscpd src test --silent",
     "lint": "eslint src test --no-inline-config --report-unused-disable-directives --max-warnings 0",
     "start": "nodemon src/server.js",
-    "test": "vitest run --no-file-parallelism --testTimeout=2000 --coverage"
+    "test": "vitest run --no-file-parallelism --testTimeout=2000 --coverage",
+    "qtest": "(npm run lint -- --fix) && (npm run cpd) && (npm test)"
   }
 }

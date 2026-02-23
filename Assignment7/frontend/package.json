@@ -1,7 +1,7 @@
 {
   "name": "cse186-assignment7-frontend",
   "type": "module",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "CSE186 Assignment 7 - Frontend",
   "author": "David Harrison <dcharris@ucsc.edu>",
   "license": "UNLICENSED",
@@ -43,9 +43,10 @@
     "build": "vite build",
     "dev": "vite --port 3000",
     "preview": "vite preview",
-    "cpd": "jscpd src/ --silent",
+    "cpd": "jscpd src --silent",
     "lint": "eslint src --no-inline-config --report-unused-disable-directives --max-warnings 0",
     "test": "vitest run --coverage --pool=threads",
+    "qtest": "(npm run lint -- --fix) && (npm run cpd) && (npm test)",
     "watch": "vitest"
   }
 }
