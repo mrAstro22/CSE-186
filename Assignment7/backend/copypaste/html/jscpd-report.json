@@ -1,0 +1,121 @@
+{
+  "statistics": {
+    "detectionDate": "2026-02-23T21:58:09.144Z",
+    "formats": {
+      "javascript": {
+        "sources": {
+          "C:/Users/Aye Astro/Documents/CSE-186/CSE-186/Assignment7/backend/test/db.js": {
+            "lines": 58,
+            "tokens": 336,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "C:/Users/Aye Astro/Documents/CSE-186/CSE-186/Assignment7/backend/test/basic.test.js": {
+            "lines": 195,
+            "tokens": 1541,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "C:/Users/Aye Astro/Documents/CSE-186/CSE-186/Assignment7/backend/src/router/route.js": {
+            "lines": 65,
+            "tokens": 394,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "C:/Users/Aye Astro/Documents/CSE-186/CSE-186/Assignment7/backend/src/model/pool.js": {
+            "lines": 19,
+            "tokens": 78,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "C:/Users/Aye Astro/Documents/CSE-186/CSE-186/Assignment7/backend/src/model/mail.js": {
+            "lines": 145,
+            "tokens": 822,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "C:/Users/Aye Astro/Documents/CSE-186/CSE-186/Assignment7/backend/src/server.js": {
+            "lines": 22,
+            "tokens": 54,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "C:/Users/Aye Astro/Documents/CSE-186/CSE-186/Assignment7/backend/src/app.js": {
+            "lines": 69,
+            "tokens": 454,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 573,
+          "tokens": 3679,
+          "sources": 7,
+          "clones": 0,
+          "duplicatedLines": 0,
+          "duplicatedTokens": 0,
+          "percentage": 0,
+          "percentageTokens": 0,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      }
+    },
+    "total": {
+      "lines": 573,
+      "tokens": 3679,
+      "sources": 7,
+      "clones": 0,
+      "duplicatedLines": 0,
+      "duplicatedTokens": 0,
+      "percentage": 0,
+      "percentageTokens": 0,
+      "newDuplicatedLines": 0,
+      "newClones": 0
+    }
+  },
+  "duplicates": [],
+  "filename": "C:\\Users\\Aye Astro\\Documents\\CSE-186\\CSE-186\\Assignment7\\backend\\node_modules\\@jscpd\\html-reporter\\dist\\templates\\main.pug"
+}

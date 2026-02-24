@@ -46,7 +46,7 @@ function SideBar() {
               <ListItemIcon>
                 {name === currMailbox ? <MailOutlineIcon /> : <MailIcon />}
               </ListItemIcon>
-              <ListItemText primary={name} />
+              <ListItemText primary={capitalize(name)} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -71,3 +71,12 @@ function SideBar() {
 }
 
 export default SideBar;
+
+/**
+ *
+ * @param {string} val - currMailbox
+ * @returns {string} capitalized Mailbox
+ */
+function capitalize(val) {
+  return String(val).charAt(0).toUpperCase() + String(val).slice(1);
+}

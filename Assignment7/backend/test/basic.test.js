@@ -101,16 +101,27 @@ describe('Get Mailbox', () => {
 */
 
 describe('PUT', () => {
-  it('should return 204', async () => {
+  /**
+   *
+   * @param {string} sourceMailboxName - Inbox
+   * @param {number} emailIndex - Grab Email
+   * @param {string} targetMailbox - Sent to Mailbox
+   * @param {number} expectedStatus - Status Code
+   */
+  async function moveEmailAndExpect(
+      sourceMailboxName, emailIndex, targetMailbox, expectedStatus,
+  ) {
     const response = await request.get('/api/v0/mail');
     const sourceMailbox = response.body.find(
-        (box) => box.name !== 'sent' && box.mail.length > 0,
+        (box) => box.name === sourceMailboxName,
     );
-    const validId = sourceMailbox.mail[0].id;
+    const validId = sourceMailbox.mail[emailIndex].id;
+    await request.put(`/api/v0/mail/${validId}?mailbox=${targetMailbox}`)
+        .expect(expectedStatus);
+  }
 
-    // Now test with that valid ID
-    await request.put(`/api/v0/mail/${validId}?mailbox=trash`)
-        .expect(204);
+  it('should return 204', async () => {
+    await moveEmailAndExpect('inbox', 0, 'trash', 204);
   });
 
   it('Invalid ID: 404', async () => {
@@ -156,14 +167,7 @@ describe('PUT', () => {
   });
 
   it('403 Error: Putting In Sent Not Allowed', async () => {
-    const response = await request.get('/api/v0/mail');
-    const sourceMailbox = response.body.find(
-        (box) => box.name !== 'sent' && box.mail.length > 0,
-    );
-
-    const validId = sourceMailbox.mail[0].id;
-    await request.put(`/api/v0/mail/${validId}?mailbox=sent`)
-        .expect(403);
+    await moveEmailAndExpect('inbox', 1, 'sent', 403);
   });
 
   it('returns 500 for unexpected errors', async () => {
@@ -175,20 +179,18 @@ describe('PUT', () => {
         .expect(500);
   });
 
-  // it('Moved email appears in target mailbox', async () => {
-  //   const response = await request.get('/api/v0/mail');
-  //   const sourceMailbox = response.body.find(
-  //     (box) => box.name !== 'sent' && box.mail.length > 0
-  //   );
+  it('Moved email appears in target mailbox', async () => {
+    const sourceRes = await request.get('/api/v0/mail?mailbox=inbox');
+    const sourceM = sourceRes.body[0]; // first email
+    const valid = sourceM.id;
 
-  //   const validId = sourceMailbox.mail[0].id;
+    // Move the email to Trash
+    await request.put(`/api/v0/mail/${valid}?mailbox=trash`);
 
-  //   await request.put(`/api/v0/mail/${validId}?mailbox=trash`);
+    // Check the Trash mailbox directly
+    const trashResponse = await request.get('/api/v0/mail?mailbox=trash');
+    const movedEmail = trashResponse.body.find((mail) => mail.id === valid);
 
-  //   const targetResponse = await request.get('/api/v0/mail');
-  //   const targetMailbox = targetResponse.body.find(box => box.name === 'trash');
-
-  //   const movedEmail = targetMailbox.mail.find(mail => mail.id === validId);
-  //   expect(movedEmail).toBeDefined();
-  // });
+    expect(movedEmail).toBeDefined();
+  });
 });

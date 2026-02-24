@@ -12,6 +12,7 @@ import {mailboxContext} from '../App';
  */
 function Header() {
   const {currMailbox} = useContext(mailboxContext);
+  const formatted = capitalize(currMailbox);
 
   return (
     <AppBar
@@ -24,7 +25,7 @@ function Header() {
     >
       <Toolbar>
         <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
-          CSE 186 Full Stack Mail - {currMailbox}
+          {`CSE186 Full Stack Mail - ${formatted}`}
         </Typography>
       </Toolbar>
     </AppBar>
@@ -32,4 +33,18 @@ function Header() {
 }
 
 export default Header;
+
+// Source - https://stackoverflow.com/a/1026087
+// Posted by Steve Harrison,
+// modified by community. See post 'Timeline' for change history
+// Retrieved 2026-02-23, License - CC BY-SA 4.0
+
+/**
+ *
+ * @param {string} val - currMailbox
+ * @returns {string} capitalized Mailbox
+ */
+function capitalize(val) {
+  return String(val).charAt(0).toUpperCase() + String(val).slice(1);
+}
 

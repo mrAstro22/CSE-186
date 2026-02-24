@@ -1,6 +1,7 @@
 // Context
 import {useContext} from 'react';
 import {mailboxContext, mailContext} from '../App';
+import PropTypes from 'prop-types';
 
 // MUI
 import Table from '@mui/material/Table';
@@ -15,12 +16,12 @@ import IconButton from '@mui/material/IconButton';
 // https://mui.com/material-ui/react-drawer/#ClippedDrawer.js
 
 /**
+ * @param {(id: string) => void} moveToTrash - PUT into Trash Mailbox
  * @returns {object} Mailbox List
  */
-function MailList() {
+function MailList({moveToTrash}) {
   const {currMailbox} = useContext(mailboxContext);
   const {mail} = useContext(mailContext);
-
 
   // SortedMail was generated from ChatGPT
   const mailboxData = mail?.find((box) => box.name === currMailbox);
@@ -45,26 +46,46 @@ function MailList() {
               key={email.id}
             >
               <TableCell>
-                <IconButton>
-                  <DeleteIcon
-                    sx={{cursor: 'pointer'}}
-                    onClick={() => {
-                    // Handle Delete Email
+                {currMailbox !== 'trash' && (
+                  <IconButton
+                    aria-label={
+                    currMailbox === 'inbox' ?
+                   'Delete mail from ' + email.from.name +
+                  ' received ' + formatEmailDate(email.received) :
+                  currMailbox === 'sent' ?
+                  'Delete mail to ' + email.to.name +
+                  ' sent ' + formatEmailDate(email.received) :
+                  ''
+                    }
+                    onClick={async () => {
+                      // Handle Delete Email
                       console.log(`Delete email with id: ${email.id}`);
+                      await moveToTrash(email.id);
                     }}
-                  />
-                </IconButton>
+                  >
+                    <DeleteIcon
+                      sx={{cursor: 'pointer'}}
+                    />
+                  </IconButton>)}
               </TableCell>
               <TableCell
-                sx={{fontFamily: 'Courier New, Courier, monospace'}}
-              >
-                {email.from.name}</TableCell>
+                sx={{
+                  fontFamily: 'Courier New, Courier',
+                  fontWeight: 'Bold',
+                }}>
+                {currMailbox === 'inbox' ? `${email.from.name}` :
+                currMailbox === 'sent' ? `${email.to.name}` :
+                currMailbox === 'trash' ?
+                    `${email.from.name} to ${email.to.name}` :
+                 ''
+                }
+              </TableCell>
               <TableCell
-                sx={{fontFamily: 'Courier New, Courier, monospace'}}
+                sx={{fontFamily: 'Courier New, Courier'}}
               >
                 {email.subject}</TableCell>
               <TableCell
-                sx={{fontFamily: 'Courier New, Courier, monospace'}}
+                sx={{fontFamily: 'Courier New, Courier'}}
               >
                 {formatEmailDate(email.received)}
               </TableCell>
@@ -109,10 +130,9 @@ function formatEmailDate(dateStr) {
   } else if (isYesterday) {
     return 'Yesterday';
   } else if (emailDate > oneYearAgo) {
-    // show Month and Day
-    return emailDate.toLocaleDateString(
-        undefined,
-        {month: 'short', day: 'numeric'});
+    const month = emailDate.toLocaleString('default', {month: 'short'});
+    const day = String(emailDate.getDate()).padStart(2, '0'); // pad w 0
+    return `${month} ${day}`;
   } else {
     // more than a year ago: show year
     return emailDate.getFullYear();
@@ -120,3 +140,7 @@ function formatEmailDate(dateStr) {
 }
 
 export default MailList;
+
+MailList.propTypes = {
+  moveToTrash: PropTypes.func.isRequired,
+};
