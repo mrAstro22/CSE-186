@@ -47,7 +47,6 @@ export async function getAll(req, res) {
 export async function put(req, res) {
   const {id} = req.params;
   const {mailbox} = req.query;
-
   try {
     // Error Handle
     const email = await model.puttingIt(mailbox, id);
