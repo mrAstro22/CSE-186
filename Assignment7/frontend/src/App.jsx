@@ -85,7 +85,7 @@ function App() {
           {/* Mail Content */}
           <Box
             sx={{
-              ml: {md: `${drawerWidth}px`}, // offset for desktop drawer
+              ml: `${drawerWidth}px`, // offset for desktop drawer
               mt: '64px', // offset for AppBar height
             }}
           >

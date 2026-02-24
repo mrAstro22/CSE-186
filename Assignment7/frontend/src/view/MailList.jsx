@@ -60,8 +60,8 @@ function MailList({moveToTrash}) {
                     }
                     onClick={async () => {
                       // Handle Delete Email
-                      console.log(`Delete email with id: ${email.id}`);
-                      await moveToTrash(email.id);
+                      // console.log(`Delete email with id: ${email.id}`);
+                      moveToTrash(email.id);
                     }}
                   >
                     <DeleteIcon
