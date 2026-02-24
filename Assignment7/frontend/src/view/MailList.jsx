@@ -28,6 +28,7 @@ function MailList({moveToTrash}) {
   const sortedMail = mailboxData?.mail?.slice()
       .sort((a, b) => new Date(b.received) - new Date(a.received)) || [];
 
+
   return (
     <TableContainer
       key = {currMailbox}
@@ -50,11 +51,11 @@ function MailList({moveToTrash}) {
                   <IconButton
                     aria-label={
                     currMailbox === 'inbox' ?
-                   'Delete mail from ' + email.from.name +
-                  ' received ' + formatEmailDate(email.received) :
+                   `Delete mail from ${email.from.name}` +
+                  ` received ${formatEmailDate(email.received)}` :
                   currMailbox === 'sent' ?
-                  'Delete mail to ' + email.to.name +
-                  ' sent ' + formatEmailDate(email.received) :
+                   `Delete mail to ${email.to.name}` +
+                  ` sent ${formatEmailDate(email.received)}` :
                   ''
                     }
                     onClick={async () => {
@@ -73,17 +74,16 @@ function MailList({moveToTrash}) {
                   fontFamily: 'Courier New, Courier',
                   fontWeight: 'Bold',
                 }}>
-                {currMailbox === 'inbox' ? `${email.from.name}` :
-                currMailbox === 'sent' ? `${email.to.name}` :
+                {currMailbox === 'inbox' ? email.from.name :
+                currMailbox === 'sent' ? email.to.name :
                 currMailbox === 'trash' ?
-                    `${email.from.name} to ${email.to.name}` :
-                 ''
-                }
+                    `${email.from.name} to ${email.to.name}`:
+                    null}
               </TableCell>
               <TableCell
                 sx={{fontFamily: 'Courier New, Courier'}}
               >
-                {email.subject}</TableCell>
+                {email.subject.trim()}</TableCell>
               <TableCell
                 sx={{fontFamily: 'Courier New, Courier'}}
               >
