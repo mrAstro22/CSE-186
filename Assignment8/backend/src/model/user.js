@@ -14,12 +14,12 @@ import {pool} from './pool.js';
 
 const strip = (userRow) => {
   if (!userRow) return null;
-  
+
   // Return Without Password
   return {
     id: userRow.id,
     name: userRow.data.user.name,
-    email: userRow.data.user.email
+    email: userRow.data.user.email,
   };
 };
 // /**
@@ -45,15 +45,14 @@ export async function retrieveByCredentials(email, password) {
     SELECT *
     FROM users
     WHERE data->'user'->>'email' = $1
-      AND data->'user'->>'password_hash' = $2
+      AND crypt($2, data->'user'->>'password_hash') = 
+      data->'user'->>'password_hash'
   `, [email, password]);
 
   const user = res.rows[0];
   if (!user) return null;
 
-  return strip(user);
-  // const valid = await bcrypt.compareSync(password, user.password_hash);
   // if(!valid) return null;
-  // return strip(user);
+  return strip(user);
 }
 
