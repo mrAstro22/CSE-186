@@ -1,0 +1,23 @@
+To install node packages:
+
+  $ npm install
+
+To start the database: 
+
+  $ docker-compose up -d
+
+To run the server:
+
+  $ npm start
+
+To view the testing page:
+
+  http://localhost:3010/v0/api-docs
+
+To run the tests:
+
+  $ npm start
+
+To stop the database: 
+
+  $ docker-compose down

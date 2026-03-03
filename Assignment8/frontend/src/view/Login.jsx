@@ -20,8 +20,10 @@ function Login() {
 
   return (
     <div>
+      Meowl Chat - Where you Chat With Meowls
       <p>
         <input type="text"
+          aria-label = "user-box"
           className = "user-box"
           placeholder="Username"
           ref={usernameRef}
@@ -29,11 +31,13 @@ function Login() {
       </p>
       <p>
         <input type="password"
+          aria-label = "password-box"
           className = "password-box"
           placeholder="Password"
           ref={passwordRef} />
       </p>
       <button className = "login-button"
+        aria-label = "login-button"
         onClick={handleLogin}>Login</button>
     </div>
   );

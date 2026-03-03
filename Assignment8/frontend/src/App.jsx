@@ -32,7 +32,6 @@ function App() {
 
   return (
     <loginContext.Provider value={{login, setLogin}}>
-      CSE186 Assignment 8 ( Your UI Goes Here )
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navigate to="/login" replace />} />

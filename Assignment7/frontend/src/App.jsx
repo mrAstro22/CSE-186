@@ -54,8 +54,7 @@ function App() {
     if (currMailbox) {
       fetch(`http://localhost:3010/api/v0/mail?mailbox=${currMailbox}`)
           .then((res) => res.json())
-          .then((data) => setMail(data))
-          .catch((err) => console.error(err));
+          .then((data) => setMail(data));
     }
   }, [currMailbox]);
 

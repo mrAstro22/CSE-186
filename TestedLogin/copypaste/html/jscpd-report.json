@@ -1,0 +1,125 @@
+{
+  "statistics": {
+    "detectionDate": "2026-02-19T17:00:01.457Z",
+    "formats": {
+      "jsx": {
+        "sources": {
+          "/Users/dcharris/UCSC/CSE186/Winter26/Lectures/15/TestedLoginWithoutCopyPaste/src/__tests__/Login.test.jsx": {
+            "lines": 81,
+            "tokens": 576,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/dcharris/UCSC/CSE186/Winter26/Lectures/15/TestedLoginWithoutCopyPaste/src/__tests__/App.test.jsx": {
+            "lines": 16,
+            "tokens": 63,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/dcharris/UCSC/CSE186/Winter26/Lectures/15/TestedLoginWithoutCopyPaste/src/main.jsx": {
+            "lines": 19,
+            "tokens": 64,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/dcharris/UCSC/CSE186/Winter26/Lectures/15/TestedLoginWithoutCopyPaste/src/Login.jsx": {
+            "lines": 80,
+            "tokens": 515,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/dcharris/UCSC/CSE186/Winter26/Lectures/15/TestedLoginWithoutCopyPaste/src/App.jsx": {
+            "lines": 22,
+            "tokens": 46,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 218,
+          "tokens": 1264,
+          "sources": 5,
+          "clones": 0,
+          "duplicatedLines": 0,
+          "duplicatedTokens": 0,
+          "percentage": 0,
+          "percentageTokens": 0,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      },
+      "javascript": {
+        "sources": {
+          "/Users/dcharris/UCSC/CSE186/Winter26/Lectures/15/TestedLoginWithoutCopyPaste/src/Login.jsx": {
+            "lines": 10,
+            "tokens": 72,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 10,
+          "tokens": 72,
+          "sources": 1,
+          "clones": 0,
+          "duplicatedLines": 0,
+          "duplicatedTokens": 0,
+          "percentage": 0,
+          "percentageTokens": 0,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      }
+    },
+    "total": {
+      "lines": 228,
+      "tokens": 1336,
+      "sources": 6,
+      "clones": 0,
+      "duplicatedLines": 0,
+      "duplicatedTokens": 0,
+      "percentage": 0,
+      "percentageTokens": 0,
+      "newDuplicatedLines": 0,
+      "newClones": 0
+    }
+  },
+  "duplicates": [],
+  "filename": "/Users/dcharris/UCSC/CSE186/Winter26/Lectures/15/TestedLoginWithoutCopyPaste/node_modules/@jscpd/html-reporter/dist/templates/main.pug"
+}

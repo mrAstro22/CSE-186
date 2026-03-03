@@ -1,10 +1,10 @@
 {
   "statistics": {
-    "detectionDate": "2026-02-23T21:59:25.680Z",
+    "detectionDate": "2026-02-24T05:24:25.622Z",
     "formats": {
       "jsx": {
         "sources": {
-          "C:/Users/Aye Astro/Documents/CSE-186/CSE-186/Assignment7/frontend/src/__tests__/validity.test.jsx": {
+          "C:/CSE-186/Assignment7/frontend/src/__tests__/validity.test.jsx": {
             "lines": 164,
             "tokens": 1341,
             "sources": 1,
@@ -16,7 +16,7 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
-          "C:/Users/Aye Astro/Documents/CSE-186/CSE-186/Assignment7/frontend/src/view/SideBar.jsx": {
+          "C:/CSE-186/Assignment7/frontend/src/view/SideBar.jsx": {
             "lines": 80,
             "tokens": 502,
             "sources": 1,
@@ -28,9 +28,9 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
-          "C:/Users/Aye Astro/Documents/CSE-186/CSE-186/Assignment7/frontend/src/view/MailList.jsx": {
-            "lines": 140,
-            "tokens": 1097,
+          "C:/CSE-186/Assignment7/frontend/src/view/MailList.jsx": {
+            "lines": 145,
+            "tokens": 1122,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -40,7 +40,7 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
-          "C:/Users/Aye Astro/Documents/CSE-186/CSE-186/Assignment7/frontend/src/view/Header.jsx": {
+          "C:/CSE-186/Assignment7/frontend/src/view/Header.jsx": {
             "lines": 48,
             "tokens": 265,
             "sources": 1,
@@ -52,7 +52,7 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
-          "C:/Users/Aye Astro/Documents/CSE-186/CSE-186/Assignment7/frontend/src/main.jsx": {
+          "C:/CSE-186/Assignment7/frontend/src/main.jsx": {
             "lines": 24,
             "tokens": 66,
             "sources": 1,
@@ -64,9 +64,9 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
-          "C:/Users/Aye Astro/Documents/CSE-186/CSE-186/Assignment7/frontend/src/App.jsx": {
-            "lines": 104,
-            "tokens": 646,
+          "C:/CSE-186/Assignment7/frontend/src/App.jsx": {
+            "lines": 99,
+            "tokens": 627,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -79,7 +79,7 @@
         },
         "total": {
           "lines": 560,
-          "tokens": 3917,
+          "tokens": 3923,
           "sources": 6,
           "clones": 0,
           "duplicatedLines": 0,
@@ -92,7 +92,19 @@
       },
       "javascript": {
         "sources": {
-          "C:/Users/Aye Astro/Documents/CSE-186/CSE-186/Assignment7/frontend/src/view/SideBar.jsx": {
+          "C:/CSE-186/Assignment7/frontend/src/__tests__/advanced.test.js": {
+            "lines": 22,
+            "tokens": 152,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "C:/CSE-186/Assignment7/frontend/src/view/SideBar.jsx": {
             "lines": 18,
             "tokens": 144,
             "sources": 1,
@@ -104,9 +116,9 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
-          "C:/Users/Aye Astro/Documents/CSE-186/CSE-186/Assignment7/frontend/src/view/MailList.jsx": {
-            "lines": 43,
-            "tokens": 327,
+          "C:/CSE-186/Assignment7/frontend/src/view/MailList.jsx": {
+            "lines": 41,
+            "tokens": 319,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -116,7 +128,7 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
-          "C:/Users/Aye Astro/Documents/CSE-186/CSE-186/Assignment7/frontend/src/view/Header.jsx": {
+          "C:/CSE-186/Assignment7/frontend/src/view/Header.jsx": {
             "lines": 7,
             "tokens": 63,
             "sources": 1,
@@ -128,9 +140,9 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
-          "C:/Users/Aye Astro/Documents/CSE-186/CSE-186/Assignment7/frontend/src/App.jsx": {
-            "lines": 2,
-            "tokens": 43,
+          "C:/CSE-186/Assignment7/frontend/src/App.jsx": {
+            "lines": 13,
+            "tokens": 111,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -142,9 +154,9 @@
           }
         },
         "total": {
-          "lines": 70,
-          "tokens": 577,
-          "sources": 4,
+          "lines": 101,
+          "tokens": 789,
+          "sources": 5,
           "clones": 0,
           "duplicatedLines": 0,
           "duplicatedTokens": 0,
@@ -156,9 +168,9 @@
       }
     },
     "total": {
-      "lines": 630,
-      "tokens": 4494,
-      "sources": 10,
+      "lines": 661,
+      "tokens": 4712,
+      "sources": 11,
       "clones": 0,
       "duplicatedLines": 0,
       "duplicatedTokens": 0,
@@ -169,5 +181,5 @@
     }
   },
   "duplicates": [],
-  "filename": "C:\\Users\\Aye Astro\\Documents\\CSE-186\\CSE-186\\Assignment7\\frontend\\node_modules\\@jscpd\\html-reporter\\dist\\templates\\main.pug"
+  "filename": "C:\\CSE-186\\Assignment7\\frontend\\node_modules\\@jscpd\\html-reporter\\dist\\templates\\main.pug"
 }
