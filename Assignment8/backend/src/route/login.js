@@ -31,11 +31,7 @@ export async function login(req, res) {
 
   // Send full user object + JWT
   res.status(200).json({
-    user: {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-    },
+    user,
     accessToken,
   });
 }

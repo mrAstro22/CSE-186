@@ -12,14 +12,16 @@
 import {pool} from './pool.js';
 // import bcrypt from 'bcrypt';
 
-const strip = (user) => {
-  // if (!user) return null;
-  const stripped = {...user};
-  stripped.name = user.username;
-  delete stripped.password_hash;
-  return stripped;
+const strip = (userRow) => {
+  if (!userRow) return null;
+  
+  // Return Without Password
+  return {
+    id: userRow.id,
+    name: userRow.data.user.name,
+    email: userRow.data.user.email
+  };
 };
-
 // /**
 //  *
 //  * @param {string} id - UUID of user
@@ -39,16 +41,19 @@ const strip = (user) => {
  * @returns {object} stripped senstitive info
  */
 export async function retrieveByCredentials(email, password) {
-  const res = await pool.query('SELECT * FROM users WHERE email=$1', [email]);
-  const user = res.rows[0];
+  const res = await pool.query(`
+    SELECT *
+    FROM users
+    WHERE data->'user'->>'email' = $1
+      AND data->'user'->>'password_hash' = $2
+  `, [email, password]);
 
+  const user = res.rows[0];
   if (!user) return null;
 
+  return strip(user);
   // const valid = await bcrypt.compareSync(password, user.password_hash);
-  if (password === user.password_hash) {
-    return strip(user);
-  } else {
-    return null;
-  }
+  // if(!valid) return null;
+  // return strip(user);
 }
 
