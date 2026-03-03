@@ -1,0 +1,15 @@
+To install node packages:
+
+  $ npm install
+
+To run the server:
+
+  $ npm start
+
+To view the testing page:
+
+  http://localhost:3010/api/v0/docs
+
+To run tests:
+
+  $ npm test

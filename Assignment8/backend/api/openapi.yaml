@@ -14,4 +14,73 @@ servers:
 
 paths:
   /login:
-    post: # Pasting
+    post:
+      summary: Grab Login Info and Verify
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credentials'
+              
+      responses:
+        200:
+          description: Login Succesful, Return JWT
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        401:
+          description: Invalid Credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - error
+                properties:
+                  error:
+                    type: string
+
+components:
+  schemas:
+    Credentials:
+      type: object
+      properties:
+        email:
+          type: string
+          example: "ayeastro@gmail.com"
+        password:
+          type: string
+          format: password
+          example: "likeaboss"
+      required:
+        - email
+        - password
+
+    User:
+      type: object
+      required:
+        - user
+        - accessToken
+      properties:
+        user:
+          type: object
+          required:
+            - id
+            - email
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            email:
+              type: string
+        accessToken:
+          type: string
+
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT    # optional, arbitrary value for documentation purposes

@@ -7,6 +7,12 @@ function Login() {
   const usernameRef = useRef();
   const passwordRef = useRef();
 
+//   await fetch("/login", {
+//   method: "POST",
+//   headers: { "Content-Type": "application/json" },
+//   body: JSON.stringify({ username: "Astro22", password: "Password" })
+//    });
+
   const handleLogin = () => {
     const username = usernameRef.current.value;
     const password = passwordRef.current.value;

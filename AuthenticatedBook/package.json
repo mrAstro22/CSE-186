@@ -1,0 +1,31 @@
+{
+  "name": "cse186-authenticated-book-example",
+  "type": "module",
+  "version": "2.0.0",
+  "description": "CSE186 Authenticated Book Example",
+  "author": "David Harrison <dcharris@ucsc.edu>",
+  "license": "UNLICENSED",
+  "repository": "none",
+  "devDependencies": {
+    "@vitest/coverage-v8": "*",
+    "jwt-decode": "*",
+    "nodemon": "*",
+    "supertest": "*",
+    "vitest": "*"
+  },
+  "dependencies": {
+    "bcrypt": "*",
+    "dotenv": "*",
+    "body-parser": "*",
+    "cors": "*",
+    "express": "*",
+    "express-openapi-validator": "*",
+    "js-yaml": "*",
+    "jsonwebtoken": "*",
+    "swagger-ui-express": "*"
+  },
+  "scripts": {
+    "start": "nodemon src/server.js",
+    "test": "vitest run --testTimeout=2000 --coverage"
+  }
+}

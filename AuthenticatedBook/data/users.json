@@ -1,0 +1,17 @@
+[
+  {
+    "id": "c4133543-81f4-40cb-bf08-685176d83a78",
+    "email": "molly@books.com",
+    "password": "$2b$10$Y00XOZD/f5gBSpDusPUgU.iJufk6Nxx6gAoHRG8t2eHyGgoP2bK4y",
+    "role": "member",
+    "name": "Molly Member"
+  },
+  {
+    "id": "9e5990ee-1712-4c27-bcba-051d79ccf097",
+    "email": "anna@books.com",
+    "password": "$2b$10$Y00XOZD/f5gBSpDusPUgU.G1ohpR3oQbbBHK4KzX7dU219Pv/lzze",
+    "role": "admin",
+    "name": "Anna Admin"
+  }
+]
+

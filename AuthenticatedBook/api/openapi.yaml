@@ -1,0 +1,177 @@
+openapi: '3.0.3'
+
+info:
+  title: CSE186 Authenticated Books Example
+  version: 0.2.0
+
+servers:
+  - url: http://localhost:3010/api/v0
+
+paths:
+  /login:
+    post:
+      description: Login
+      requestBody:
+        description: Request Body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credentials'
+      responses:
+        200:
+          description: Books Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /book:
+    get:
+      security:
+        - bearerAuth: []         
+      description: Returns all books
+      responses:
+        401:
+          description: Unauthorised
+        200:
+          description: Books Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+    post:
+      security:
+        - bearerAuth: []         
+      description: Creates a new book
+      requestBody:
+        description: Application to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        201:
+          description: Application response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        400:
+          description: Invalid ISBN
+        409:
+          description: Conflict. Requested ISBN in use.
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /book/{isbn}:
+    get:
+      security:
+        - bearerAuth: []         
+      description: Returns a single book
+      parameters:
+      - name: isbn
+        in: path
+        description: ISBN of the book
+        required: true
+        schema:
+          $ref: '#/components/schemas/ISBN'
+      responses:
+        200:
+          description: Book found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        400:
+          description: Invalid ISBN
+        404:
+          description: Book not found
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+                
+components:
+  schemas:
+    UnexpectedError:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+
+    Credentials:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - email
+        - password
+
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+        accessToken:
+          type: string
+      required:
+        - name
+        - accessToken
+
+    ISBN:
+      type: string
+      pattern: '^(97(8|9))?\d{9}(\d|X)$'
+        
+    Book:
+      type: object
+      properties:
+        isbn:
+          $ref: '#/components/schemas/ISBN'
+        title:
+          type: string
+        author:
+          type: string
+        publisher:
+          type: string
+      required:
+        - title
+        - author 
+        - isbn 
+        - publisher
+
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT    # optional, arbitrary value for documentation purposes
