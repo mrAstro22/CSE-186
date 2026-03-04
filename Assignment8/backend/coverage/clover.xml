@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1772580045228" clover="3.2.0">
-  <project timestamp="1772580045228" name="All files">
-    <metrics statements="45" coveredstatements="45" conditionals="8" coveredconditionals="8" methods="8" coveredmethods="8" elements="61" coveredelements="61" complexity="0" loc="45" ncloc="45" packages="5" files="9" classes="9"/>
+<coverage generated="1772594457181" clover="3.2.0">
+  <project timestamp="1772594457182" name="All files">
+    <metrics statements="45" coveredstatements="45" conditionals="8" coveredconditionals="8" methods="8" coveredmethods="8" elements="61" coveredelements="61" complexity="0" loc="45" ncloc="45" packages="6" files="10" classes="10"/>
     <package name="src">
       <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-      <file name="app.js" path="C:\Users\Aye Astro\Documents\CSE-186\CSE-186\Assignment8\backend\src\app.js">
+      <file name="app.js" path="C:\CSE-186\Assignment8\backend\src\app.js">
         <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="25" count="1" type="stmt"/>
-        <line num="26" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
         <line num="28" count="1" type="stmt"/>
-        <line num="29" count="1" type="stmt"/>
         <line num="30" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
         <line num="32" count="1" type="stmt"/>
         <line num="34" count="1" type="stmt"/>
-        <line num="35" count="1" type="stmt"/>
-        <line num="39" count="1" type="stmt"/>
-        <line num="44" count="1" type="stmt"/>
-        <line num="55" count="1" type="stmt"/>
-        <line num="56" count="2" type="stmt"/>
-        <line num="63" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="57" count="1" type="stmt"/>
+        <line num="58" count="2" type="stmt"/>
         <line num="65" count="1" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.middleware">
       <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="auth.js" path="C:\Users\Aye Astro\Documents\CSE-186\CSE-186\Assignment8\backend\src\middleware\auth.js">
+      <file name="auth.js" path="C:\CSE-186\Assignment8\backend\src\middleware\auth.js">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.model">
       <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
-      <file name="auth.js" path="C:\Users\Aye Astro\Documents\CSE-186\CSE-186\Assignment8\backend\src\model\auth.js">
+      <file name="auth.js" path="C:\CSE-186\Assignment8\backend\src\model\auth.js">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="39" count="1" type="stmt"/>
       </file>
-      <file name="meowl.js" path="C:\Users\Aye Astro\Documents\CSE-186\CSE-186\Assignment8\backend\src\model\meowl.js">
+      <file name="meowl.js" path="C:\CSE-186\Assignment8\backend\src\model\meowl.js">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
-      <file name="pool.js" path="C:\Users\Aye Astro\Documents\CSE-186\CSE-186\Assignment8\backend\src\model\pool.js">
+      <file name="pool.js" path="C:\CSE-186\Assignment8\backend\src\model\pool.js">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="14" count="1" type="stmt"/>
       </file>
-      <file name="user.js" path="C:\Users\Aye Astro\Documents\CSE-186\CSE-186\Assignment8\backend\src\model\user.js">
+      <file name="user.js" path="C:\CSE-186\Assignment8\backend\src\model\user.js">
         <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
         <line num="15" count="1" type="stmt"/>
         <line num="19" count="1" type="stmt"/>
-        <line num="44" count="3" type="stmt"/>
-        <line num="52" count="3" type="stmt"/>
-        <line num="53" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="56" count="1" type="stmt"/>
+        <line num="45" count="3" type="stmt"/>
+        <line num="53" count="3" type="stmt"/>
+        <line num="54" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="57" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.route">
       <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
-      <file name="login.js" path="C:\Users\Aye Astro\Documents\CSE-186\CSE-186\Assignment8\backend\src\route\login.js">
+      <file name="login.js" path="C:\CSE-186\Assignment8\backend\src\route\login.js">
         <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
         <line num="22" count="3" type="stmt"/>
         <line num="25" count="3" type="stmt"/>
@@ -62,13 +62,19 @@
         <line num="30" count="1" type="stmt"/>
         <line num="33" count="1" type="stmt"/>
       </file>
-      <file name="route.js" path="C:\Users\Aye Astro\Documents\CSE-186\CSE-186\Assignment8\backend\src\route\route.js">
+      <file name="route.js" path="C:\CSE-186\Assignment8\backend\src\route\route.js">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+    <package name="src.socket">
+      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="socket.js" path="C:\CSE-186\Assignment8\backend\src\socket\socket.js">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="test">
       <metrics statements="17" coveredstatements="17" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
-      <file name="db.js" path="C:\Users\Aye Astro\Documents\CSE-186\CSE-186\Assignment8\backend\test\db.js">
+      <file name="db.js" path="C:\CSE-186\Assignment8\backend\test\db.js">
         <metrics statements="17" coveredstatements="17" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
         <line num="21" count="1" type="stmt"/>
         <line num="22" count="1" type="stmt"/>

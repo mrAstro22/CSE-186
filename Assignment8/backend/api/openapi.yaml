@@ -49,11 +49,11 @@ components:
       properties:
         email:
           type: string
-          example: "ayeastro@gmail.com"
+          example: "molly@books.com"
         password:
           type: string
           format: password
-          example: "likeaboss"
+          example: "mollymember"
       required:
         - email
         - password

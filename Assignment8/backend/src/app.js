@@ -17,6 +17,8 @@ import path from 'node:path';
 import OpenApiValidator from 'express-openapi-validator';
 import {fileURLToPath} from 'node:url';
 import http from 'http';
+// import {WebSocketServer} from 'ws';
+
 
 // Model and Routes
 // import {check} from './middleware/auth.js';
@@ -63,4 +65,9 @@ app.use((err, req, res, next) => {
 app.post('/api/v0/login', login);
 
 const server = http.createServer(app);
+// const wss = new WebSocketServer({server});
+
+// wss.on('connection', (ws) => {
+//   socket.connect(ws);
+// });
 export default server;

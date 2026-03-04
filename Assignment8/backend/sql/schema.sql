@@ -6,12 +6,10 @@ CREATE TABLE users (
   data JSONB
 );
 
--- DROP TABLE IF EXISTS userData;
--- CREATE TABLE userData (
---   user UUID REFERENCES user(id),
---   username TEXT UNIQUE NOT NULL,
---   email TEXT UNIQUE NOT NULL,
---   password_hash TEXT NOT NULL,
---   created_at TIMESTAMPTZ DEFAULT now(),
---   data jsonb
--- )
+DROP TABLE IF EXISTS posts;
+CREATE TABLE posts (
+  -- IF user is deleted, so will all their posts
+  id UUID UNIQUE PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE, 
+  data jsonb
+);

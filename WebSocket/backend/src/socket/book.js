@@ -8,17 +8,34 @@
 #
 #######################################################################
 */
+import { WebSocket } from 'ws';
 
 const clients = new Map();
 
-export function connect(ws) {
-  const id = Date.now(); 
-  console.log('Client', id, 'connected');
-  clients.set(id, ws);
-  ws.on('close', () => {
-    console.log('Client', id, 'closed');
-    clients.delete(id);
-  });
+export function connect(ws, req) {
+  try {
+    const params = new URLSearchParams(req.url.split('?')[1]);
+    const token = params.get('token');
+
+    if (!token) {
+      ws.close();
+      return;
+    }
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.id;
+
+    console.log('User', userId, 'connected');
+    clients.set(userId, ws);
+
+    ws.on('close', () => {
+      console.log('User', userId, 'disconnected');
+      clients.delete(userId);
+    });
+
+  } catch (err) {
+    console.log('Invalid token');
+    ws.close();
+  }
 }
 
 export function broadcast(book) {

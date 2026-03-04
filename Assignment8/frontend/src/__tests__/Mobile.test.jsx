@@ -1,58 +1,91 @@
-import {expect, it, vi} from 'vitest';
+import {expect, it, describe, vi, beforeEach} from 'vitest';
 import {render, screen, fireEvent} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import App from '../App';
 
-it('renders Username Box', () => {
-  render(<App/>);
+beforeEach(() => {
+  window.resizeTo(375, 667);
+});
+/*
+#####################
+#    Login Page     #
+#####################
+*/
+describe('Login API', () => {
+  it('renders Username Box', () => {
+    render(<App/>);
 
-  const userInput = screen.getByLabelText('user-box');
-  expect(userInput).toBeInTheDocument();
+    const userInput = screen.getByLabelText('user-box');
+    expect(userInput).toBeInTheDocument();
+  });
+
+  it('renders Password Box', () => {
+    render(<App/>);
+
+    const passInput = screen.getByLabelText('password-box');
+    expect(passInput).toBeInTheDocument();
+  });
+
+  it('renders Login Button', () => {
+    render(<App/>);
+
+    const button = screen.getByLabelText('login-button');
+    expect(button).toBeInTheDocument();
+  });
+
+  it('UserBox Stores Value', async () => {
+    const logSpy = vi.spyOn(console, 'log');
+    render(<App/>);
+
+    const userInput = screen.getByLabelText('user-box');
+    await userEvent.type(userInput, 'hello world');
+
+    const passInput = screen.getByLabelText('password-box');
+    await userEvent.type(passInput, 'Password');
+
+    const button = screen.getByLabelText('login-button');
+    fireEvent.click(button);
+
+    expect(logSpy).toHaveBeenCalledWith(['hello world', 'Password']);
+  });
+
+  it('UserBox Stores Value', async () => {
+    render(<App/>);
+
+    const userInput = screen.getByLabelText('user-box');
+    await userEvent.type(userInput, 'ayeastro@gmail.com');
+
+    const passInput = screen.getByLabelText('password-box');
+    await userEvent.type(passInput, 'likeaboss');
+
+    const button = screen.getByLabelText('login-button');
+    fireEvent.click(button);
+
+    const homeText = await screen.findByText(/MeowlChat/i);
+    expect(homeText).toBeInTheDocument();
+  });
 });
 
-it('renders Password Box', () => {
-  render(<App/>);
+/*
+#####################
+#      Drawer       #
+#####################
+*/
+// describe('Login ', () => {
+//     beforeEach(async () => {
+//       render(<App/>);
 
-  const passInput = screen.getByLabelText('password-box');
-  expect(passInput).toBeInTheDocument();
-});
+//       const userInput = screen.getByLabelText('user-box');
+//       await userEvent.type(userInput, 'ayeastro@gmail.com');
 
-it('renders Login Button', () => {
-  render(<App/>);
+//       const passInput = screen.getByLabelText('password-box');
+//       await userEvent.type(passInput, 'likeaboss');
 
-  const button = screen.getByLabelText('login-button');
-  expect(button).toBeInTheDocument();
-});
+//       const button = screen.getByLabelText('login-button');
+//       fireEvent.click(button);
+//     });
+//   it('renders ', () => {
 
-it('UserBox Stores Value', async () => {
-  const logSpy = vi.spyOn(console, 'log');
-  render(<App/>);
-
-  const userInput = screen.getByLabelText('user-box');
-  await userEvent.type(userInput, 'hello world');
-
-  const passInput = screen.getByLabelText('password-box');
-  await userEvent.type(passInput, 'Password');
-
-  const button = screen.getByLabelText('login-button');
-  fireEvent.click(button);
-
-  expect(logSpy).toHaveBeenCalledWith(['hello world', 'Password']);
-});
-
-// it('Checkboxes exist', () => {
-//   render(<Tree data={data} />);
-//   const checkboxes = screen.queryAllByRole('checkbox');
-//   expect(checkboxes.length).toBeGreaterThan(0);
-// });
-
-// it('File Checkboxes are Clickable', async () => {
-//   render(<Tree data={data} />);
-//   const user = userEvent.setup();
-//   const checkbox = screen.getByLabelText('Uncheck File 14');
-
-//   const isChecked = checkbox.checked;
-//   await user.click(checkbox);
-//   expect(checkbox.checked).toBe(!isChecked);
+//   });
 // });

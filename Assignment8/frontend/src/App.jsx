@@ -17,10 +17,14 @@ import {
   // Link
 } from 'react-router-dom';
 
-import {createContext, useState} from 'react';
+// Components
 import Login from './view/Login';
+import Home from './view/Home';
 
-export const loginContext = createContext();
+// Contexts
+import {createContext, useState} from 'react';
+export const drawerContext = createContext();
+const drawerWidth = 240;
 
 
 /**
@@ -28,17 +32,19 @@ export const loginContext = createContext();
  * @returns {object} JSX
  */
 function App() {
-  const [login, setLogin] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  console.log('Header render - drawerOpen:', drawerOpen);
 
   return (
-    <loginContext.Provider value={{login, setLogin}}>
+    <drawerContext.Provider value = {{drawerOpen, setDrawerOpen, drawerWidth}}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path= "/login" element={<Login/>}/>
+          <Route path="/home" element={<Home />} />
         </Routes>
       </BrowserRouter>
-    </loginContext.Provider>
+    </drawerContext.Provider>
   );
 }
 
