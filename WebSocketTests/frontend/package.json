@@ -1,0 +1,46 @@
+{
+  "name": "cse186-tested-websocket-example-frontend",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "CSE186 Tested WebSocket Example - Frontend",
+  "author": "David Harrison <dcharris@ucsc.edu>",
+  "license": "UNLICENSED",
+  "repository": "none",
+  "dependencies": {
+    "@emotion/react": "*",
+    "@emotion/styled": "*",
+    "@mui/icons-material": "*",
+    "@mui/material": "*",
+    "globals": "8",
+    "patch-package": "^8.0.1",
+    "prop-types": "*",
+    "react": "*",
+    "react-dom": "*"
+  },
+  "devDependencies": {
+    "@eslint/compat": "*",
+    "@testing-library/jest-dom": "*",
+    "@testing-library/react": "*",
+    "@testing-library/user-event": "*",
+    "@vitejs/plugin-react": "*",
+    "@vitest/coverage-v8": "*",
+    "eslint": "*",
+    "eslint-config-google": "*",
+    "eslint-plugin-jsdoc": "*", 
+    "eslint-plugin-react": "*",
+    "eslint-plugin-react-hooks": "*",
+    "eslint-plugin-react-refresh": "*",
+    "jsdom": "*",
+    "msw": "*",
+    "vite": "*",
+    "vite-plugin-eslint": "*",
+    "vitest": "*"
+  },
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "preview": "vite preview",
+    "lint": "eslint src --no-inline-config --report-unused-disable-directives --max-warnings 0",
+    "test": "vitest run --coverage --pool=threads"
+  }
+}

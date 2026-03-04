@@ -13,7 +13,7 @@ import {pool} from './pool.js';
 // import bcrypt from 'bcrypt';
 
 const strip = (userRow) => {
-  if (!userRow) return null;
+  // if (!userRow) return null;
 
   // Return Without Password
   return {
@@ -22,6 +22,7 @@ const strip = (userRow) => {
     email: userRow.data.user.email,
   };
 };
+
 // /**
 //  *
 //  * @param {string} id - UUID of user

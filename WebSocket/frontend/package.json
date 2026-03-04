@@ -1,0 +1,39 @@
+{
+  "name": "cse186-assignment7-frontend",
+  "type": "module",
+  "version": "4.0.0",
+  "description": "CSE186 Assignment 7 - Frontend",
+  "author": "David Harrison <dcharris@ucsc.edu>",
+  "license": "UNLICENSED",
+  "repository": "none",
+  "dependencies": {
+    "@emotion/react": "*",
+    "@emotion/styled": "*",
+    "@mui/icons-material": "*",
+    "@mui/material": "*",
+    "globals": "8",
+    "patch-package": "^8.0.1",
+    "prop-types": "*",
+    "react": "*",
+    "react-dom": "*"
+  },
+  "devDependencies": {
+    "@eslint/compat": "*",
+    "@vitejs/plugin-react": "*",
+    "eslint": "*",
+    "eslint-config-google": "*",
+    "eslint-plugin-jsdoc": "*",
+    "eslint-plugin-react": "*",
+    "eslint-plugin-react-hooks": "*",
+    "eslint-plugin-react-refresh": "*",
+    "jsdom": "*",
+    "vite": "*",
+    "vite-plugin-eslint": "*"
+  },
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "preview": "vite preview",
+    "lint": "eslint src --no-inline-config --report-unused-disable-directives --max-warnings 0"
+  }
+}

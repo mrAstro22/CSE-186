@@ -1,27 +1,65 @@
-import {useRef} from 'react';
+import {useRef, useState} from 'react';
 
 /**
  *
  */
 function Login() {
-  const usernameRef = useRef();
+  const [error, setError] = useState('');
+  const emailRef = useRef();
   const passwordRef = useRef();
 
-//   await fetch("/login", {
-//   method: "POST",
-//   headers: { "Content-Type": "application/json" },
-//   body: JSON.stringify({ username: "Astro22", password: "Password" })
-//    });
+  // WebSocket
+  const connectSocket = (token) => {
+    if (wsRef.current) {
+      wsRef.current.close(); // close previous WS
+    }
 
-  const handleLogin = () => {
-    const username = usernameRef.current.value;
+    const ws = new WebSocket('ws://localhost:3010');
+    ws.onopen = () => {
+      console.log('WebSocket connected');
+      setWsStatus('connected');
+    };
+    
+    ws.onerror = (error) => {
+      console.log('WebSocket Error');
+      setError('WebSocket error', error.message);
+    };
+    
+    ws.onclose = () => {
+      setError('WebSocket disconnected, refresh the page when ready.');
+    };
+    return () => {
+      ws.close();
+    };
+  };
+
+  // Check Credentials
+  const handleLogin = async () => {
+    const email = emailRef.current.value;
     const password = passwordRef.current.value;
+    console.log([email, password]);
 
+    // Check Database
+    const res = await fetch('http://localhost:3010/api/v0/login', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email, password}),
+    });
+
+    // Get User Metadata
+    const data = await res.json();
+
+    if (res.ok) {
+      console.log('Login success:', data);
+      localStorage.setItem('accessToken', data.accessToken);
+      connectSocket(data.accessToken);
+    } else {
+      console.error('Login Failed', data.error);
+    }
     // if (username && password) {
     //   setLogin(true);          // update context
     //   navigate('/home');       // redirect to home page
     // }
-    console.log([username, password]); // store in array, send to API, etc.
   };
 
   return (
