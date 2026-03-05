@@ -10,6 +10,6 @@ DROP TABLE IF EXISTS posts;
 CREATE TABLE posts (
   -- IF user is deleted, so will all their posts
   id UUID UNIQUE PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE, -- Must not be NULL 
+  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   data jsonb
 );

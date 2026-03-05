@@ -42,6 +42,23 @@ paths:
                   error:
                     type: string
 
+  /userPost:
+    get:
+      summary: Grab All Posts
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: Authenticated, Show Posts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Posts'
+        401:
+          description: Unauthorized Access
+
+
+                
 components:
   schemas:
     Credentials:
@@ -79,8 +96,61 @@ components:
         accessToken:
           type: string
 
-  securitySchemes:
-    bearerAuth:            # arbitrary name for the security scheme
-      type: http
-      scheme: bearer
-      bearerFormat: JWT    # optional, arbitrary value for documentation purposes
+    Post:
+      description: Singular Post
+      type: object
+      required:
+        - id
+        - username
+        - content
+      properties:
+        id:
+          type: string
+          format: uuid
+        username:
+          type: string
+        content:
+          type: string
+
+
+    Posts:
+      description: List of Posts
+      type: object
+      required:
+        - posts
+      properties:
+        posts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Post'
+
+# {
+#   "posts": [
+#     {
+#       "id": "uuid",
+#       "username": "Aye Astro",
+#       "content": "Hello world!"
+#     }
+#   ]
+# }
+
+# {
+#   "posts": [
+#     {
+#       "id": "3f4c6e4b-7a65-4a1e-8d2c-5f6dce9f2a2a",
+#       "username": "Aye Astro",
+#       "content": "Hello world!"
+#     },
+#     {
+#       "id": "8a9c4c4f-21f0-4c0c-9c16-92a52c4c8f21",
+#       "username": "Molly Maze",
+#       "content": "Hey everyone!"
+#     }
+#   ]
+# }
+
+    securitySchemes:
+      bearerAuth:            # arbitrary name for the security scheme
+        type: http
+        scheme: bearer
+        bearerFormat: JWT    # optional, arbitrary value for documentation purposes
