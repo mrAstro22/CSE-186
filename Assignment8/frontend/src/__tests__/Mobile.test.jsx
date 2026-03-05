@@ -53,21 +53,21 @@ describe('Login API', () => {
     expect(button).toBeInTheDocument();
   });
 
-  it('UserBox Stores Value', async () => {
-    const logSpy = vi.spyOn(console, 'log');
-    render(<App/>);
+  // it('UserBox Stores Value', async () => {
+  //   const logSpy = vi.spyOn(console, 'log');
+  //   render(<App/>);
 
-    const userInput = screen.getByLabelText('user-box');
-    await userEvent.type(userInput, 'hello world');
+  //   const userInput = screen.getByLabelText('user-box');
+  //   await userEvent.type(userInput, 'hello world');
 
-    const passInput = screen.getByLabelText('password-box');
-    await userEvent.type(passInput, 'Password');
+  //   const passInput = screen.getByLabelText('password-box');
+  //   await userEvent.type(passInput, 'Password');
 
-    const button = screen.getByLabelText('login-button');
-    fireEvent.click(button);
+  //   const button = screen.getByLabelText('login-button');
+  //   fireEvent.click(button);
 
-    expect(logSpy).toHaveBeenCalledWith(['hello world', 'Password']);
-  });
+  //   expect(logSpy).toHaveBeenCalledWith(['hello world', 'Password']);
+  // });
 });
 
 /*

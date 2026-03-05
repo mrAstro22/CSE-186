@@ -1,10 +1,10 @@
-import {useRef, useState} from 'react';
+import {Component, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 // import {loginContext} from '../App';
 
 
 /**
- * @returns login page
+ * @returns {Component} login page
  */
 function Login() {
   // const [error, setError] = useState('');
@@ -74,6 +74,7 @@ function Login() {
 
   return (
     <div>
+      MeowlChat
       <p>
         <input type="text"
           aria-label = "user-box"

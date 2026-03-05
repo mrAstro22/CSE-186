@@ -15,6 +15,6 @@ export async function getAll(req, res) {
   }
 
   // Wrap the array in an object to satisfy OpenAPI
-  console.log('Raw posts from DB:', {posts});
+  //   console.log('Raw posts from DB:', {posts});
   return res.status(200).json({posts});
 }

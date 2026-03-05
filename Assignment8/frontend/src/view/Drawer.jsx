@@ -12,13 +12,14 @@ import Drawer from '@mui/material/Drawer';
 // import DeleteIcon from '@mui/icons-material/Delete';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {useTheme} from '@mui/material/styles';
+import {Component} from 'react';
 
 // Context Hooks
 import {useContext} from 'react';
 import {DrawerContext} from '../App';
 
 /**
- *
+ * @returns {Component} Drawer
  */
 function SideBar() {
   const {drawerOpen, setDrawerOpen, drawerWidth} = useContext(DrawerContext);

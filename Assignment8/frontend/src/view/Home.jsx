@@ -1,8 +1,9 @@
+import {Component} from 'react';
 import Header from '../view/Header';
 import SideBar from '../view/Drawer';
 
 /**
- *
+ * @returns {Component} HomePage
  */
 function Home() {
   return (
