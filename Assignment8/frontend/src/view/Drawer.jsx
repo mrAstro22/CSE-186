@@ -15,13 +15,13 @@ import {useTheme} from '@mui/material/styles';
 
 // Context Hooks
 import {useContext} from 'react';
-import {drawerContext} from '../App';
+import {DrawerContext} from '../App';
 
 /**
  *
  */
 function SideBar() {
-  const {drawerOpen, setDrawerOpen, drawerWidth} = useContext(drawerContext);
+  const {drawerOpen, setDrawerOpen, drawerWidth} = useContext(DrawerContext);
 
   // Chat Generated, knows when we are in Mobile or Not
   const theme = useTheme();

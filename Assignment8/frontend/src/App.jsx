@@ -23,7 +23,7 @@ import Home from './view/Home';
 
 // Contexts
 import {createContext, useState} from 'react';
-export const drawerContext = createContext();
+export const DrawerContext = createContext();
 const drawerWidth = 240;
 
 
@@ -36,7 +36,7 @@ function App() {
   console.log('Header render - drawerOpen:', drawerOpen);
 
   return (
-    <drawerContext.Provider value = {{drawerOpen, setDrawerOpen, drawerWidth}}>
+    <DrawerContext.Provider value = {{drawerOpen, setDrawerOpen, drawerWidth}}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navigate to="/login" replace />} />
@@ -44,7 +44,7 @@ function App() {
           <Route path="/home" element={<Home />} />
         </Routes>
       </BrowserRouter>
-    </drawerContext.Provider>
+    </DrawerContext.Provider>
   );
 }
 

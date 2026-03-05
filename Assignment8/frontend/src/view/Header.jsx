@@ -11,13 +11,13 @@ import {useNavigate} from 'react-router-dom';
 
 // Context Hooks
 import {useContext} from 'react';
-import {drawerContext} from '../App';
+import {DrawerContext} from '../App';
 
 /**
  * @returns {object} Returns Header Component
  */
 function Header() {
-  const {drawerOpen, setDrawerOpen} = useContext(drawerContext);
+  const {drawerOpen, setDrawerOpen} = useContext(DrawerContext);
   const navigate = useNavigate();
 
   return (
@@ -35,7 +35,7 @@ function Header() {
         {/* Normal Mail View*/}
         <IconButton
           color="inherit"
-          aria-label= {drawerOpen ? 'hide mailboxes' : 'show mailboxes'}
+          aria-label= {drawerOpen ? 'hide groups' : 'show groups'}
           onClick={() => setDrawerOpen((prev) => !prev)}
           edge="start"
           sx={{display: {md: 'none'}}}

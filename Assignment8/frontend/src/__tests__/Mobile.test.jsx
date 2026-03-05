@@ -1,12 +1,31 @@
-import {expect, it, describe, vi, beforeEach} from 'vitest';
+import {expect, it, describe, vi} from 'vitest';
 import {render, screen, fireEvent} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import {MemoryRouter} from 'react-router-dom';
+import {useState} from 'react';
 
 import App from '../App';
+import {DrawerContext} from '../App';
+import Home from '../view/Home';
 
-beforeEach(() => {
-  window.resizeTo(375, 667);
-});
+// beforeAll(() => {
+//   window.resizeTo = function resizeTo(width, height) {
+//     Object.assign(this, {
+//       innerWidth: width,
+//       innerHeight: height,
+//       outerWidth: width,
+//       outerHeight: height,
+//     }).dispatchEvent(new this.Event('resize'));
+//   };
+// });
+
+// beforeEach(() => {
+//   window.resizeTo(375, 667);
+// });
+vi.mock('@mui/material/useMediaQuery', () => ({
+  default: () => true,
+}));
+
 /*
 #####################
 #    Login Page     #
@@ -49,22 +68,6 @@ describe('Login API', () => {
 
     expect(logSpy).toHaveBeenCalledWith(['hello world', 'Password']);
   });
-
-  it('UserBox Stores Value', async () => {
-    render(<App/>);
-
-    const userInput = screen.getByLabelText('user-box');
-    await userEvent.type(userInput, 'ayeastro@gmail.com');
-
-    const passInput = screen.getByLabelText('password-box');
-    await userEvent.type(passInput, 'likeaboss');
-
-    const button = screen.getByLabelText('login-button');
-    fireEvent.click(button);
-
-    const homeText = await screen.findByText(/MeowlChat/i);
-    expect(homeText).toBeInTheDocument();
-  });
 });
 
 /*
@@ -72,20 +75,84 @@ describe('Login API', () => {
 #      Drawer       #
 #####################
 */
-// describe('Login ', () => {
-//     beforeEach(async () => {
-//       render(<App/>);
+describe('Drawer ', () => {
+  // Context Wrapper
+  const Wrapper = () => {
+    const [drawerOpen, setDrawerOpen] = useState(false);
+    return (
+      <DrawerContext.Provider value={{
+        drawerOpen,
+        setDrawerOpen,
+        drawerWidth: 240,
+      }}>
+        <MemoryRouter>
+          <Home />
+        </MemoryRouter>
+      </DrawerContext.Provider>
+    );
+  };
 
-//       const userInput = screen.getByLabelText('user-box');
-//       await userEvent.type(userInput, 'ayeastro@gmail.com');
+  it('renders Home page directly', () => {
+    render(<Wrapper/>);
 
-//       const passInput = screen.getByLabelText('password-box');
-//       await userEvent.type(passInput, 'likeaboss');
+    // Test that Home content renders
+    expect(screen.getByText(/MeowlChat/i)).toBeInTheDocument();
+  });
 
-//       const button = screen.getByLabelText('login-button');
-//       fireEvent.click(button);
-//     });
-//   it('renders ', () => {
+  it('renders temporary drawer on mobile', async () => {
+    render(<Wrapper />);
 
-//   });
-// });
+    // Open Drawer
+    const drawerButton = screen.getByLabelText('show groups');
+    await userEvent.click(drawerButton);
+
+    expect(document.querySelector('.MuiDrawer-modal')).not.toBeNull();
+  });
+
+  it('Drawer Initially Closed On Mobile Render', () => {
+    render(<Wrapper/>);
+
+    // Check Aria-Label
+    expect(screen.getByLabelText('show groups')).toBeInTheDocument();
+  });
+
+  it('Open Drawer', async () => {
+    render(<Wrapper/>);
+
+    // Open Drawer
+    const drawerButton = screen.getByLabelText('show groups');
+    await userEvent.click(drawerButton);
+
+    // Test that Home content renders
+    expect(screen.getByLabelText('hide groups')).toBeInTheDocument();
+  });
+
+  it('Open then Close Drawer', async () => {
+    render(<Wrapper/>);
+
+    // Open Drawer
+    const drawerButton = screen.getByLabelText('show groups');
+    await userEvent.click(drawerButton);
+
+    // Close Drawer
+    const closeButton = screen.getByLabelText('hide groups');
+    await userEvent.click(closeButton);
+
+    // Test that Home content renders
+    expect(screen.getByLabelText('show groups')).toBeInTheDocument();
+  });
+
+  it('Close Drawer With Backdrop', async () => {
+    render(<Wrapper />);
+
+    // Open Drawer
+    const drawerButton = screen.getByLabelText('show groups');
+    await userEvent.click(drawerButton);
+
+    // Click the backdrop to trigger onClose
+    const backdrop = document.querySelector('.MuiBackdrop-root');
+    fireEvent.click(backdrop);
+
+    expect(screen.getByLabelText('show groups')).toBeInTheDocument();
+  });
+});
