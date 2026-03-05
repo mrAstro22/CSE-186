@@ -17,12 +17,12 @@ import path from 'node:path';
 import OpenApiValidator from 'express-openapi-validator';
 import {fileURLToPath} from 'node:url';
 import http from 'http';
-// import {WebSocketServer} from 'ws';
 
 
 // Model and Routes
-// import {check} from './middleware/auth.js';
+import {check} from './middleware/auth.js';
 import {login} from './route/login.js';
+import {getAll} from './route/posts.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -63,6 +63,7 @@ app.use((err, req, res, next) => {
 });
 
 app.post('/api/v0/login', login);
+app.get('/api/v0/userPosts', check, getAll);
 
 const server = http.createServer(app);
 // const wss = new WebSocketServer({server});

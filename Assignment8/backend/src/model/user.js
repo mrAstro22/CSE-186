@@ -23,16 +23,16 @@ const strip = (userRow) => {
   };
 };
 
-// /**
-//  *
-//  * @param {string} id - UUID of user
-//  * @returns {object} user info without sensitive info
-//  */
-// export async function retrieveById(id) {
-//   const res = await pool.query('SELECT * FROM users WHERE id=$1', [id]);
-//   const user = res.rows[0];
-//   return strip(user);
-// }
+/**
+ *
+ * @param {string} id - UUID of user
+ * @returns {object} user info without sensitive info
+ */
+export async function retrieveById(id) {
+  const res = await pool.query('SELECT * FROM users WHERE id=$1', [id]);
+  const user = res.rows[0];
+  return strip(user);
+}
 
 
 /**

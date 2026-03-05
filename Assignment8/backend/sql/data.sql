@@ -70,5 +70,5 @@ INSERT INTO users (data) VALUES
 
   -- Add posts (look up the user by email)
 INSERT INTO posts (user_id, data) VALUES
-  ((SELECT id FROM users WHERE data->'user'->>'email' = 'ayeastro@gmail.com'), json_build_object('content', 'Hello world!')),
-  ((SELECT id FROM users WHERE data->'user'->>'email' = 'molly@books.com'), json_build_object('content', 'Hey everyone!'));
+  ((SELECT id FROM users WHERE data->'user'->>'email' = 'ayeastro@gmail.com'), json_build_object('content', 'Hello world!', 'date-posted', '2026-03-04T20:15:12.123Z')),
+  ((SELECT id FROM users WHERE data->'user'->>'email' = 'molly@books.com'), json_build_object('content', 'Hey everyone!', 'date-posted', '2025-03-04T20:14:12.123Z'));

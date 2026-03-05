@@ -12,23 +12,23 @@
 
 import jwt from 'jsonwebtoken';
 
-// /**
-//  *
-//  * @param {string} token - JWT
-//  * @returns {string} tokenized
-//  */
-// export function verify(token) {
-//   let data;
-//   jwt.verify(token, process.env.secret, (err, plain) => {
-//     if (err) {
-//       throw err;
-//     }
-//     data = plain;
-//     delete data.iat;
-//     delete data.exp;
-//   });
-//   return data;
-// };
+/**
+ *
+ * @param {string} token - JWT
+ * @returns {string} tokenized
+ */
+export function verify(token) {
+  let data;
+  jwt.verify(token, process.env.secret, (err, plain) => {
+    if (err) {
+      throw err;
+    }
+    data = plain;
+    delete data.iat;
+    delete data.exp;
+  });
+  return data;
+};
 
 /**
  *
