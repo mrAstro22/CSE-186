@@ -27,17 +27,21 @@ export async function retrievePosts(userID) {
 }
 
 /**
- * Grabs all Groups and Stores ID
- * @returns {object} All Groups
+ * Grabs Groups they are in
+ * @param {string} userID - User UUID
+ * @returns {object} User's Groups
  */
-export async function retrieveGroups() {
+export async function retrieveGroups(userID) {
   const result = await pool.query(`
     SELECT
-      groupid,
-      data->>'groupname' AS groupname,
-      data->>'description' AS description
-    FROM groups;
-  `);
+      g.groupid,
+      g.data->>'groupname' AS groupname,
+      g.data->>'description' AS description
+    FROM groups g
+    INNER JOIN grouproles gr ON gr.groupid = g.groupid
+    WHERE gr.userid = $1
+      AND gr.data->>'role' IN ('member', 'owner');
+  `, [userID]);
   return result.rows;
 }
 

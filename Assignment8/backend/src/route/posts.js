@@ -15,12 +15,13 @@ export async function getAll(req, res) {
 
 /**
  *
- * @param {string} req - no used
+ * @param {string} req - User UUID
  * @param {string} res - Status Code
- * @returns {string} - All Group Names, ID, Desc
+ * @returns {string} - Groups they are a part of
  */
 export async function getGroups(req, res) {
-  const groups = await postsModel.retrieveGroups();
+  const userID = (await req.user).id;
+  const groups = await postsModel.retrieveGroups(userID);
 
   return res.status(200).json(groups);
 }

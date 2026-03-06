@@ -1,6 +1,6 @@
 {
   "statistics": {
-    "detectionDate": "2026-03-06T09:49:24.909Z",
+    "detectionDate": "2026-03-06T21:42:22.539Z",
     "formats": {
       "javascript": {
         "sources": {
@@ -65,8 +65,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/backend/src/route/posts.js": {
-            "lines": 44,
-            "tokens": 246,
+            "lines": 45,
+            "tokens": 265,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -101,8 +101,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/backend/src/model/posts.js": {
-            "lines": 71,
-            "tokens": 175,
+            "lines": 75,
+            "tokens": 181,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -174,8 +174,8 @@
           }
         },
         "total": {
-          "lines": 763,
-          "tokens": 4452,
+          "lines": 768,
+          "tokens": 4477,
           "sources": 14,
           "clones": 0,
           "duplicatedLines": 0,
@@ -188,8 +188,8 @@
       }
     },
     "total": {
-      "lines": 763,
-      "tokens": 4452,
+      "lines": 768,
+      "tokens": 4477,
       "sources": 14,
       "clones": 0,
       "duplicatedLines": 0,
