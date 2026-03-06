@@ -1,23 +1,13 @@
 import {it, beforeAll,
   beforeEach, afterAll, describe, expect} from 'vitest';
-import supertest from 'supertest';
-// import {pool} from '../src/model/pool.js';
-// import * as postModel from '../src/model/posts.js';
+import {ctx, setup, teardown} from './setup.js';
 
-import * as db from './db.js';
-import server from '../src/app.js';
+beforeAll(setup);
+afterAll(teardown);
 
 let request;
-beforeAll(() => {
-//   server = http.createServer(app);
-  server.listen();
-  request = supertest(server);
-  return db.reset();
-});
-
-afterAll(async () => {
-  db.close();
-  await server.close();
+beforeEach(() => {
+  request = ctx.request;
 });
 
 /*
@@ -26,14 +16,12 @@ afterAll(async () => {
 #####################
 */
 describe('Post API', () => {
-  let token;
   let response;
+  let token;
 
   beforeAll(async () => {
-    request = supertest(server);
-
     // Log in and store the JWT
-    const res = await request
+    const res = await ctx.request
         .post('/api/v0/login')
         .send({
           email: 'molly@books.com',
@@ -44,7 +32,7 @@ describe('Post API', () => {
   });
 
   beforeEach(async () => {
-    response = await request.get('/api/v0/post')
+    response = await ctx.request.get('/api/v0/post')
         .set('Authorization', `Bearer ${token}`);
   });
 
@@ -79,30 +67,3 @@ describe('Post API', () => {
     expect(response.body[0]).toHaveProperty('content');
   });
 });
-
-// describe('retrievePosts', () => {
-//   let mockQuery;
-
-//   afterEach(() => {
-//     // Restore after each test so no pollution
-//     mockQuery?.mockRestore();
-//   });
-
-//   it('returns null when no posts exist', async () => {
-//     mockQuery = vi.spyOn(pool, 'query').mockResolvedValue({rows: []});
-
-//     const posts = await postModel.retrievePosts();
-
-//     expect(posts).toBeNull();
-//   });
-
-//   it('returns rows when posts exist', async () => {
-//     const fakeRows =
-//     [{postID: '1', content: 'Hello world', username: 'Aye Astro'}];
-//     mockQuery = vi.spyOn(pool, 'query').mockResolvedValue({rows: fakeRows});
-
-//     const posts = await postModel.retrievePosts();
-
-//     expect(posts).toEqual(fakeRows);
-//   });
-// });

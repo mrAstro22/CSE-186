@@ -1,21 +1,13 @@
-import {it, beforeAll, afterAll, expect, describe} from 'vitest';
-import supertest from 'supertest';
+import {it, beforeAll, beforeEach,
+  afterAll, expect, describe} from 'vitest';
+import {ctx, setup, teardown} from './setup.js';
 
-import * as db from './db.js';
-import server from '../src/app.js';
+beforeAll(setup);
+afterAll(teardown);
 
 let request;
-
-beforeAll(() => {
-//   server = http.createServer(app);
-  server.listen();
-  request = supertest(server);
-  return db.reset();
-});
-
-afterAll(async () => {
-  db.close();
-  await server.close();
+beforeEach(() => {
+  request = ctx.request;
 });
 
 it('Errors on GET Invalid URL', async () => {

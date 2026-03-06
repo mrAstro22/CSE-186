@@ -1,9 +1,57 @@
 {
   "statistics": {
-    "detectionDate": "2026-03-05T08:16:45.568Z",
+    "detectionDate": "2026-03-06T09:49:24.909Z",
     "formats": {
       "javascript": {
         "sources": {
+          "C:/CSE-186/Assignment8/backend/test/setup.js": {
+            "lines": 35,
+            "tokens": 213,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "C:/CSE-186/Assignment8/backend/test/post.test.js": {
+            "lines": 68,
+            "tokens": 516,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "C:/CSE-186/Assignment8/backend/test/login.test.js": {
+            "lines": 77,
+            "tokens": 589,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "C:/CSE-186/Assignment8/backend/test/group.test.js": {
+            "lines": 124,
+            "tokens": 1011,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
           "C:/CSE-186/Assignment8/backend/test/db.js": {
             "lines": 58,
             "tokens": 336,
@@ -16,21 +64,9 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
-          "C:/CSE-186/Assignment8/backend/test/basic.test.js": {
-            "lines": 85,
-            "tokens": 643,
-            "sources": 1,
-            "clones": 0,
-            "duplicatedLines": 0,
-            "duplicatedTokens": 0,
-            "percentage": 0,
-            "percentageTokens": 0,
-            "newDuplicatedLines": 0,
-            "newClones": 0
-          },
           "C:/CSE-186/Assignment8/backend/src/route/posts.js": {
-            "lines": 19,
-            "tokens": 122,
+            "lines": 44,
+            "tokens": 246,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -65,8 +101,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/backend/src/model/posts.js": {
-            "lines": 25,
-            "tokens": 82,
+            "lines": 71,
+            "tokens": 175,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -125,8 +161,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/backend/src/app.js": {
-            "lines": 73,
-            "tokens": 465,
+            "lines": 75,
+            "tokens": 499,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -138,9 +174,9 @@
           }
         },
         "total": {
-          "lines": 471,
-          "tokens": 2515,
-          "sources": 11,
+          "lines": 763,
+          "tokens": 4452,
+          "sources": 14,
           "clones": 0,
           "duplicatedLines": 0,
           "duplicatedTokens": 0,
@@ -152,9 +188,9 @@
       }
     },
     "total": {
-      "lines": 471,
-      "tokens": 2515,
-      "sources": 11,
+      "lines": 763,
+      "tokens": 4452,
+      "sources": 14,
       "clones": 0,
       "duplicatedLines": 0,
       "duplicatedTokens": 0,

@@ -44,9 +44,10 @@ export async function retrieveGroups() {
 /**
  *
  * @param {string} groupID - Group UUID
+ * @param {string} userID - User UUID
  * @returns {object} Group Posts
  */
-export async function retrieveGroupPosts(groupID) {
+export async function retrieveGroupPosts(groupID, userID) {
   const query = `
     SELECT
       p.postid AS "postID",
@@ -59,10 +60,13 @@ export async function retrieveGroupPosts(groupID) {
     FROM posts p
     JOIN users u ON p.userid = u.id
     WHERE p.groupid = $1
-    AND (p.data->>'ispublic')::boolean = true
+    AND (
+      (p.data->>'ispublic')::boolean = true
+      OR p.userid = $2
+    )    
     ORDER BY (p.data->>'date-posted')::timestamptz DESC;
   `;
 
-  const result = await pool.query(query, [groupID]);
+  const result = await pool.query(query, [groupID, userID]);
   return result.rows;
 }

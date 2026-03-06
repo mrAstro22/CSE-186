@@ -1,115 +1,141 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1772769821334" clover="3.2.0">
-  <project timestamp="1772769821334" name="All files">
-    <metrics statements="68" coveredstatements="68" conditionals="10" coveredconditionals="10" methods="14" coveredmethods="14" elements="92" coveredelements="92" complexity="0" loc="68" ncloc="68" packages="5" files="9" classes="9"/>
+<coverage generated="1772790559262" clover="3.2.0">
+  <project timestamp="1772790559262" name="All files">
+    <metrics statements="91" coveredstatements="91" conditionals="10" coveredconditionals="10" methods="21" coveredmethods="21" elements="122" coveredelements="122" complexity="0" loc="91" ncloc="91" packages="5" files="10" classes="10"/>
     <package name="src">
-      <metrics statements="15" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <metrics statements="17" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="app.js" path="C:\CSE-186\Assignment8\backend\src\app.js">
-        <metrics statements="15" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="27" count="2" type="stmt"/>
-        <line num="28" count="2" type="stmt"/>
-        <line num="30" count="2" type="stmt"/>
-        <line num="31" count="2" type="stmt"/>
-        <line num="32" count="2" type="stmt"/>
-        <line num="34" count="2" type="stmt"/>
-        <line num="36" count="2" type="stmt"/>
-        <line num="37" count="2" type="stmt"/>
-        <line num="41" count="2" type="stmt"/>
-        <line num="46" count="2" type="stmt"/>
-        <line num="57" count="2" type="stmt"/>
+        <metrics statements="17" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="27" count="3" type="stmt"/>
+        <line num="28" count="3" type="stmt"/>
+        <line num="30" count="3" type="stmt"/>
+        <line num="31" count="3" type="stmt"/>
+        <line num="32" count="3" type="stmt"/>
+        <line num="34" count="3" type="stmt"/>
+        <line num="36" count="3" type="stmt"/>
+        <line num="37" count="3" type="stmt"/>
+        <line num="41" count="3" type="stmt"/>
+        <line num="46" count="3" type="stmt"/>
+        <line num="57" count="3" type="stmt"/>
         <line num="58" count="3" type="stmt"/>
-        <line num="65" count="2" type="stmt"/>
-        <line num="66" count="2" type="stmt"/>
-        <line num="68" count="2" type="stmt"/>
+        <line num="65" count="3" type="stmt"/>
+        <line num="66" count="3" type="stmt"/>
+        <line num="67" count="3" type="stmt"/>
+        <line num="68" count="3" type="stmt"/>
+        <line num="70" count="3" type="stmt"/>
       </file>
     </package>
     <package name="src.middleware">
       <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="auth.js" path="C:\CSE-186\Assignment8\backend\src\middleware\auth.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="25" count="8" type="stmt"/>
-        <line num="26" count="8" type="stmt"/>
-        <line num="27" count="8" type="stmt"/>
-        <line num="28" count="8" type="stmt"/>
-        <line num="29" count="8" type="stmt"/>
-        <line num="30" count="8" type="stmt"/>
-        <line num="32" count="1" type="stmt"/>
+        <line num="25" count="37" type="stmt"/>
+        <line num="26" count="37" type="stmt"/>
+        <line num="27" count="37" type="stmt"/>
+        <line num="28" count="37" type="stmt"/>
+        <line num="29" count="37" type="stmt"/>
+        <line num="30" count="37" type="stmt"/>
+        <line num="32" count="2" type="stmt"/>
       </file>
     </package>
     <package name="src.model">
-      <metrics statements="21" coveredstatements="21" conditionals="4" coveredconditionals="4" methods="7" coveredmethods="7"/>
+      <metrics statements="26" coveredstatements="26" conditionals="4" coveredconditionals="4" methods="9" coveredmethods="9"/>
       <file name="auth.js" path="C:\CSE-186\Assignment8\backend\src\model\auth.js">
         <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
-        <line num="22" count="8" type="stmt"/>
-        <line num="23" count="8" type="cond" truecount="2" falsecount="0"/>
-        <line num="24" count="1" type="stmt"/>
-        <line num="26" count="7" type="stmt"/>
-        <line num="27" count="7" type="stmt"/>
-        <line num="28" count="7" type="stmt"/>
-        <line num="30" count="8" type="stmt"/>
-        <line num="39" count="2" type="stmt"/>
+        <line num="22" count="37" type="stmt"/>
+        <line num="23" count="37" type="cond" truecount="2" falsecount="0"/>
+        <line num="24" count="2" type="stmt"/>
+        <line num="26" count="35" type="stmt"/>
+        <line num="27" count="35" type="stmt"/>
+        <line num="28" count="35" type="stmt"/>
+        <line num="30" count="37" type="stmt"/>
+        <line num="39" count="3" type="stmt"/>
       </file>
       <file name="pool.js" path="C:\CSE-186\Assignment8\backend\src\model\pool.js">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="14" count="2" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
       </file>
       <file name="posts.js" path="C:\CSE-186\Assignment8\backend\src\model\posts.js">
-        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="9" count="7" type="stmt"/>
-        <line num="22" count="7" type="stmt"/>
         <line num="25" count="7" type="stmt"/>
+        <line num="26" count="7" type="stmt"/>
+        <line num="34" count="17" type="stmt"/>
+        <line num="41" count="17" type="stmt"/>
+        <line num="51" count="11" type="stmt"/>
+        <line num="70" count="11" type="stmt"/>
+        <line num="71" count="11" type="stmt"/>
       </file>
       <file name="user.js" path="C:\CSE-186\Assignment8\backend\src\model\user.js">
         <metrics statements="9" coveredstatements="9" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
-        <line num="15" count="2" type="stmt"/>
-        <line num="19" count="9" type="stmt"/>
-        <line num="32" count="7" type="stmt"/>
-        <line num="33" count="7" type="stmt"/>
-        <line num="34" count="7" type="stmt"/>
-        <line num="45" count="4" type="stmt"/>
-        <line num="53" count="4" type="stmt"/>
-        <line num="54" count="4" type="cond" truecount="2" falsecount="0"/>
-        <line num="57" count="2" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="19" count="38" type="stmt"/>
+        <line num="32" count="35" type="stmt"/>
+        <line num="33" count="35" type="stmt"/>
+        <line num="34" count="35" type="stmt"/>
+        <line num="45" count="5" type="stmt"/>
+        <line num="53" count="5" type="stmt"/>
+        <line num="54" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="57" count="3" type="stmt"/>
       </file>
     </package>
     <package name="src.route">
-      <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+      <metrics statements="15" coveredstatements="15" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="4"/>
       <file name="login.js" path="C:\CSE-186\Assignment8\backend\src\route\login.js">
         <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
-        <line num="22" count="4" type="stmt"/>
-        <line num="25" count="4" type="stmt"/>
-        <line num="26" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="22" count="5" type="stmt"/>
+        <line num="25" count="5" type="stmt"/>
+        <line num="26" count="5" type="cond" truecount="2" falsecount="0"/>
         <line num="27" count="2" type="stmt"/>
-        <line num="30" count="2" type="stmt"/>
-        <line num="33" count="2" type="stmt"/>
+        <line num="30" count="3" type="stmt"/>
+        <line num="33" count="3" type="stmt"/>
       </file>
       <file name="posts.js" path="C:\CSE-186\Assignment8\backend\src\route\posts.js">
-        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="11" count="7" type="stmt"/>
-        <line num="18" count="7" type="stmt"/>
+        <line num="12" count="7" type="stmt"/>
+        <line num="13" count="7" type="stmt"/>
+        <line num="23" count="17" type="stmt"/>
+        <line num="25" count="17" type="stmt"/>
+        <line num="35" count="11" type="stmt"/>
+        <line num="36" count="11" type="stmt"/>
+        <line num="37" count="11" type="stmt"/>
+        <line num="41" count="11" type="stmt"/>
       </file>
     </package>
     <package name="test">
-      <metrics statements="17" coveredstatements="17" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
+      <metrics statements="26" coveredstatements="26" conditionals="4" coveredconditionals="4" methods="6" coveredmethods="6"/>
       <file name="db.js" path="C:\CSE-186\Assignment8\backend\test\db.js">
         <metrics statements="17" coveredstatements="17" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
-        <line num="21" count="2" type="stmt"/>
-        <line num="22" count="2" type="stmt"/>
-        <line num="24" count="2" type="stmt"/>
-        <line num="32" count="2" type="stmt"/>
-        <line num="33" count="4" type="stmt"/>
-        <line num="34" count="4" type="stmt"/>
-        <line num="35" count="4" type="stmt"/>
-        <line num="36" count="4" type="stmt"/>
-        <line num="37" count="200" type="stmt"/>
-        <line num="38" count="200" type="cond" truecount="2" falsecount="0"/>
-        <line num="39" count="64" type="stmt"/>
-        <line num="40" count="64" type="cond" truecount="2" falsecount="0"/>
-        <line num="41" count="12" type="stmt"/>
-        <line num="42" count="12" type="stmt"/>
-        <line num="51" count="2" type="stmt"/>
-        <line num="52" count="2" type="stmt"/>
-        <line num="58" count="2" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
+        <line num="22" count="3" type="stmt"/>
+        <line num="24" count="3" type="stmt"/>
+        <line num="32" count="3" type="stmt"/>
+        <line num="33" count="6" type="stmt"/>
+        <line num="34" count="6" type="stmt"/>
+        <line num="35" count="6" type="stmt"/>
+        <line num="36" count="6" type="stmt"/>
+        <line num="37" count="210" type="stmt"/>
+        <line num="38" count="210" type="cond" truecount="2" falsecount="0"/>
+        <line num="39" count="183" type="stmt"/>
+        <line num="40" count="183" type="cond" truecount="2" falsecount="0"/>
+        <line num="41" count="42" type="stmt"/>
+        <line num="42" count="42" type="stmt"/>
+        <line num="51" count="3" type="stmt"/>
+        <line num="52" count="3" type="stmt"/>
+        <line num="58" count="3" type="stmt"/>
+      </file>
+      <file name="setup.js" path="C:\CSE-186\Assignment8\backend\test\setup.js">
+        <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="20" count="3" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
       </file>
     </package>
   </project>
