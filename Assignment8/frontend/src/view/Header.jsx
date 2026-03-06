@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 // React Stuff
 import {useNavigate} from 'react-router-dom';
@@ -46,26 +47,47 @@ function Header() {
           />
         </IconButton>
 
-        <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
-          {`Welcome to MeowlChat`}
-        </Typography>
-
-        {/* LogOut Button */}
         <IconButton
-          aria-label = 'logout'
-          onClick={() => navigate('/login')}
-          sx={{p: 0.8}}
-        >
-          <Box component="img"
+          aria-label= "go-home"
+          onClick={() => {
+            navigate('/home');
+          }}
+          sx={{mr: 2, ml: -1, width: 56}}>
+          <Box
+            aria-label= "go-home"
+            component="img"
             src="src/view/meowlAvatar.jpg"
             alt="Avatar"
             sx={{
               width: 40,
               height: 40,
               borderRadius: '50%',
-              ml: 'auto',
             }}
           />
+        </IconButton>
+
+        <Typography variant="h6" component="div"
+          sx={{flexGrow: 1,
+            textAlign: 'center',
+          }}>
+          {`MeowlChat`}
+        </Typography>
+
+        {/* LogOut Button */}
+        <IconButton
+          aria-label = 'logout'
+          onClick={() => {
+            navigate('/login');
+          }}
+          sx={{p: 0.8, width: 56}}
+        >
+          <LogoutIcon
+            sx={{
+              width: 30,
+              height: 30,
+              borderRadius: '50%',
+              ml: 'auto',
+            }}/>
         </IconButton>
 
       </Toolbar>
@@ -74,3 +96,14 @@ function Header() {
 }
 
 export default Header;
+
+// <Box component="img"
+//   src="src/view/meowlAvatar.jpg"
+//   alt="Avatar"
+//   sx={{
+//     width: 40,
+//     height: 40,
+//     borderRadius: '50%',
+//     ml: 'auto',
+//   }}
+// />

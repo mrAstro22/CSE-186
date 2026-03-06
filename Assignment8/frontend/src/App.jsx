@@ -36,7 +36,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
  */
 function App() {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  // console.log('Header render - drawerOpen:', drawerOpen);
 
   // Chat Generated
   // Determines whether we are in Mobile or Not
@@ -56,6 +55,8 @@ function App() {
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path= "/login" element={<Login/>}/>
           <Route path="/home" element={<Home/>} />
+          <Route path= {`/group/:groupID`} element={<Home/>}/>
+          <Route path="*" element={<Navigate to="/home" replace />} />
         </Routes>
       </BrowserRouter>
     </LayoutContext.Provider>

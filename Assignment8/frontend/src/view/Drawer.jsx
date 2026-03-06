@@ -1,52 +1,84 @@
 
-// import Box from '@mui/material/Box';
-// import Toolbar from '@mui/material/Toolbar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
 import Drawer from '@mui/material/Drawer';
-// import List from '@mui/material/List';
-// import ListItem from '@mui/material/ListItem';
-// import ListItemButton from '@mui/material/ListItemButton';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
 // import ListItemIcon from '@mui/material/ListItemIcon';
-// import ListItemText from '@mui/material/ListItemText';
-// import InboxIcon from '@mui/icons-material/MoveToInbox';
-// import MailIcon from '@mui/icons-material/Mail';
-// import DeleteIcon from '@mui/icons-material/Delete';
+import ListItemText from '@mui/material/ListItemText';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+
 import {Component} from 'react';
 
 // Context Hooks
-import {useContext} from 'react';
+import {useContext, useState, useEffect} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
 import {LayoutContext} from '../App';
 
 /**
  * @returns {Component} Drawer
  */
 function SideBar() {
-  const {drawerOpen,
+  const {
+    drawerOpen,
     setDrawerOpen,
     drawerWidth,
-    isMobile} = useContext(LayoutContext);
+    isMobile,
+  } = useContext(LayoutContext);
+  const [groupNames, setGroupNames] = useState([]);
+  const token = localStorage.getItem('accessToken'); // JWT
+  const navigate = useNavigate();
+  const {groupID} = useParams();
 
+  // GET Users Group Names
+  useEffect(() => {
+    fetch('http://localhost:3010/api/v0/group', {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+        .then((res) => {
+          if (!res.ok) {
+            console.error('Request failed:', res.status);
+            return [];
+          }
+          return res.json();
+        })
 
+        .then((data) => setGroupNames(data))
+        .catch((err) => console.error(err));
+  }, []);
+
+  // useEffect(() => {
+  //   console.log(currGroup);
+  // }, [currGroup]);
   // Implementing Groups
-  //   const DrawerList = (
-  //     <Box sx={{ width: drawerWidth }}>
-  //       <Toolbar /> {/* Push content below AppBar */}
-  //       <List>
-  //         {mailboxes.map((mb) => (
-  //           <ListItem key={mb.name} disablePadding>
-  //             <ListItemButton
-  //               onClick={() => {
-  //                 setMailbox(mb.name);
-  //                 setDrawerOpen(false);
-  //               }}
-  //             >
-  //               <ListItemIcon>{mb.icon}</ListItemIcon>
-  //               <ListItemText primary={mb.name} />
-  //             </ListItemButton>
-  //           </ListItem>
-  //         ))}
-  //       </List>
-  //     </Box>
-  //   );
+  const DrawerList = (
+    <Box sx={{width: drawerWidth}}>
+      <Toolbar /> {/* Push content below AppBar */}
+      <List>
+        {groupNames.map((group) => (
+          <ListItem key={group.groupid} disablePadding>
+            <ListItemButton
+              onClick={() => {
+                setDrawerOpen(false);
+                navigate(`/group/${group.groupid}`);
+              }}
+            >
+              {/* Conditional Rendering*/}
+              {groupID === group.groupid ? <CheckBoxIcon />:
+              <CheckBoxOutlineBlankIcon/>}
+              <ListItemText primary={group.groupname} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
 
   return (
     <Drawer
@@ -60,7 +92,7 @@ function SideBar() {
         },
       }}
     >
-      {/* {DrawerList} */}
+      {DrawerList}
     </Drawer>
   );
 }

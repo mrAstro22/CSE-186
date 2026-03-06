@@ -9,9 +9,11 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import Toolbar from '@mui/material/Toolbar';
+import {useParams} from 'react-router-dom';
 
 // MUI Clipped Drawer
 // https://mui.com/material-ui/react-drawer/#ClippedDrawer.js
+
 
 /**
  * @returns {object} Mailbox List
@@ -19,37 +21,47 @@ import Toolbar from '@mui/material/Toolbar';
 function Posts() {
   const [posts, setPosts] = useState([]);
   const {isMobile, drawerWidth} = useContext(LayoutContext);
-
+  const {groupID} = useParams();
   const token = localStorage.getItem('accessToken'); // JWT
-  // console.log(token); // your JWT
-  const fetchPosts = async () => {
-    const res = await fetch('http://localhost:3010/api/v0/post', {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
 
-    if (!res.ok) {
-      console.error('Request failed:', res.status);
-      return [];
-    }
-
-    return res.json();
-  };
-
-  // Later it will update based on what group we render
+  // All Posts if No Group Selected
+  // Curr Group if Group Seleceted
   useEffect(() => {
     if (!token) return;
 
     const getPosts = async () => {
-      const fetchedPosts = await fetchPosts();
-      setPosts(fetchedPosts);
+      let res;
+      if (groupID) {
+        res = await fetch(`http://localhost:3010/api/v0/group/${groupID}/post`, {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      } else {
+        res = await fetch('http://localhost:3010/api/v0/post', {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      }
+
+      if (!res.ok) {
+        console.error('Request failed:', res.status);
+        return;
+      }
+
+      // Extract Posts from Array
+      const data = await res.json();
+      console.log(data);
+      setPosts(groupID ? data[0].posts : data);
     };
 
     getPosts();
-  }, [token]);
+  }, [groupID, token]);
 
   return (
     <TableContainer
