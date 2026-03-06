@@ -59,9 +59,45 @@ paths:
           401:
             description: Unauthorized Access
                 
-  # /group/{id}/post:
-  #   get:
-  #     summary: Grab All Posts from Group ID
+  /group:
+    get:
+      summary: Grab All Groups
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: Authenticated - Grab all Group Names
+          content:
+            application/json:
+              schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Groups'
+        401:
+          description: Unauthorized Access
+
+  /group/{id}/post:
+    get:
+      summary: Grab All Posts from Group ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: Group UUID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+          200:
+            description: Authenticated, Show Posts
+            content:
+              application/json:
+               schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/GroupPost'
 
 components:
   securitySchemes:
@@ -106,6 +142,56 @@ components:
         accessToken:
           type: string
 
+    Groups:
+      type: object
+      required:
+        - groupid
+        - groupname
+        - description
+      properties:
+        groupid:
+          type: string
+          format: uuid
+        groupname:
+          type: string
+        description:
+          type: string
+      example:
+        groupID: "c067e1c4-71e5-4806-b603-32092ea72f99"
+        groupName: "Guitars"
+        description: "All about Guitars"
+
+    GroupPost:
+      type: object
+      required:
+        - groupID
+        - posts
+      properties:
+        groupID:
+          type: string
+          format: uuid
+        posts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Post'
+      example:
+        groupID: "c067e1c4-71e5-4806-b603-32092ea72f99"
+        posts:
+          - postID: "a5d62be7-e60d-4c5c-a67a-d8ff1aeadfea"
+            userID: "42e4a0d2-02a4-499c-b9c5-4771630b9936"
+            username: "Aye Astro"
+            email: "ayeastro@gmail.com"
+            content: "Fender Stratocaster"
+            date: "2025-05-05T20:15:12.123Z"
+            isPublic: true
+          - postID: "e6dcf110-485b-4993-9976-37d09aabf2ca"
+            userID: "42e4a0d2-02a4-499c-b9c5-4771630b9936"
+            username: "Aye Astro"
+            email: "ayeastro@gmail.com"
+            content: "Fender Telecaster"
+            date: "2025-05-05T20:15:12.123Z"
+            isPublic: true
+
     Post:
       description: Singular Post
       type: object
@@ -143,40 +229,4 @@ components:
           email: "ayeastro@gmail.com"
           content: "Hello world!"
           date: "2026-03-04T20:15:12.123Z"
-          isPublic: "true"
-
-    # Posts:
-    #   description: List of Posts
-    #   type: object
-    #   required:
-    #     - posts
-    #   properties:
-    #     posts:
-    #       type: array
-    #       items:
-    #         $ref: '#/components/schemas/Post'
-
-# {
-#   "posts": [
-#     {
-#       "id": "uuid",
-#       "username": "Aye Astro",
-#       "content": "Hello world!"
-#     }
-#   ]
-# }
-
-# {
-#   "posts": [
-#     {
-#       "id": "3f4c6e4b-7a65-4a1e-8d2c-5f6dce9f2a2a",
-#       "username": "Aye Astro",
-#       "content": "Hello world!"
-#     },
-#     {
-#       "id": "8a9c4c4f-21f0-4c0c-9c16-92a52c4c8f21",
-#       "username": "Molly Maze",
-#       "content": "Hey everyone!"
-#     }
-#   ]
-# }
+          isPublic: true
