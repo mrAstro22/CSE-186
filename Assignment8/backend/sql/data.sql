@@ -30,7 +30,7 @@ INSERT INTO grouproles (groupid, userid, data) VALUES
   -- Add posts (look up the user by email)
 INSERT INTO posts (userid, groupid, data) VALUES
   ((SELECT id FROM users WHERE data->'user'->>'email' = 'ayeastro@gmail.com'), NULL, json_build_object('content', 'Hello world!', 'date-posted', '2026-02-04T20:15:12.123Z', 'ispublic', false)),
-  ((SELECT id FROM users WHERE data->'user'->>'email' = 'ayeastro@gmail.com'), (SELECT groupid FROM groups WHERE data->>'groupname' = 'Guitars'), json_build_object('content', 'Fender Stratocaster', 'date-posted', '2025-05-05T20:15:12.123Z', 'ispublic', true)),
+  ((SELECT id FROM users WHERE data->'user'->>'email' = 'ayeastro@gmail.com'), (SELECT groupid FROM groups WHERE data->>'groupname' = 'Guitars'), json_build_object('content', 'Fender Stratocaster', 'date-posted', '2025-05-05T20:15:12.123Z', 'ispublic', false)),
   ((SELECT id FROM users WHERE data->'user'->>'email' = 'ayeastro@gmail.com'), (SELECT groupid FROM groups WHERE data->>'groupname' = 'Guitars'), json_build_object('content', 'Fender Telecaster', 'date-posted', '2025-05-05T20:15:12.123Z', 'ispublic', true)),
   ((SELECT id FROM users WHERE data->'user'->>'email' = 'ayeastro@gmail.com'), (SELECT groupid FROM groups WHERE data->>'groupname' = 'Guitars'), json_build_object('content', 'Acoustic Guitar', 'date-posted', '2023-05-05T20:15:12.123Z', 'ispublic', true)),
   ((SELECT id FROM users WHERE data->'user'->>'email' = 'molly@books.com'), (SELECT groupid FROM groups WHERE data->>'groupname' = 'Guitars'), json_build_object('content', 'Electric Guitar', 'date-posted', '2025-05-05T20:15:12.123Z', 'ispublic', true)),

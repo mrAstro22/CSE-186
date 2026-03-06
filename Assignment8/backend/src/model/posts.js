@@ -59,6 +59,7 @@ export async function retrieveGroupPosts(groupID) {
     FROM posts p
     JOIN users u ON p.userid = u.id
     WHERE p.groupid = $1
+    AND (p.data->>'ispublic')::boolean = true
     ORDER BY (p.data->>'date-posted')::timestamptz DESC;
   `;
 
