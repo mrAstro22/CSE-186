@@ -36,7 +36,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
  */
 function App() {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  console.log('Header render - drawerOpen:', drawerOpen);
+  // console.log('Header render - drawerOpen:', drawerOpen);
 
   // Chat Generated
   // Determines whether we are in Mobile or Not

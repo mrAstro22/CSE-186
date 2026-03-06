@@ -70,7 +70,12 @@ INSERT INTO users (data) VALUES
 
   -- Add posts (look up the user by email)
 INSERT INTO posts (userid, data) VALUES
-  ((SELECT id FROM users WHERE data->'user'->>'email' = 'ayeastro@gmail.com'), json_build_object('content', 'Hello world!', 'date-posted', '2026-02-04T20:15:12.123Z')),
-  ((SELECT id FROM users WHERE data->'user'->>'email' = 'molly@books.com'), json_build_object('content', 'Monthly Post, out in the Bahamas Today!', 'date-posted', '2026-01-04T20:14:12.123Z')),
-  ((SELECT id FROM users WHERE data->'user'->>'email' = 'molly@books.com'), json_build_object('content', 'Hey everyone!', 'date-posted', '2025-03-04T20:14:12.123Z')),
-  ((SELECT id FROM users WHERE data->'user'->>'email' = 'molly@books.com'), json_build_object('content', 'I love Meowl!!!', 'date-posted', '2024-04-06T20:14:12.123Z'));
+  ((SELECT id FROM users WHERE data->'user'->>'email' = 'ayeastro@gmail.com'), json_build_object('content', 'Hello world!', 'date-posted', '2026-02-04T20:15:12.123Z', 'ispublic', 'false')),
+  ((SELECT id FROM users WHERE data->'user'->>'email' = 'ayeastro@gmail.com'), json_build_object('content', 'First Public Post!', 'date-posted', '2026-01-04T20:15:12.123Z', 'ispublic', 'true')),
+  ((SELECT id FROM users WHERE data->'user'->>'email' = 'molly@books.com'), json_build_object('content', 'Monthly Post, out in the Bahamas Today!', 'date-posted', '2026-01-04T20:14:12.123Z', 'ispublic', 'true')),
+  ((SELECT id FROM users WHERE data->'user'->>'email' = 'molly@books.com'), json_build_object('content', 'Hey everyone!', 'date-posted', '2025-03-04T20:14:12.123Z', 'ispublic', 'false')),
+  ((SELECT id FROM users WHERE data->'user'->>'email' = 'molly@books.com'), json_build_object('content', 'I love Meowl!!!', 'date-posted', '2024-04-06T20:14:12.123Z', 'ispublic', 'false')),
+  ((SELECT id FROM users WHERE data->'user'->>'email' = 'anna@books.com'), json_build_object('content', 'Favorite Book ATM: Dune', 'date-posted', '2023-12-04T20:14:12.123Z', 'ispublic', 'true')),
+  ((SELECT id FROM users WHERE data->'user'->>'email' = 'anna@books.com'), json_build_object('content', 'Favorite Movie ATM: Guardians of the Galaxy 2', 'date-posted', '2022-10-04T20:14:12.123Z', 'ispublic', 'false')),
+  ((SELECT id FROM users WHERE data->'user'->>'email' = 'anna@books.com'), json_build_object('content', 'Favorite Song ATM: Pool House - Backseat Lovers', 'date-posted', '2021-04-04T20:14:12.123Z', 'ispublic', 'true')),
+

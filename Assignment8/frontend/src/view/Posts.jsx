@@ -21,7 +21,7 @@ function Posts() {
   const {isMobile, drawerWidth} = useContext(LayoutContext);
 
   const token = localStorage.getItem('accessToken'); // JWT
-  console.log(token); // your JWT
+  // console.log(token); // your JWT
   const fetchPosts = async () => {
     const res = await fetch('http://localhost:3010/api/v0/post', {
       method: 'GET',

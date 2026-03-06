@@ -8,12 +8,21 @@ import * as postsModel from '../model/posts.js';
  * @returns {object} all Posts
  */
 export async function getAll(req, res) {
-  const posts = await postsModel.retrievePosts();
-  // if (!posts) {
-  //   return res.status(404).json({posts: []});
-  // }
+  const user = await req.user; // from check middleware
+  const posts = await postsModel.retrievePosts(user.id);
+  return res.status(200).json(posts);
+}
 
-  // Wrap the array in an object to satisfy OpenAPI
-  // console.log('Raw posts from DB:', posts);
+/**
+ *
+ * @param {string} req - userID
+ * @param {string} res - Status Code
+ * @returns {string} - currUserPosts
+ */
+export async function getMyPosts(req, res) {
+  const userID =
+  (await req.user).id; // req.user is retrieved from middleware
+  const posts = await postsModel.retrievePosts(userID);
+
   return res.status(200).json(posts);
 }

@@ -22,7 +22,7 @@ import http from 'http';
 // Model and Routes
 import {check} from './middleware/auth.js';
 import {login} from './route/login.js';
-import {getAll} from './route/posts.js';
+import {getAll, getMyPosts} from './route/posts.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -64,6 +64,7 @@ app.use((err, req, res, next) => {
 
 app.post('/api/v0/login', login);
 app.get('/api/v0/post', check, getAll);
+app.get('/api/v0/post', check, getMyPosts);
 
 const server = http.createServer(app);
 // const wss = new WebSocketServer({server});
