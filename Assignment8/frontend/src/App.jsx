@@ -23,9 +23,12 @@ import Home from './view/Home';
 
 // Contexts
 import {createContext, useState} from 'react';
-export const DrawerContext = createContext();
+export const LayoutContext = createContext();
 const drawerWidth = 240;
 
+// MUI Elements
+import {useTheme} from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 /**
  * Simple component with no state.
@@ -35,16 +38,27 @@ function App() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   console.log('Header render - drawerOpen:', drawerOpen);
 
+  // Chat Generated
+  // Determines whether we are in Mobile or Not
+  const theme = useTheme();
+  const isMobile =
+  useMediaQuery(theme.breakpoints.down('md')); // true for mobile
+
   return (
-    <DrawerContext.Provider value = {{drawerOpen, setDrawerOpen, drawerWidth}}>
+    <LayoutContext.Provider value = {{
+      drawerOpen,
+      setDrawerOpen,
+      drawerWidth,
+      isMobile,
+    }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path= "/login" element={<Login/>}/>
-          <Route path="/home" element={<Home />} />
+          <Route path="/home" element={<Home/>} />
         </Routes>
       </BrowserRouter>
-    </DrawerContext.Provider>
+    </LayoutContext.Provider>
   );
 }
 

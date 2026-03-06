@@ -63,7 +63,7 @@ app.use((err, req, res, next) => {
 });
 
 app.post('/api/v0/login', login);
-app.get('/api/v0/userPosts', check, getAll);
+app.get('/api/v0/post', check, getAll);
 
 const server = http.createServer(app);
 // const wss = new WebSocketServer({server});

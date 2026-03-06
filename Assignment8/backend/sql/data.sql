@@ -69,6 +69,8 @@ INSERT INTO users (data) VALUES
   (json_build_object('user', json_build_object('name', 'John Doe', 'email', 'johndoe@gmail.com', 'password_hash', crypt('crime', gen_salt('bf')))));
 
   -- Add posts (look up the user by email)
-INSERT INTO posts (user_id, data) VALUES
-  ((SELECT id FROM users WHERE data->'user'->>'email' = 'ayeastro@gmail.com'), json_build_object('content', 'Hello world!', 'date-posted', '2026-03-04T20:15:12.123Z')),
-  ((SELECT id FROM users WHERE data->'user'->>'email' = 'molly@books.com'), json_build_object('content', 'Hey everyone!', 'date-posted', '2025-03-04T20:14:12.123Z'));
+INSERT INTO posts (userid, data) VALUES
+  ((SELECT id FROM users WHERE data->'user'->>'email' = 'ayeastro@gmail.com'), json_build_object('content', 'Hello world!', 'date-posted', '2026-02-04T20:15:12.123Z')),
+  ((SELECT id FROM users WHERE data->'user'->>'email' = 'molly@books.com'), json_build_object('content', 'Monthly Post, out in the Bahamas Today!', 'date-posted', '2026-01-04T20:14:12.123Z')),
+  ((SELECT id FROM users WHERE data->'user'->>'email' = 'molly@books.com'), json_build_object('content', 'Hey everyone!', 'date-posted', '2025-03-04T20:14:12.123Z')),
+  ((SELECT id FROM users WHERE data->'user'->>'email' = 'molly@books.com'), json_build_object('content', 'I love Meowl!!!', 'date-posted', '2024-04-06T20:14:12.123Z'));

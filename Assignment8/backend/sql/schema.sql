@@ -6,10 +6,19 @@ CREATE TABLE users (
   data JSONB
 );
 
+-- DROP TABLE IF EXISTS groups;
+-- CREATE TABLE groups (
+--   -- IF user is deleted, so will all their posts
+--   groupid UUID UNIQUE PRIMARY KEY DEFAULT gen_random_uuid(),
+--   userid UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+--   data jsonb
+-- );
+
 DROP TABLE IF EXISTS posts;
 CREATE TABLE posts (
   -- IF user is deleted, so will all their posts
-  id UUID UNIQUE PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  postid UUID UNIQUE PRIMARY KEY DEFAULT gen_random_uuid(),
+  userid UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  -- groupid UUID REFERENCES groups(groupid) ON DELETE CASCADE,
   data jsonb
 );

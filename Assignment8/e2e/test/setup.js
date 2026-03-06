@@ -50,14 +50,14 @@ afterAll(async () => {
 
 beforeEach(async () => {
   browser = await puppeteer.launch({
-    headless: true,
+    // headless: true,
     /*
      * Use these two settings instead of the one above if you want to see the
      * browser. However, in the grading system e2e test run headless, so make
      * sure they work that way before submitting.
      */
-    // headless: false,
-    // slowMo: 50,
+    headless: false,
+    slowMo: 50,
   });
   page = await browser.newPage();
 

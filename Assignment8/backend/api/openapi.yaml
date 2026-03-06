@@ -42,23 +42,27 @@ paths:
                   error:
                     type: string
 
-  /userPosts:
-    get:
-      summary: Grab All Posts
-      security:
-        - bearerAuth: []
-      responses:
-        200:
-          description: Authenticated, Show Posts
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Posts'
-        401:
-          description: Unauthorized Access
-
-
+  /post:
+      get:
+        summary: Grab All Posts Authenticated User is allowed to see
+        security:
+          - bearerAuth: []
+        responses:
+          200:
+            description: Authenticated, Show Posts
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Post'
+          401:
+            description: Unauthorized Access
                 
+  # /group/{id}/post:
+  #   get:
+  #     summary: Grab All Posts from Group ID
+
 components:
   securitySchemes:
       bearerAuth:
@@ -130,24 +134,23 @@ components:
           type: string
           format: date-time
       example:
-        posts:
-          - postID: "3f4c6e4b-7a65-4a1e-8d2c-5f6dce9f2a2a"
-            userID: "3f4c6e4b-7a65-4a1e-8d2c-5f6dce9f2f2f"
-            username: "Aye Astro"
-            email: "ayeastro@gmail.com"
-            content: "Hello world!"
-            date: "2026-03-04T20:15:12.123Z"
+          postID: "3f4c6e4b-7a65-4a1e-8d2c-5f6dce9f2a2a"
+          userID: "3f4c6e4b-7a65-4a1e-8d2c-5f6dce9f2f2f"
+          username: "Aye Astro"
+          email: "ayeastro@gmail.com"
+          content: "Hello world!"
+          date: "2026-03-04T20:15:12.123Z"
 
-    Posts:
-      description: List of Posts
-      type: object
-      required:
-        - posts
-      properties:
-        posts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Post'
+    # Posts:
+    #   description: List of Posts
+    #   type: object
+    #   required:
+    #     - posts
+    #   properties:
+    #     posts:
+    #       type: array
+    #       items:
+    #         $ref: '#/components/schemas/Post'
 
 # {
 #   "posts": [

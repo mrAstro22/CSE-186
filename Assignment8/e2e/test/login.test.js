@@ -10,7 +10,7 @@ test('Initial View', async () => {
 
 test('Login with Known User', async () => {
   // Email
-  await page.type('.user-box', 'molly@books.com');
+  await page.type('.email-box', 'molly@books.com');
 
   // Password
   await page.type('.password-box', 'mollymember');

@@ -10,24 +10,20 @@ import Drawer from '@mui/material/Drawer';
 // import InboxIcon from '@mui/icons-material/MoveToInbox';
 // import MailIcon from '@mui/icons-material/Mail';
 // import DeleteIcon from '@mui/icons-material/Delete';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import {useTheme} from '@mui/material/styles';
 import {Component} from 'react';
 
 // Context Hooks
 import {useContext} from 'react';
-import {DrawerContext} from '../App';
+import {LayoutContext} from '../App';
 
 /**
  * @returns {Component} Drawer
  */
 function SideBar() {
-  const {drawerOpen, setDrawerOpen, drawerWidth} = useContext(DrawerContext);
-
-  // Chat Generated, knows when we are in Mobile or Not
-  const theme = useTheme();
-  const isMobile =
-  useMediaQuery(theme.breakpoints.down('md')); // true for mobile
+  const {drawerOpen,
+    setDrawerOpen,
+    drawerWidth,
+    isMobile} = useContext(LayoutContext);
 
 
   // Implementing Groups

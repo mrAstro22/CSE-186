@@ -1,17 +1,24 @@
 import {Component} from 'react';
+
+// Components
 import Header from '../view/Header';
 import SideBar from '../view/Drawer';
+import Posts from '../view/Posts';
+
+// MUI Elements
+import Box from '@mui/material/Box';
+
 
 /**
  * @returns {Component} HomePage
  */
 function Home() {
   return (
-    <div>
+    <Box>
       <Header /> {/* Render Header inside Home */}
       <SideBar/>
-      <p>Welcome to your homepage!</p>
-    </div>
+      <Posts/>
+    </Box>
   );
 }
 

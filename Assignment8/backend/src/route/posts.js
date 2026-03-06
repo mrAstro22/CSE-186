@@ -9,12 +9,11 @@ import * as postsModel from '../model/posts.js';
  */
 export async function getAll(req, res) {
   const posts = await postsModel.retrievePosts();
-  console.log('Raw posts from DB:', posts);
-  if (!posts) {
-    return res.status(404).json({posts: []});
-  }
+  // if (!posts) {
+  //   return res.status(404).json({posts: []});
+  // }
 
   // Wrap the array in an object to satisfy OpenAPI
-  //   console.log('Raw posts from DB:', {posts});
-  return res.status(200).json({posts});
+  // console.log('Raw posts from DB:', posts);
+  return res.status(200).json(posts);
 }

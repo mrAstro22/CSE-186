@@ -11,13 +11,13 @@ import {useNavigate} from 'react-router-dom';
 
 // Context Hooks
 import {useContext} from 'react';
-import {DrawerContext} from '../App';
+import {LayoutContext} from '../App';
 
 /**
  * @returns {object} Returns Header Component
  */
 function Header() {
-  const {drawerOpen, setDrawerOpen} = useContext(DrawerContext);
+  const {drawerOpen, setDrawerOpen} = useContext(LayoutContext);
   const navigate = useNavigate();
 
   return (

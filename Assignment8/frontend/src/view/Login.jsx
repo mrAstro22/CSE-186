@@ -1,102 +1,150 @@
-import {Component, useRef, useState} from 'react';
+import * as React from 'react';
+import {useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-// import {loginContext} from '../App';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import FormLabel from '@mui/material/FormLabel';
+import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+import MuiCard from '@mui/material/Card';
+import {styled} from '@mui/material/styles';
+
+
+const Card = styled(MuiCard)(({theme}) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignSelf: 'center',
+  alignItems: 'center',
+  width: '100%',
+  boxSizing: 'border-box',
+  padding: theme.spacing(4),
+  gap: theme.spacing(2),
+  margin: 'auto',
+  overflow: 'hidden',
+  [theme.breakpoints.up('sm')]: {
+    maxWidth: '450px',
+  },
+  boxShadow: [
+    'hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px',
+    'hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px',
+  ].join(', '),
+  ...theme.applyStyles('dark', {
+    boxShadow: [
+      'hsla(220, 30%, 5%, 0.5) 0px 5px 15px 0px',
+      'hsla(220, 25%, 10%, 0.08) 0px 15px 35px -5px',
+    ].join(', '),
+  }),
+}));
 
 
 /**
- * @returns {Component} login page
+ * @returns {React.Component} Login page
  */
-function Login() {
-  // const [error, setError] = useState('');
+export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const [errorCode, setError] = useState('');
   const navigate = useNavigate();
 
-  // // WebSocket
-  // const connectSocket = (token) => {
-  //   if (wsRef.current) {
-  //     wsRef.current.close(); // close previous WS
-  //   }
-
-  //   const ws = new WebSocket('ws://localhost:3010');
-  //   ws.onopen = () => {
-  //     console.log('WebSocket connected');
-  //     setWsStatus('connected');
-  //   };
-
-  //   ws.onerror = (error) => {
-  //     console.log('WebSocket Error');
-  //     setError('WebSocket error', error.message);
-  //   };
-
-  //   ws.onclose = () => {
-  //     setError('WebSocket disconnected, refresh the page when ready.');
-  //   };
-  //   return () => {
-  //     ws.close();
-  //   };
-  // };
-
-  // Check Credentials
   const handleLogin = async () => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    console.log([email, password]);
 
-    // Check Database
     const res = await fetch('http://localhost:3010/api/v0/login', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({email, password}),
     });
 
-    // Get User Metadata
     const data = await res.json();
 
     if (res.ok) {
-      console.log('Login success:', data);
       localStorage.setItem('accessToken', data.accessToken);
-      setError('Login Success');
-
-      // Success, go to next page
       navigate('/home');
-      // connectSocket(data.accessToken);
     } else {
-      console.error('Login Failed', data.error);
-      setError(`Login Failed ${data.error}`);
+      setError('Invalid Credentials');
     }
-    // if (username && password) {
-    //   setLogin(true);          // update context
-    //   navigate('/home');       // redirect to home page
-    // }
   };
 
   return (
-    <div>
-      MeowlChat
-      <p>
-        <input type="text"
-          aria-label = "user-box"
-          className = "user-box"
-          placeholder="Username"
-          ref={emailRef}
-        />
-      </p>
-      <p>
-        <input type="password"
-          aria-label = "password-box"
-          className = "password-box"
-          placeholder="Password"
-          ref={passwordRef} />
-      </p>
-      <button className = "login-button"
-        aria-label = "login-button"
-        onClick={handleLogin}>Login</button>
-      <p/>
-      {errorCode && <p className="error">{errorCode}</p>}
-    </div>
+    <Stack
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+      sx={{minHeight: '100vh', padding: 2}}
+    >
+      <Card variant="outlined">
+        <Typography
+          component="h1"
+          variant="h4"
+          sx={{
+            fontSize: 'clamp(1.5rem, 6vw, 2.15rem)',
+            fontWeight: 'bold',
+            textAlign: 'center',
+          }}
+        >
+          <Box component="span" sx={{color: 'green'}}>Meowl</Box>
+          <Box component="span" sx={{color: 'black'}}>Chat</Box>
+        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            boxSizing: 'border-box',
+            gap: 2,
+          }}
+        >
+          <FormControl>
+            <FormLabel htmlFor="email">Email</FormLabel>
+            <TextField
+              aria-label="email-box"
+              inputRef={emailRef}
+              type="email"
+              name="email"
+              placeholder="your@email.com"
+              autoComplete="email"
+              autoFocus
+              required
+              fullWidth
+              variant="outlined"
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="password">Password</FormLabel>
+            <TextField
+              aria-label="password-box"
+              inputRef={passwordRef}
+              name="password"
+              placeholder="••••••"
+              type="password"
+              autoComplete="current-password"
+              required
+              fullWidth
+              variant="outlined"
+            />
+          </FormControl>
+          {errorCode && (
+            <Typography
+              color="error"
+              variant="body2"
+              sx={{textAlign: 'center'}}
+            >
+              {errorCode}
+            </Typography>
+          )}
+          <Button
+            fullWidth
+            variant="contained"
+            onClick={handleLogin}
+            aria-label="login-button"
+          >
+              Login
+          </Button>
+        </Box>
+      </Card>
+    </Stack>
   );
 }
-
-export default Login;

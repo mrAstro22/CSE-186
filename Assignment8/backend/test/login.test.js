@@ -47,7 +47,7 @@ describe('Login API', () => {
         .expect(401);
   });
 
-  it('401 No User', async () => {
+  it('400 No User', async () => {
     await request.post('/api/v0/login')
         .send({})
         .expect(400);
