@@ -30,7 +30,7 @@ function Header() {
         zIndex: (theme) => theme.zIndex.drawer + 1,
       }}
     >
-      <Toolbar>
+      <Toolbar sx={{position: 'relative'}}>
         {/* Menu Button: Mobile Only*/}
 
         {/* Normal Mail View*/}
@@ -52,11 +52,11 @@ function Header() {
           onClick={() => {
             navigate('/home');
           }}
-          sx={{mr: 2, ml: -1, width: 56}}>
+          sx={{mr: 2, ml: -1}}>
           <Box
             aria-label= "go-home"
             component="img"
-            src="src/view/meowlAvatar.jpg"
+            src="/src/view/meowlAvatar.jpg"
             alt="Avatar"
             sx={{
               width: 40,
@@ -66,9 +66,14 @@ function Header() {
           />
         </IconButton>
 
+        <Box sx={{flexGrow: 1}}/> {/* Spacer*/}
+
+
         <Typography variant="h6" component="div"
-          sx={{flexGrow: 1,
-            textAlign: 'center',
+          sx={{
+            position: 'absolute',
+            left: '50%',
+            transform: 'translateX(-50%)',
           }}>
           {`MeowlChat`}
         </Typography>
@@ -79,7 +84,7 @@ function Header() {
           onClick={() => {
             navigate('/login');
           }}
-          sx={{p: 0.8, width: 56}}
+          sx={{p: 0.8}}
         >
           <LogoutIcon
             sx={{
@@ -89,21 +94,9 @@ function Header() {
               ml: 'auto',
             }}/>
         </IconButton>
-
       </Toolbar>
     </AppBar>
   );
 }
 
 export default Header;
-
-// <Box component="img"
-//   src="src/view/meowlAvatar.jpg"
-//   alt="Avatar"
-//   sx={{
-//     width: 40,
-//     height: 40,
-//     borderRadius: '50%',
-//     ml: 'auto',
-//   }}
-// />
