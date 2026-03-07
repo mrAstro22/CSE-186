@@ -16,13 +16,11 @@ import MailIcon from '@mui/icons-material/Mail';
 // import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
-const drawerWidth = 240;
-
 // Drawer: https://mui.com/material-ui/react-drawer/
 /**
  * @returns {object} Returns Drawer Component
  */
-function SideBar() {
+function SideBar({drawerWidth}) {
   // Mailbox Names
   const {mailboxes} = useContext(mailboxNamesContext);
   const {currMailbox, setMailbox} = useContext(mailboxContext);

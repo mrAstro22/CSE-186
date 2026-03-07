@@ -1,6 +1,7 @@
 // Context
 import {useState, useEffect, useContext} from 'react';
 import {LayoutContext} from '../App';
+import PropTypes from 'prop-types';
 
 // MUI
 import Table from '@mui/material/Table';
@@ -9,19 +10,18 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import Toolbar from '@mui/material/Toolbar';
-import {useParams} from 'react-router-dom';
 
 // MUI Clipped Drawer
 // https://mui.com/material-ui/react-drawer/#ClippedDrawer.js
 
 
 /**
+ * @param {number} drawerWidth -
  * @returns {object} Mailbox List
  */
-function Posts() {
+function Posts({drawerWidth, groupID}) {
   const [posts, setPosts] = useState([]);
-  const {isMobile, drawerWidth} = useContext(LayoutContext);
-  const {groupID} = useParams();
+  const {isMobile} = useContext(LayoutContext);
   const token = localStorage.getItem('accessToken'); // JWT
 
   // All Posts if No Group Selected
@@ -56,7 +56,7 @@ function Posts() {
 
       // Extract Posts from Array
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
       setPosts(groupID ? data[0].posts : data);
     };
 
@@ -70,32 +70,44 @@ function Posts() {
         maxHeight: 'calc(100vh - 64px)',
         overflowY: 'auto',
         overflowX: 'hidden',
+        width: isMobile ? '100%' : `calc(100% - ${drawerWidth}px)`,
         ml: isMobile ? 0 : `${drawerWidth}px`,
       }}
     >
       <Toolbar />
       <Table
         aria-label='list of posts'
+        sx={{tableLayout: 'fixed', width: '100%'}}
       >
         <TableBody>
           {posts.map((post) => (
             <TableRow
               key={post.postID}
             >
-              <TableCell>
+              <TableCell sx={{
+                width: '20%',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: isMobile ? 'normal' : 'nowrap',
+              }}>
                 {post.username}
               </TableCell>
               <TableCell
                 sx={{
+                  width: '60%',
+
                   fontFamily: 'Courier New, Courier',
                   fontWeight: 'Bold',
                   wordBreak: 'break-word',
                   whiteSpace: 'normal',
-                  maxWidth: 200,
                 }}>
                 {post.content}
               </TableCell>
-              <TableCell>
+              <TableCell sx={{
+                width: '20%',
+                whiteSpace: 'nowrap',
+                textAlign: 'right',
+              }}>
                 {formatEmailDate(post.date)}
               </TableCell>
             </TableRow>
@@ -149,3 +161,8 @@ function formatEmailDate(dateStr) {
 }
 
 export default Posts;
+
+Posts.propTypes = {
+  drawerWidth: PropTypes.number.isRequired,
+  groupID: PropTypes.string,
+};

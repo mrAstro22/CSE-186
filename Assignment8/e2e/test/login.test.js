@@ -10,13 +10,13 @@ test('Initial View', async () => {
 
 test('Login with Known User', async () => {
   // Email
-  await page.type('.email-box', 'molly@books.com');
+  await page.type('[aria-label="email-box"]', 'molly@books.com');
 
   // Password
-  await page.type('.password-box', 'mollymember');
+  await page.type('[aria-label="password-box"]', 'mollymember');
 
   // Login
-  await page.click('.login-button');
+  await page.click('[aria-label="login-button"]');
 
   const label = await page.waitForSelector(
       '::-p-text(Welcome to MeowlChat)');

@@ -1,96 +1,125 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1772773108483" clover="3.2.0">
-  <project timestamp="1772773108483" name="All files">
-    <metrics statements="67" coveredstatements="32" conditionals="26" coveredconditionals="6" methods="18" coveredmethods="13" elements="111" coveredelements="51" complexity="0" loc="67" ncloc="67" packages="2" files="6" classes="6"/>
+<coverage generated="1772851393340" clover="3.2.0">
+  <project timestamp="1772851393341" name="All files">
+    <metrics statements="90" coveredstatements="90" conditionals="38" coveredconditionals="38" methods="25" coveredmethods="25" elements="153" coveredelements="153" complexity="0" loc="90" ncloc="90" packages="3" files="7" classes="7"/>
     <package name="src">
-      <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="App.jsx" path="C:\CSE-186\Assignment8\frontend\src\App.jsx">
-        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="26" count="1" type="stmt"/>
-        <line num="27" count="1" type="stmt"/>
-        <line num="38" count="3" type="stmt"/>
-        <line num="39" count="3" type="stmt"/>
-        <line num="43" count="3" type="stmt"/>
-        <line num="44" count="3" type="stmt"/>
-        <line num="47" count="3" type="stmt"/>
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="26" count="5" type="stmt"/>
+        <line num="27" count="5" type="stmt"/>
+        <line num="38" count="4" type="stmt"/>
+        <line num="42" count="4" type="stmt"/>
+        <line num="43" count="4" type="stmt"/>
+        <line num="46" count="4" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.__tests__">
+      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <file name="testHelpers.js" path="C:\CSE-186\Assignment8\frontend\src\__tests__\testHelpers.js">
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="8" count="4" type="stmt"/>
+        <line num="10" count="4" type="stmt"/>
+        <line num="11" count="4" type="stmt"/>
+        <line num="12" count="4" type="stmt"/>
+        <line num="14" count="12" type="stmt"/>
+        <line num="18" count="4" type="stmt"/>
       </file>
     </package>
     <package name="src.view">
-      <metrics statements="60" coveredstatements="25" conditionals="26" coveredconditionals="6" methods="17" coveredmethods="12"/>
+      <metrics statements="78" coveredstatements="78" conditionals="38" coveredconditionals="38" methods="22" coveredmethods="22"/>
       <file name="Drawer.jsx" path="C:\CSE-186\Assignment8\frontend\src\view\Drawer.jsx">
-        <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="2"/>
-        <line num="26" count="30" type="stmt"/>
-        <line num="51" count="30" type="stmt"/>
-        <line num="55" count="1" type="stmt"/>
+        <metrics statements="18" coveredstatements="18" conditionals="6" coveredconditionals="6" methods="7" coveredmethods="7"/>
+        <line num="30" count="52" type="stmt"/>
+        <line num="31" count="52" type="stmt"/>
+        <line num="32" count="52" type="stmt"/>
+        <line num="33" count="52" type="stmt"/>
+        <line num="34" count="52" type="stmt"/>
+        <line num="37" count="52" type="stmt"/>
+        <line num="38" count="20" type="stmt"/>
+        <line num="46" count="20" type="cond" truecount="2" falsecount="0"/>
+        <line num="48" count="17" type="stmt"/>
+        <line num="50" count="3" type="stmt"/>
+        <line num="53" count="20" type="stmt"/>
+        <line num="57" count="52" type="stmt"/>
+        <line num="61" count="4" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="81" count="52" type="stmt"/>
+        <line num="85" count="1" type="stmt"/>
+        <line num="101" count="5" type="stmt"/>
       </file>
       <file name="Header.jsx" path="C:\CSE-186\Assignment8\frontend\src\view\Header.jsx">
-        <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="5" coveredmethods="5"/>
-        <line num="20" count="16" type="stmt"/>
-        <line num="21" count="16" type="stmt"/>
-        <line num="23" count="16" type="stmt"/>
-        <line num="29" count="16" type="stmt"/>
-        <line num="39" count="6" type="stmt"/>
-        <line num="56" count="1" type="stmt"/>
+        <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="2" methods="6" coveredmethods="6"/>
+        <line num="21" count="17" type="stmt"/>
+        <line num="22" count="17" type="stmt"/>
+        <line num="24" count="17" type="stmt"/>
+        <line num="30" count="17" type="stmt"/>
+        <line num="40" count="6" type="stmt"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="87" count="1" type="stmt"/>
       </file>
       <file name="Home.jsx" path="C:\CSE-186\Assignment8\frontend\src\view\Home.jsx">
-        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="16" count="15" type="stmt"/>
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="19" count="15" type="stmt"/>
+        <line num="20" count="15" type="stmt"/>
+        <line num="31" count="5" type="stmt"/>
       </file>
       <file name="Login.jsx" path="C:\CSE-186\Assignment8\frontend\src\view\Login.jsx">
-        <metrics statements="15" coveredstatements="7" conditionals="4" coveredconditionals="1" methods="3" coveredmethods="2"/>
-        <line num="15" count="3" type="stmt"/>
-        <line num="46" count="3" type="stmt"/>
-        <line num="47" count="3" type="stmt"/>
-        <line num="48" count="3" type="stmt"/>
-        <line num="49" count="3" type="stmt"/>
-        <line num="51" count="3" type="stmt"/>
-        <line num="52" count="0" type="stmt"/>
-        <line num="53" count="0" type="stmt"/>
-        <line num="55" count="0" type="stmt"/>
-        <line num="61" count="0" type="stmt"/>
-        <line num="63" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="64" count="0" type="stmt"/>
-        <line num="65" count="0" type="stmt"/>
-        <line num="67" count="0" type="stmt"/>
-        <line num="71" count="3" type="stmt"/>
+        <metrics statements="15" coveredstatements="15" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
+        <line num="15" count="7" type="stmt"/>
+        <line num="46" count="7" type="stmt"/>
+        <line num="47" count="7" type="stmt"/>
+        <line num="48" count="7" type="stmt"/>
+        <line num="49" count="7" type="stmt"/>
+        <line num="51" count="7" type="stmt"/>
+        <line num="52" count="2" type="stmt"/>
+        <line num="53" count="2" type="stmt"/>
+        <line num="55" count="2" type="stmt"/>
+        <line num="61" count="2" type="stmt"/>
+        <line num="63" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="71" count="7" type="stmt"/>
       </file>
       <file name="Posts.jsx" path="C:\CSE-186\Assignment8\frontend\src\view\Posts.jsx">
-        <metrics statements="35" coveredstatements="8" conditionals="18" coveredconditionals="2" methods="6" coveredmethods="2"/>
-        <line num="20" count="15" type="stmt"/>
-        <line num="21" count="15" type="stmt"/>
-        <line num="23" count="15" type="stmt"/>
-        <line num="24" count="15" type="stmt"/>
-        <line num="25" count="15" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="34" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="43" count="15" type="stmt"/>
-        <line num="44" count="8" type="cond" truecount="1" falsecount="1"/>
-        <line num="46" count="0" type="stmt"/>
-        <line num="47" count="0" type="stmt"/>
-        <line num="48" count="0" type="stmt"/>
-        <line num="51" count="0" type="stmt"/>
-        <line num="54" count="15" type="stmt"/>
-        <line num="70" count="0" type="stmt"/>
-        <line num="104" count="0" type="stmt"/>
-        <line num="105" count="0" type="stmt"/>
-        <line num="108" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="112" count="0" type="stmt"/>
-        <line num="113" count="0" type="stmt"/>
-        <line num="115" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="119" count="0" type="stmt"/>
-        <line num="120" count="0" type="stmt"/>
-        <line num="122" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="124" count="0" type="stmt"/>
-        <line num="127" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="128" count="0" type="stmt"/>
-        <line num="129" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="130" count="0" type="stmt"/>
-        <line num="131" count="0" type="stmt"/>
-        <line num="132" count="0" type="stmt"/>
-        <line num="135" count="0" type="stmt"/>
+        <metrics statements="35" coveredstatements="35" conditionals="26" coveredconditionals="26" methods="5" coveredmethods="5"/>
+        <line num="23" count="30" type="stmt"/>
+        <line num="24" count="30" type="stmt"/>
+        <line num="25" count="30" type="stmt"/>
+        <line num="29" count="30" type="stmt"/>
+        <line num="30" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="32" count="8" type="stmt"/>
+        <line num="34" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="43" count="7" type="stmt"/>
+        <line num="52" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="54" count="1" type="stmt"/>
+        <line num="58" count="7" type="stmt"/>
+        <line num="60" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="63" count="8" type="stmt"/>
+        <line num="66" count="30" type="stmt"/>
+        <line num="84" count="10" type="stmt"/>
+        <line num="128" count="10" type="stmt"/>
+        <line num="129" count="10" type="stmt"/>
+        <line num="132" count="10" type="cond" truecount="3" falsecount="0"/>
+        <line num="136" count="10" type="stmt"/>
+        <line num="137" count="10" type="stmt"/>
+        <line num="139" count="10" type="cond" truecount="3" falsecount="0"/>
+        <line num="143" count="10" type="stmt"/>
+        <line num="144" count="10" type="stmt"/>
+        <line num="146" count="10" type="cond" truecount="2" falsecount="0"/>
+        <line num="148" count="1" type="stmt"/>
+        <line num="151" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="152" count="1" type="stmt"/>
+        <line num="153" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="154" count="1" type="stmt"/>
+        <line num="155" count="1" type="stmt"/>
+        <line num="156" count="1" type="stmt"/>
+        <line num="159" count="7" type="stmt"/>
+        <line num="165" count="5" type="stmt"/>
       </file>
     </package>
   </project>

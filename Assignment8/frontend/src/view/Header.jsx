@@ -54,7 +54,6 @@ function Header() {
           }}
           sx={{mr: 2, ml: -1}}>
           <Box
-            aria-label= "go-home"
             component="img"
             src="/src/view/meowlAvatar.jpg"
             alt="Avatar"
@@ -69,13 +68,16 @@ function Header() {
         <Box sx={{flexGrow: 1}}/> {/* Spacer*/}
 
 
-        <Typography variant="h6" component="div"
+        <Typography variant="h5" component="div"
           sx={{
             position: 'absolute',
             left: '50%',
             transform: 'translateX(-50%)',
+            fontWeight: 'bold',
+            fontStyle: 'italic',
+            // textDecoration: 'underline',
           }}>
-          {`MeowlChat`}
+          {`Welcome to MeowlChat`}
         </Typography>
 
         {/* LogOut Button */}

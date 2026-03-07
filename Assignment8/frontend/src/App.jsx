@@ -47,15 +47,15 @@ function App() {
     <LayoutContext.Provider value = {{
       drawerOpen,
       setDrawerOpen,
-      drawerWidth,
       isMobile,
     }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path= "/login" element={<Login/>}/>
-          <Route path="/home" element={<Home/>} />
-          <Route path= {`/group/:groupID`} element={<Home/>}/>
+          <Route path="/home" element={<Home drawerWidth={drawerWidth}/>} />
+          <Route path= {`/group/:groupID`}
+            element={<Home drawerWidth={drawerWidth}/>}/>
           <Route path="*" element={<Navigate to="/home" replace />} />
         </Routes>
       </BrowserRouter>

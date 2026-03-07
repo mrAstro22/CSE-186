@@ -11,6 +11,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 import {Component} from 'react';
+import PropTypes from 'prop-types';
 
 // Context Hooks
 import {useContext, useState, useEffect} from 'react';
@@ -18,13 +19,13 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {LayoutContext} from '../App';
 
 /**
+ * @param {number} drawerWidth -
  * @returns {Component} Drawer
  */
-function SideBar() {
+function SideBar({drawerWidth}) {
   const {
     drawerOpen,
     setDrawerOpen,
-    drawerWidth,
     isMobile,
   } = useContext(LayoutContext);
   const [groupNames, setGroupNames] = useState([]);
@@ -43,20 +44,15 @@ function SideBar() {
     })
         .then((res) => {
           if (!res.ok) {
-            console.error('Request failed:', res.status);
+            // console.error('Request failed:', res.status);
             return [];
           }
           return res.json();
         })
 
-        .then((data) => setGroupNames(data))
-        .catch((err) => console.error(err));
+        .then((data) => setGroupNames(data));
   }, []);
 
-  // useEffect(() => {
-  //   console.log(currGroup);
-  // }, [currGroup]);
-  // Implementing Groups
   const DrawerList = (
     <Box sx={{width: drawerWidth}}>
       <Toolbar /> {/* Push content below AppBar */}
@@ -70,8 +66,10 @@ function SideBar() {
               }}
             >
               {/* Conditional Rendering*/}
-              {groupID === group.groupid ? <CheckBoxIcon />:
-              <CheckBoxOutlineBlankIcon/>}
+              {groupID === group.groupid ?
+              <CheckBoxIcon aria-label="checked"/> :
+              <CheckBoxOutlineBlankIcon aria-label="unchecked"/>
+              }
               <ListItemText primary={group.groupname} />
             </ListItemButton>
           </ListItem>
@@ -89,6 +87,7 @@ function SideBar() {
         '& .MuiDrawer-paper': {
           width: drawerWidth,
           boxSizing: 'border-box',
+          overflowX: 'hidden',
         },
       }}
     >
@@ -98,3 +97,7 @@ function SideBar() {
 }
 
 export default SideBar;
+
+SideBar.propTypes = {
+  drawerWidth: PropTypes.number.isRequired,
+};

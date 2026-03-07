@@ -1,12 +1,60 @@
 {
   "statistics": {
-    "detectionDate": "2026-03-06T04:50:59.534Z",
+    "detectionDate": "2026-03-07T02:43:31.666Z",
     "formats": {
       "jsx": {
         "sources": {
           "C:/CSE-186/Assignment8/frontend/src/__tests__/validity.test.jsx": {
             "lines": 170,
             "tokens": 1345,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "C:/CSE-186/Assignment8/frontend/src/__tests__/MockPosts.test.jsx": {
+            "lines": 133,
+            "tokens": 1174,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "C:/CSE-186/Assignment8/frontend/src/__tests__/MockLogin.test.jsx": {
+            "lines": 61,
+            "tokens": 586,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "C:/CSE-186/Assignment8/frontend/src/__tests__/MockHeader.test.jsx": {
+            "lines": 23,
+            "tokens": 201,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "C:/CSE-186/Assignment8/frontend/src/__tests__/MockDrawer.test.jsx": {
+            "lines": 92,
+            "tokens": 771,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -29,8 +77,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/view/Posts.jsx": {
-            "lines": 135,
-            "tokens": 997,
+            "lines": 167,
+            "tokens": 1212,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -53,8 +101,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/view/Home.jsx": {
-            "lines": 24,
-            "tokens": 112,
+            "lines": 32,
+            "tokens": 190,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -65,8 +113,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/view/Header.jsx": {
-            "lines": 75,
-            "tokens": 471,
+            "lines": 103,
+            "tokens": 631,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -77,8 +125,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/view/Drawer.jsx": {
-            "lines": 66,
-            "tokens": 279,
+            "lines": 101,
+            "tokens": 726,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -101,8 +149,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/App.jsx": {
-            "lines": 64,
-            "tokens": 344,
+            "lines": 65,
+            "tokens": 391,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -114,9 +162,9 @@
           }
         },
         "total": {
-          "lines": 856,
-          "tokens": 5697,
-          "sources": 9,
+          "lines": 1269,
+          "tokens": 9376,
+          "sources": 13,
           "clones": 0,
           "duplicatedLines": 0,
           "duplicatedTokens": 0,
@@ -128,6 +176,66 @@
       },
       "javascript": {
         "sources": {
+          "C:/CSE-186/Assignment8/frontend/src/__tests__/testHelpers.js": {
+            "lines": 22,
+            "tokens": 196,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "C:/CSE-186/Assignment8/frontend/src/__tests__/setupTests.js": {
+            "lines": 11,
+            "tokens": 120,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "C:/CSE-186/Assignment8/frontend/src/__tests__/MockPosts.test.jsx": {
+            "lines": 27,
+            "tokens": 201,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "C:/CSE-186/Assignment8/frontend/src/__tests__/MockHeader.test.jsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "C:/CSE-186/Assignment8/frontend/src/__tests__/MockDrawer.test.jsx": {
+            "lines": 11,
+            "tokens": 94,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
           "C:/CSE-186/Assignment8/frontend/src/__tests__/Mobile.test.jsx": {
             "lines": 5,
             "tokens": 19,
@@ -141,8 +249,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/view/Posts.jsx": {
-            "lines": 9,
-            "tokens": 46,
+            "lines": 30,
+            "tokens": 176,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -164,9 +272,33 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
+          "C:/CSE-186/Assignment8/frontend/src/view/Home.jsx": {
+            "lines": 1,
+            "tokens": 20,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
           "C:/CSE-186/Assignment8/frontend/src/view/Header.jsx": {
-            "lines": 41,
-            "tokens": 286,
+            "lines": 70,
+            "tokens": 439,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "C:/CSE-186/Assignment8/frontend/src/view/Drawer.jsx": {
+            "lines": 16,
+            "tokens": 150,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -177,8 +309,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/App.jsx": {
-            "lines": 2,
-            "tokens": 53,
+            "lines": 5,
+            "tokens": 116,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -190,9 +322,9 @@
           }
         },
         "total": {
-          "lines": 122,
-          "tokens": 792,
-          "sources": 5,
+          "lines": 263,
+          "tokens": 1922,
+          "sources": 12,
           "clones": 0,
           "duplicatedLines": 0,
           "duplicatedTokens": 0,
@@ -204,9 +336,9 @@
       }
     },
     "total": {
-      "lines": 978,
-      "tokens": 6489,
-      "sources": 14,
+      "lines": 1532,
+      "tokens": 11298,
+      "sources": 25,
       "clones": 0,
       "duplicatedLines": 0,
       "duplicatedTokens": 0,
