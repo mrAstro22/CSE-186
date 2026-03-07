@@ -47,6 +47,16 @@ it('wraps username on mobile', async () => {
   });
 });
 
+it('renders nothing when no token', async () => {
+  vi.spyOn(Storage.prototype, 'getItem').mockReturnValueOnce(null);
+
+  render(postsWrapper());
+
+  await waitFor(() => {
+    expect(screen.queryByText('Hello World')).not.toBeInTheDocument();
+  });
+});
+
 it('renders all posts when no group selected', async () => {
   server.use(
       http.get(`${URL}/post`, () => {
