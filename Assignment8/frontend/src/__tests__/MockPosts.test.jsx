@@ -1,6 +1,7 @@
 import {render, screen, waitFor,
   http, HttpResponse,
-  server, URL, mockContext} from './testHelpers';
+  server, URL, mockContext, mockNavigate} from './testHelpers';
+
 import {it, expect, vi} from 'vitest';
 import Posts from '../view/Posts';
 import {LayoutContext} from '../App';
@@ -47,13 +48,15 @@ it('wraps username on mobile', async () => {
   });
 });
 
-it('renders nothing when no token', async () => {
+it('does not fetch posts when no token', async () => {
   vi.spyOn(Storage.prototype, 'getItem').mockReturnValueOnce(null);
+
+  const fetchSpy = vi.spyOn(window, 'fetch');
 
   render(postsWrapper());
 
   await waitFor(() => {
-    expect(screen.queryByText('Hello World')).not.toBeInTheDocument();
+    expect(fetchSpy).not.toHaveBeenCalled();
   });
 });
 
@@ -96,6 +99,20 @@ it('renders nothing when fetch fails', async () => {
 
   await waitFor(() => {
     expect(screen.queryByText('Hello World')).not.toBeInTheDocument();
+  });
+});
+
+it('navigates home on invalid groupID', async () => {
+  server.use(
+      http.get(`${URL}/group/bad-id/post`, () => {
+        return new HttpResponse(null, {status: 404});
+      }),
+  );
+
+  render(postsWrapper('bad-id'));
+
+  await waitFor(() => {
+    expect(mockNavigate).toHaveBeenCalledWith('/home');
   });
 });
 

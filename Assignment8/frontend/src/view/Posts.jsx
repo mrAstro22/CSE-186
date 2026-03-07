@@ -2,6 +2,7 @@
 import {useState, useEffect, useContext} from 'react';
 import {LayoutContext} from '../App';
 import PropTypes from 'prop-types';
+import {useNavigate} from 'react-router-dom';
 
 // MUI
 import Table from '@mui/material/Table';
@@ -10,6 +11,7 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import Toolbar from '@mui/material/Toolbar';
+
 
 // MUI Clipped Drawer
 // https://mui.com/material-ui/react-drawer/#ClippedDrawer.js
@@ -23,6 +25,7 @@ function Posts({drawerWidth, groupID}) {
   const [posts, setPosts] = useState([]);
   const {isMobile} = useContext(LayoutContext);
   const token = localStorage.getItem('accessToken'); // JWT
+  const navigate = useNavigate();
 
   // All Posts if No Group Selected
   // Curr Group if Group Seleceted
@@ -50,7 +53,7 @@ function Posts({drawerWidth, groupID}) {
       }
 
       if (!res.ok) {
-        console.error('Request failed:', res.status);
+        if (groupID) navigate('/home');
         return;
       }
 
