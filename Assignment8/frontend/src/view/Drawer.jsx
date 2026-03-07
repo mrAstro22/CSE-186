@@ -60,6 +60,7 @@ function SideBar({drawerWidth}) {
         {groupNames.map((group) => (
           <ListItem key={group.groupid} disablePadding>
             <ListItemButton
+              aria-label={`group-${group.groupname}`}
               onClick={() => {
                 setDrawerOpen(false);
                 navigate(`/group/${group.groupid}`);

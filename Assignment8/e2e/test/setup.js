@@ -57,7 +57,7 @@ beforeEach(async () => {
      * sure they work that way before submitting.
      */
     headless: false,
-    slowMo: 50,
+    slowMo: 10,
   });
   page = await browser.newPage();
 

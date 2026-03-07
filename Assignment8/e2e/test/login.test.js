@@ -1,5 +1,6 @@
 import {test, expect} from 'vitest';
-import {page} from './setup';
+import {page, clickOn} from './setup';
+import {login} from './helpers';
 
 test('Initial View', async () => {
   const label = await page.waitForSelector(
@@ -9,16 +10,21 @@ test('Initial View', async () => {
 });
 
 test('Login with Known User', async () => {
-  // Email
-  await page.type('[aria-label="email-box"]', 'molly@books.com');
+  await login(page, 'molly@books.com', 'mollymember');
+  const label = await page.waitForSelector('::-p-text(Welcome to MeowlChat)');
+  expect(label).not.toBeNull();
+});
 
-  // Password
-  await page.type('[aria-label="password-box"]', 'mollymember');
+test('Login with Unknown User', async () => {
+  await login(page, 'wrong@email.com', 'wrongpassword');
+  const label = await page.waitForSelector('::-p-text(Invalid Credentials)');
+  expect(label).not.toBeNull();
+});
 
-  // Login
-  await page.click('[aria-label="login-button"]');
-
-  const label = await page.waitForSelector(
-      '::-p-text(Welcome to MeowlChat)');
+test('Logout', async () => {
+  await login(page, 'molly@books.com', 'mollymember');
+  await clickOn(page, '[aria-label="logout"]');
+  await page.waitForNavigation();
+  const label = await page.waitForSelector('::-p-text(MeowlChat)');
   expect(label).not.toBeNull();
 });

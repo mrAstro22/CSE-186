@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1772851393340" clover="3.2.0">
-  <project timestamp="1772851393341" name="All files">
+<coverage generated="1772855707735" clover="3.2.0">
+  <project timestamp="1772855707735" name="All files">
     <metrics statements="90" coveredstatements="90" conditionals="38" coveredconditionals="38" methods="25" coveredmethods="25" elements="153" coveredelements="153" complexity="0" loc="90" ncloc="90" packages="3" files="7" classes="7"/>
     <package name="src">
       <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
@@ -30,24 +30,24 @@
       <metrics statements="78" coveredstatements="78" conditionals="38" coveredconditionals="38" methods="22" coveredmethods="22"/>
       <file name="Drawer.jsx" path="C:\CSE-186\Assignment8\frontend\src\view\Drawer.jsx">
         <metrics statements="18" coveredstatements="18" conditionals="6" coveredconditionals="6" methods="7" coveredmethods="7"/>
-        <line num="30" count="52" type="stmt"/>
-        <line num="31" count="52" type="stmt"/>
-        <line num="32" count="52" type="stmt"/>
-        <line num="33" count="52" type="stmt"/>
-        <line num="34" count="52" type="stmt"/>
-        <line num="37" count="52" type="stmt"/>
+        <line num="30" count="40" type="stmt"/>
+        <line num="31" count="40" type="stmt"/>
+        <line num="32" count="40" type="stmt"/>
+        <line num="33" count="40" type="stmt"/>
+        <line num="34" count="40" type="stmt"/>
+        <line num="37" count="40" type="stmt"/>
         <line num="38" count="20" type="stmt"/>
-        <line num="46" count="20" type="cond" truecount="2" falsecount="0"/>
-        <line num="48" count="17" type="stmt"/>
+        <line num="46" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="48" count="1" type="stmt"/>
         <line num="50" count="3" type="stmt"/>
-        <line num="53" count="20" type="stmt"/>
-        <line num="57" count="52" type="stmt"/>
+        <line num="53" count="4" type="stmt"/>
+        <line num="57" count="40" type="stmt"/>
         <line num="61" count="4" type="stmt"/>
-        <line num="64" count="1" type="stmt"/>
         <line num="65" count="1" type="stmt"/>
-        <line num="81" count="52" type="stmt"/>
-        <line num="85" count="1" type="stmt"/>
-        <line num="101" count="5" type="stmt"/>
+        <line num="66" count="1" type="stmt"/>
+        <line num="82" count="40" type="stmt"/>
+        <line num="86" count="1" type="stmt"/>
+        <line num="102" count="5" type="stmt"/>
       </file>
       <file name="Header.jsx" path="C:\CSE-186\Assignment8\frontend\src\view\Header.jsx">
         <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="2" methods="6" coveredmethods="6"/>
