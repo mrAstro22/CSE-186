@@ -57,3 +57,24 @@ export async function getGroupPosts(req, res) {
     posts,
   }]);
 }
+
+/**
+ *
+ * @param {string} req - Group UUID
+ * @param {string} res - Status Code
+ * @returns {object} - All Posts from Named Group
+ */
+export async function createPost(req, res) {
+  const userID = (await req.user).id;
+  const {groupID=null, content, isPublic} = req.body;
+
+  if (!content || isPublic === undefined) {
+    return res.status(400).json({error: 'Missing required fields'});
+  }
+
+  const post = await postsModel.createPost(userID, groupID, content, isPublic);
+
+  console.log(post);
+
+  return res.status(201).json(post);
+}

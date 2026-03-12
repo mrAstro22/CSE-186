@@ -22,7 +22,13 @@ import http from 'http';
 // Model and Routes
 import {check} from './middleware/auth.js';
 import {login} from './route/login.js';
-import {getAll, getGroups, getGroupPosts, getMyPosts} from './route/posts.js';
+import {
+  getAll,
+  getGroups,
+  getGroupPosts,
+  getMyPosts,
+  createPost,
+} from './route/posts.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -62,9 +68,15 @@ app.use((err, req, res, next) => {
   });
 });
 
+// Login
 app.post('/api/v0/login', login);
+
+// Posts
 app.get('/api/v0/post', check, getAll); // Public + Curr User
 app.get('/api/v0/post/mine', check, getMyPosts); // Curr Users
+app.post('/api/v0/post', check, createPost);
+
+// Groups
 app.get('/api/v0/group', check, getGroups);
 app.get('/api/v0/group/:groupID/post', check, getGroupPosts);
 

@@ -39,7 +39,7 @@ INSERT INTO posts (userid, groupid, data) VALUES
   -- No Group
   ((SELECT id FROM users WHERE data->'user'->>'email' = 'ayeastro@gmail.com'), NULL, json_build_object('content', 'Public Post: Hello World!', 'date-posted', '2026-02-04T20:15:12.123Z', 'ispublic', true)),
   ((SELECT id FROM users WHERE data->'user'->>'email' = 'molly@books.com'), NULL, json_build_object('content', 'Public Post: Exploring New Horizons', 'date-posted', '2025-01-04T20:15:12.123Z', 'ispublic', true)),
-  ((SELECT id FROM users WHERE data->'user'->>'email' = 'molly@books.com'), NULL, json_build_object('content', 'Private Post: Just ate Steak Frites #Yummy', 'date-posted', '2026-12-04T20:15:12.123Z', 'ispublic', false)),
+  ((SELECT id FROM users WHERE data->'user'->>'email' = 'molly@books.com'), NULL, json_build_object('content', 'Private Post: Just ate Steak Frites #Yummy', 'date-posted', '2025-12-04T20:15:12.123Z', 'ispublic', false)),
   ((SELECT id FROM users WHERE data->'user'->>'email' = 'anna@books.com'), NULL, json_build_object('content', 'Public Post: Thinking of Traveling', 'date-posted', '2024-11-12T20:15:12.123Z', 'ispublic', true)),
   ((SELECT id FROM users WHERE data->'user'->>'email' = 'anna@books.com'), NULL, json_build_object('content', 'Public Post: Just Got Back From Mexico', 'date-posted', '2022-04-25T20:15:12.123Z', 'ispublic', true)),
 

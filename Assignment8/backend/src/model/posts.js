@@ -99,3 +99,50 @@ export async function retrieveGroupPosts(groupID, userID) {
   const result = await pool.query(query, [groupID, userID]);
   return result.rows;
 }
+
+/**
+ *
+ * @param {string} userID - User UUID
+ * @param {string} groupID - Group UUID
+ * @param {string} content - Post Content
+ * @param {boolean} isPublic - Public/Private
+ * @returns {object} full Post Data
+ */
+export async function createPost(userID, groupID = null, content, isPublic) {
+  const query = `
+    INSERT INTO posts (userid, groupid, data)
+    VALUES ($1, $2, json_build_object(
+      'content', $3::text,
+      'date-posted', NOW()::timestamptz,
+      'ispublic', $4::boolean
+    ))
+    RETURNING postID
+  `;
+
+  const values = [userID, groupID || null, content, isPublic];
+
+  const {rows} = await pool.query(query, values);
+  const postID = rows[0].postid;
+
+  console.log('First Query Done');
+  // Select Newly Created Post and Fill With Info
+  const postQuery = `
+    SELECT
+        p.postid AS "postID",
+        u.id AS "userID",
+        u.data->'user'->>'name' AS username,
+        u.data->'user'->>'email' AS email,
+        p.data->>'content' AS "content",
+        p.data->>'date-posted' AS "date",
+        (p.data->>'ispublic')::boolean AS "isPublic"
+    FROM posts p
+    JOIN users u ON u.id = p.userid
+    WHERE p.postid = $1
+    ORDER BY (p.data->>'date-posted')::timestamptz DESC;
+  `;
+  console.log('Second Query Done');
+
+  const {rows: postRows} = await pool.query(postQuery, [postID]);
+  console.log(postRows[0]);
+  return postRows[0];
+}

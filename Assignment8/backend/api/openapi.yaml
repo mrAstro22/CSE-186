@@ -58,6 +58,36 @@ paths:
                     $ref: '#/components/schemas/Post'
           401:
             description: Unauthorized Access
+      post:
+        summary: Create Post
+        security:
+          - bearerAuth: []
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - content
+                  - isPublic
+                properties:
+                  content:
+                    type: string
+                  isPublic:
+                    type: boolean
+                  groupID:        # optional, if your post belongs to a group
+                    type: string
+        responses:
+          201:
+            description: Authenticated, Created Post
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Post'
+          401:
+            description: Unauthorized Access
+      
 
   /post/mine:
     get:
