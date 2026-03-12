@@ -15,6 +15,19 @@ export async function getAll(req, res) {
 
 /**
  *
+ * @param {string} req - currUserID
+ * @param {string} res - status code
+ * @returns {object} - all of my posts
+ */
+export async function getMyPosts(req, res) {
+  const user = await req.user;
+  const posts = await postsModel.retrieveMyPosts(user.id);
+
+  return res.status(200).json(posts);
+}
+
+/**
+ *
  * @param {string} req - User UUID
  * @param {string} res - Status Code
  * @returns {string} - Groups they are a part of

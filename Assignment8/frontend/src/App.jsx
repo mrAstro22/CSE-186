@@ -37,6 +37,9 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 function App() {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
+  // My Posts or Other
+  const [view, setView] = useState('all');
+
   // Chat Generated
   // Determines whether we are in Mobile or Not
   const theme = useTheme();
@@ -48,12 +51,19 @@ function App() {
       drawerOpen,
       setDrawerOpen,
       isMobile,
+      view,
+      setView,
     }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path= "/login" element={<Login/>}/>
-          <Route path="/home" element={<Home drawerWidth={drawerWidth}/>} />
+          <Route path="/home" element={
+            <Home drawerWidth={drawerWidth}/>
+          }/>
+          <Route path="/post/mine" element={
+            <Home drawerWidth={drawerWidth}/>
+          }/>
           <Route path= {`/group/:groupID`}
             element={<Home drawerWidth={drawerWidth}/>}/>
           <Route path="*" element={<Navigate to="/home" replace />} />

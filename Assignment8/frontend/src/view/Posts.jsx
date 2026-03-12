@@ -23,7 +23,7 @@ import Toolbar from '@mui/material/Toolbar';
  */
 function Posts({drawerWidth, groupID}) {
   const [posts, setPosts] = useState([]);
-  const {isMobile} = useContext(LayoutContext);
+  const {isMobile, view} = useContext(LayoutContext);
   const token = localStorage.getItem('accessToken'); // JWT
   const navigate = useNavigate();
 
@@ -36,6 +36,14 @@ function Posts({drawerWidth, groupID}) {
       let res;
       if (groupID) {
         res = await fetch(`http://localhost:3010/api/v0/group/${groupID}/post`, {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      } else if (view === 'mine') {
+        res = await fetch('http://localhost:3010/api/v0/post/mine', {
           method: 'GET',
           headers: {
             Accept: 'application/json',
@@ -64,7 +72,7 @@ function Posts({drawerWidth, groupID}) {
     };
 
     getPosts();
-  }, [groupID, token]);
+  }, [groupID, view, token]);
 
   return (
     <TableContainer

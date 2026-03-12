@@ -28,6 +28,31 @@ export async function retrievePosts(userID) {
 
 /**
  * Grabs Groups they are in
+ * @param {string} userID - Current User UUID
+ * @returns {object} User's Groups
+ */
+export async function retrieveMyPosts(userID) {
+  const query = `
+    SELECT
+        p.postid AS "postID",
+        u.id AS "userID",
+        u.data->'user'->>'name' AS username,
+        u.data->'user'->>'email' AS email,
+        p.data->>'content' AS "content",
+        p.data->>'date-posted' AS "date",
+        (p.data->>'ispublic')::boolean AS "isPublic"
+    FROM posts p
+    JOIN users u ON u.id = p.userid
+    WHERE p.userid = $1
+    ORDER BY (p.data->>'date-posted')::timestamptz DESC;
+  `;
+
+  const {rows} = await pool.query(query, [userID]);
+  return rows;
+}
+
+/**
+ * Grabs Groups they are in
  * @param {string} userID - User UUID
  * @returns {object} User's Groups
  */

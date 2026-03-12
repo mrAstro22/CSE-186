@@ -18,7 +18,7 @@ import {LayoutContext} from '../App';
  * @returns {object} Returns Header Component
  */
 function Header() {
-  const {drawerOpen, setDrawerOpen} = useContext(LayoutContext);
+  const {drawerOpen, setDrawerOpen, setView} = useContext(LayoutContext);
   const navigate = useNavigate();
 
   return (
@@ -50,6 +50,7 @@ function Header() {
         <IconButton
           aria-label= "go-home"
           onClick={() => {
+            setView('all');
             navigate('/home');
           }}
           sx={{mr: 2, ml: -1}}>
@@ -84,6 +85,7 @@ function Header() {
         <IconButton
           aria-label = 'logout'
           onClick={() => {
+            setView('all');
             navigate('/login');
           }}
           sx={{p: 0.8}}

@@ -27,6 +27,8 @@ function SideBar({drawerWidth}) {
     drawerOpen,
     setDrawerOpen,
     isMobile,
+    view,
+    setView,
   } = useContext(LayoutContext);
   const [groupNames, setGroupNames] = useState([]);
   const token = localStorage.getItem('accessToken'); // JWT
@@ -57,12 +59,33 @@ function SideBar({drawerWidth}) {
     <Box sx={{width: drawerWidth}}>
       <Toolbar /> {/* Push content below AppBar */}
       <List>
+
+        {/* My Posts */}
+        <ListItem disablePadding>
+          <ListItemButton
+            aria-label="my-posts"
+            onClick={() => {
+              setDrawerOpen(false);
+              setView('mine');
+              navigate('/post/mine');
+            }}
+          >
+            {view === 'mine' ?
+            <CheckBoxIcon aria-label="checked"/> :
+            <CheckBoxOutlineBlankIcon aria-label="unchecked"/>
+            }
+            <ListItemText primary="My Posts" />
+          </ListItemButton>
+        </ListItem>
+
+        {/* Groups */}
         {groupNames.map((group) => (
           <ListItem key={group.groupid} disablePadding>
             <ListItemButton
               aria-label={`group-${group.groupname}`}
               onClick={() => {
                 setDrawerOpen(false);
+                setView('group');
                 navigate(`/group/${group.groupid}`);
               }}
             >
