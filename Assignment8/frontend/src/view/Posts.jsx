@@ -3,6 +3,7 @@ import {useState, useEffect, useContext} from 'react';
 import {LayoutContext} from '../App';
 import PropTypes from 'prop-types';
 import {useNavigate} from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
 
 // MUI
 import Table from '@mui/material/Table';
@@ -11,7 +12,7 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import Toolbar from '@mui/material/Toolbar';
-
+import Box from '@mui/material/Box';
 
 // MUI Clipped Drawer
 // https://mui.com/material-ui/react-drawer/#ClippedDrawer.js
@@ -23,8 +24,9 @@ import Toolbar from '@mui/material/Toolbar';
  */
 function Posts({drawerWidth, groupID}) {
   const [posts, setPosts] = useState([]);
-  const {isMobile, view} = useContext(LayoutContext);
+  const {isMobile} = useContext(LayoutContext);
   const token = localStorage.getItem('accessToken'); // JWT
+  const location = useLocation();
   const navigate = useNavigate();
 
   // All Posts if No Group Selected
@@ -42,7 +44,7 @@ function Posts({drawerWidth, groupID}) {
             Authorization: `Bearer ${token}`,
           },
         });
-      } else if (view === 'mine') {
+      } else if (location.pathname === '/post/mine') {
         res = await fetch('http://localhost:3010/api/v0/post/mine', {
           method: 'GET',
           headers: {
@@ -72,7 +74,7 @@ function Posts({drawerWidth, groupID}) {
     };
 
     getPosts();
-  }, [groupID, view, token]);
+  }, [groupID, location.pathname, token]);
 
   return (
     <TableContainer
@@ -101,19 +103,24 @@ function Posts({drawerWidth, groupID}) {
                 textOverflow: 'ellipsis',
                 whiteSpace: isMobile ? 'normal' : 'nowrap',
               }}>
-                {post.username}
+                <Box>
+                  <Box sx={{fontWeight: 'bold'}}>
+                    {post.username}
+                  </Box>
+                  <Box
+                    sx={{
+                      mt: 0.5,
+                      lineHeight: 1.4,
+                      wordBreak: 'break-word',
+                      overflowWrap: 'anywhere',
+                      whiteSpace: 'normal',
+                    }}
+                  >
+                    {post.content}
+                  </Box>
+                </Box>
               </TableCell>
-              <TableCell
-                sx={{
-                  width: '60%',
 
-                  fontFamily: 'Courier New, Courier',
-                  fontWeight: 'Bold',
-                  wordBreak: 'break-word',
-                  whiteSpace: 'normal',
-                }}>
-                {post.content}
-              </TableCell>
               <TableCell sx={{
                 width: '20%',
                 whiteSpace: 'nowrap',
@@ -154,20 +161,22 @@ function formatEmailDate(dateStr) {
   const oneYearAgo = new Date();
   oneYearAgo.setFullYear(now.getFullYear() - 1);
 
+  const time = emailDate.toLocaleTimeString(
+      undefined,
+      {hour: '2-digit', minute: '2-digit', hour12: false});
+
   if (isToday) {
     // show time only
-    return emailDate.toLocaleTimeString(
-        undefined,
-        {hour: '2-digit', minute: '2-digit', hour12: false});
+    return time;
   } else if (isYesterday) {
-    return 'Yesterday';
+    return `Yesterday @ ${time}`;
   } else if (emailDate > oneYearAgo) {
     const month = emailDate.toLocaleString('default', {month: 'short'});
     const day = String(emailDate.getDate()).padStart(2, '0'); // pad w 0
-    return `${month} ${day}`;
+    return `${month} ${day} @ ${time}`;
   } else {
     // more than a year ago: show year
-    return emailDate.getFullYear();
+    return `${emailDate.getFullYear()}`;
   }
 }
 

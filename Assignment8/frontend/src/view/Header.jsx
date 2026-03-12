@@ -8,7 +8,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 // React Stuff
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useLocation} from 'react-router-dom';
 
 // Context Hooks
 import {useContext} from 'react';
@@ -18,8 +18,14 @@ import {LayoutContext} from '../App';
  * @returns {object} Returns Header Component
  */
 function Header() {
-  const {drawerOpen, setDrawerOpen, setView} = useContext(LayoutContext);
+  const {drawerOpen, setDrawerOpen} = useContext(LayoutContext);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Adaptable Title
+  let title = 'Welcome to MeowlChat';
+  if (location.pathname === '/post/mine') title = 'My Posts';
+  if (location.pathname.startsWith('/group/')) title = 'Group Posts';
 
   return (
     <AppBar
@@ -50,7 +56,6 @@ function Header() {
         <IconButton
           aria-label= "go-home"
           onClick={() => {
-            setView('all');
             navigate('/home');
           }}
           sx={{mr: 2, ml: -1}}>
@@ -78,14 +83,13 @@ function Header() {
             fontStyle: 'italic',
             // textDecoration: 'underline',
           }}>
-          {`Welcome to MeowlChat`}
+          {title}
         </Typography>
 
         {/* LogOut Button */}
         <IconButton
           aria-label = 'logout'
           onClick={() => {
-            setView('all');
             navigate('/login');
           }}
           sx={{p: 0.8}}

@@ -15,7 +15,7 @@ import PropTypes from 'prop-types';
 
 // Context Hooks
 import {useContext, useState, useEffect} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useNavigate, useLocation, useParams} from 'react-router-dom';
 import {LayoutContext} from '../App';
 
 /**
@@ -27,13 +27,16 @@ function SideBar({drawerWidth}) {
     drawerOpen,
     setDrawerOpen,
     isMobile,
-    view,
-    setView,
   } = useContext(LayoutContext);
   const [groupNames, setGroupNames] = useState([]);
   const token = localStorage.getItem('accessToken'); // JWT
   const navigate = useNavigate();
   const {groupID} = useParams();
+  const location = useLocation();
+
+  const isMine = location.pathname === '/post/mine';
+  const isGroup =
+  (groupID) => location.pathname === `/group/${groupID}`;
 
   // GET Users Group Names
   useEffect(() => {
@@ -64,13 +67,13 @@ function SideBar({drawerWidth}) {
         <ListItem disablePadding>
           <ListItemButton
             aria-label="my-posts"
+            selected={isMine}
             onClick={() => {
               setDrawerOpen(false);
-              setView('mine');
               navigate('/post/mine');
             }}
           >
-            {view === 'mine' ?
+            {isMine ?
             <CheckBoxIcon aria-label="checked"/> :
             <CheckBoxOutlineBlankIcon aria-label="unchecked"/>
             }
@@ -83,9 +86,9 @@ function SideBar({drawerWidth}) {
           <ListItem key={group.groupid} disablePadding>
             <ListItemButton
               aria-label={`group-${group.groupname}`}
+              selected={isGroup(group.groupid)}
               onClick={() => {
                 setDrawerOpen(false);
-                setView('group');
                 navigate(`/group/${group.groupid}`);
               }}
             >

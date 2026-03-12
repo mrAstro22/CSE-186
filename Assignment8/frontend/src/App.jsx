@@ -37,9 +37,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 function App() {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  // My Posts or Other
-  const [view, setView] = useState('all');
-
   // Chat Generated
   // Determines whether we are in Mobile or Not
   const theme = useTheme();
@@ -51,8 +48,6 @@ function App() {
       drawerOpen,
       setDrawerOpen,
       isMobile,
-      view,
-      setView,
     }}>
       <BrowserRouter>
         <Routes>
