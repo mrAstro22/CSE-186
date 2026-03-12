@@ -1,8 +1,0 @@
-{
-  "threshold": 0,
-  "minLines": 4,
-  "minTokens": 40,
-  "reporters": ["html", "console"],
-  "absolute": true,
-  "output": "copypaste"
-}
