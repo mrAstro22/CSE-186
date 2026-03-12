@@ -15,7 +15,7 @@
     "start-frontend": "cd frontend && npm run dev",
     "install-e2e": "cd e2e && npm install",
     "start": "(npm run start-backend) & (npm run start-frontend)",
-    "zip": "bestzip CSE186.Assignment8.Submission.zip frontend/src/* backend/src/* backend/sql/* backend/api/* backend/test/*",
+    "zip": "bestzip CSE186.Assignment8.Submission.zip e2e/test/* frontend/src/* backend/src/* backend/sql/* backend/api/* backend/test/*",
     "postinstall": "(npm run install-backend) && (npm run install-frontend) && (npm run install-e2e)"
   }
 }
