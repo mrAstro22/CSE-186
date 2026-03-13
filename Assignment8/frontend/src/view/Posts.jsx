@@ -67,7 +67,7 @@ function Posts({drawerWidth, groupID}) {
 
       // Extract Posts from Array
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
       setPosts(groupID ? data[0].posts : data);
     };
 

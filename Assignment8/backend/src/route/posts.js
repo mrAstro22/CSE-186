@@ -75,7 +75,39 @@ export async function createPost(req, res) {
 
   const post = await postsModel.createPost(userID, groupID, content, isPublic);
 
-  console.log(post);
+  // console.log(post);
 
   return res.status(201).json(post);
+}
+
+/**
+ *
+ * @param {string} req - User UUID
+ * @param {string} res - Status Code
+ * @returns {object} - Liked Post
+ */
+export async function likePost(req, res) {
+  const postID = req.params.postid;
+  const userID = (await req.user).id;
+  console.log('UserID: ', userID);
+  console.log('PostID: ', postID);
+
+  const like = await postsModel.userLikePost(postID, userID);
+
+  return res.status(200).json(like);
+}
+
+/**
+ *
+ * @param {string} req - User UUID
+ * @param {string} res - Status Code
+ * @returns {object} - Unliked Post
+ */
+export async function unlikePost(req, res) {
+  const postID = req.params.postid;
+  const userID = (await req.user).id;
+
+  const unlike = await postsModel.userUnlikePost(postID, userID);
+
+  return res.status(200).json(unlike);
 }

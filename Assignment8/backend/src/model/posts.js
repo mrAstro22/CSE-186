@@ -14,7 +14,8 @@ export async function retrievePosts(userID) {
         u.data->'user'->>'email' AS email,
         p.data->>'content' AS "content",
         p.data->>'date-posted' AS "date",
-        (p.data->>'ispublic')::boolean AS "isPublic"
+        (p.data->>'ispublic')::boolean AS "isPublic",
+        COALESCE((p.data->>'likes')::int, 0) AS likes
     FROM posts p
     JOIN users u ON u.id = p.userid
     WHERE (p.data->>'ispublic')::boolean = true
@@ -40,7 +41,8 @@ export async function retrieveMyPosts(userID) {
         u.data->'user'->>'email' AS email,
         p.data->>'content' AS "content",
         p.data->>'date-posted' AS "date",
-        (p.data->>'ispublic')::boolean AS "isPublic"
+        (p.data->>'ispublic')::boolean AS "isPublic",
+        COALESCE((p.data->>'likes')::int, 0) AS likes
     FROM posts p
     JOIN users u ON u.id = p.userid
     WHERE p.userid = $1
@@ -86,7 +88,8 @@ export async function retrieveGroupPosts(groupID, userID) {
       u.data->'user'->>'email' AS "email",
       p.data->>'content' AS "content",
       p.data->>'date-posted' AS "date",
-      (p.data->>'ispublic')::boolean AS "isPublic"
+      (p.data->>'ispublic')::boolean AS "isPublic",
+      COALESCE((p.data->>'likes')::int, 0) AS likes
     FROM posts p
     JOIN users u ON p.userid = u.id
     WHERE p.groupid = $1
@@ -125,7 +128,6 @@ export async function createPost(userID, groupID = null, content, isPublic) {
   const {rows} = await pool.query(query, values);
   const postID = rows[0].postID;
 
-  console.log('First Query Done');
   // Select Newly Created Post and Fill With Info
   const postQuery = `
     SELECT
@@ -135,14 +137,109 @@ export async function createPost(userID, groupID = null, content, isPublic) {
         u.data->'user'->>'email' AS email,
         p.data->>'content' AS "content",
         p.data->>'date-posted' AS "date",
-        (p.data->>'ispublic')::boolean AS "isPublic"
+        (p.data->>'ispublic')::boolean AS "isPublic",
+        COALESCE((p.data->>'likes')::int, 0) AS likes
     FROM posts p
     JOIN users u ON u.id = p.userid
     WHERE p.postid = $1
   `;
-  console.log('Second Query Done');
 
   const {rows: postRows} = await pool.query(postQuery, [postID]);
-  console.log(postRows[0]);
   return postRows[0];
+}
+
+/**
+ *
+ * @param {string} postID - Post UUID
+ * @param {string} userID - User UUID
+ * @returns {object} Post Data
+ */
+export async function userLikePost(postID, userID) {
+  // Insert into post_likes table
+  const likeQuery = `
+    INSERT INTO post_likes (postid, userid)
+    VALUES ($1, $2)
+    ON CONFLICT DO NOTHING
+  `;
+  await pool.query(likeQuery, [postID, userID]);
+
+  // Update the likes counter
+  // Chat GPT Helped Me with This Query
+  // Note To Self:
+  // Counting table elements
+  // Instead of incrementing, helps prevent race conditions
+  const updateQuery = `
+    UPDATE posts
+    SET data = jsonb_set(
+      data,
+      '{likes}',
+      to_jsonb((SELECT COUNT(*) FROM post_likes WHERE postid = $1))
+    )
+    WHERE postid = $1
+  `;
+  await pool.query(updateQuery, [postID]);
+
+  // Return Full Post
+  const postQuery = `
+    SELECT
+      p.postid AS "postID",
+      u.id AS "userID",
+      u.data->'user'->>'name' AS username,
+      u.data->'user'->>'email' AS email,
+      p.data->>'content' AS "content",
+      p.data->>'date-posted' AS "date",
+      (p.data->>'ispublic')::boolean AS "isPublic",
+      COALESCE((p.data->>'likes')::int, 0) AS likes
+    FROM posts p
+    JOIN users u ON u.id = p.userid
+    WHERE p.postid = $1
+  `;
+  const {rows} = await pool.query(postQuery, [postID]);
+  return rows[0];
+}
+
+/**
+ *
+ * @param {string} postID - Post UUID
+ * @param {string} userID - User UUID
+ * @returns {object} Post Data
+ */
+export async function userUnlikePost(postID, userID) {
+  // Insert into post_likes table
+  const unlikeQuery = `
+    DELETE 
+    FROM post_likes 
+    WHERE postid = $1 AND userid = $2
+  `;
+  await pool.query(unlikeQuery, [postID, userID]);
+
+  // Update the likes counter
+  const updateQuery = `
+    UPDATE posts
+    SET data = jsonb_set(
+      data,
+      '{likes}',
+      to_jsonb((SELECT COUNT(*) FROM post_likes WHERE postid = $1))
+    )
+    WHERE postid = $1
+  `;
+  await pool.query(updateQuery, [postID]);
+
+  // Return the full post in correct format
+  const postQuery = `
+    SELECT
+      p.postid AS "postID",
+      u.id AS "userID",
+      u.data->'user'->>'name' AS username,
+      u.data->'user'->>'email' AS email,
+      p.data->>'content' AS "content",
+      p.data->>'date-posted' AS "date",
+      (p.data->>'ispublic')::boolean AS "isPublic",
+      COALESCE((p.data->>'likes')::int, 0) AS "likes"
+    FROM posts p
+    JOIN users u ON u.id = p.userid
+    WHERE p.postid = $1
+  `;
+  const {rows} = await pool.query(postQuery, [postID]);
+  return rows[0];
 }

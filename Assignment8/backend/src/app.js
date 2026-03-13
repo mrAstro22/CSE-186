@@ -28,6 +28,8 @@ import {
   getGroupPosts,
   getMyPosts,
   createPost,
+  likePost,
+  unlikePost,
 } from './route/posts.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -75,6 +77,11 @@ app.post('/api/v0/login', login);
 app.get('/api/v0/post', check, getAll); // Public + Curr User
 app.get('/api/v0/post/mine', check, getMyPosts); // Curr Users
 app.post('/api/v0/post', check, createPost);
+
+// Like System
+app.post('/api/v0/post/:postid/like', check, likePost);
+app.delete('/api/v0/post/:postid/like', check, unlikePost);
+
 
 // Groups
 app.get('/api/v0/group', check, getGroups);
