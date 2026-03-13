@@ -1,6 +1,6 @@
 {
   "statistics": {
-    "detectionDate": "2026-03-07T04:33:56.568Z",
+    "detectionDate": "2026-03-13T23:10:27.550Z",
     "formats": {
       "javascript": {
         "sources": {
@@ -17,8 +17,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/backend/test/post.test.js": {
-            "lines": 68,
-            "tokens": 516,
+            "lines": 186,
+            "tokens": 1541,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -65,8 +65,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/backend/src/route/posts.js": {
-            "lines": 45,
-            "tokens": 265,
+            "lines": 108,
+            "tokens": 652,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -101,8 +101,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/backend/src/model/posts.js": {
-            "lines": 75,
-            "tokens": 181,
+            "lines": 244,
+            "tokens": 670,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -161,8 +161,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/backend/src/app.js": {
-            "lines": 75,
-            "tokens": 499,
+            "lines": 95,
+            "tokens": 593,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -174,8 +174,8 @@
           }
         },
         "total": {
-          "lines": 768,
-          "tokens": 4477,
+          "lines": 1138,
+          "tokens": 6472,
           "sources": 14,
           "clones": 0,
           "duplicatedLines": 0,
@@ -188,8 +188,8 @@
       }
     },
     "total": {
-      "lines": 768,
-      "tokens": 4477,
+      "lines": 1138,
+      "tokens": 6472,
       "sources": 14,
       "clones": 0,
       "duplicatedLines": 0,
