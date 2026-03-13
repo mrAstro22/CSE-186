@@ -58,7 +58,7 @@ function Header() {
         <IconButton
           aria-label= "go-home"
           onClick={() => {
-            setDrawerOpen((prev) => !prev);
+            setDrawerOpen(false);
             navigate('/home');
           }}
           sx={{mr: 2, ml: -1}}>
@@ -93,7 +93,7 @@ function Header() {
         <IconButton
           aria-label = 'logout'
           onClick={() => {
-            setDrawerOpen((prev) => !prev);
+            setDrawerOpen(false);
             navigate('/login');
           }}
           sx={{p: 0.8}}

@@ -6,17 +6,15 @@ import {useNavigate} from 'react-router-dom';
 import {useLocation} from 'react-router-dom';
 
 // MUI
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableRow from '@mui/material/TableRow';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
 import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
+import LockIcon from '@mui/icons-material/Lock';
+import PublicIcon from '@mui/icons-material/Public';
+// import FavoriteIcon from '@mui/icons-material/Favorite';
+// import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 // MUI Clipped Drawer
 // https://mui.com/material-ui/react-drawer/#ClippedDrawer.js
-
 
 /**
  * @param {number} drawerWidth -
@@ -69,7 +67,7 @@ function Posts({drawerWidth, groupID}) {
 
       // Extract Posts from Array
       const data = await res.json();
-      // console.log(data);
+      console.log(data);
       setPosts(groupID ? data[0].posts : data);
     };
 
@@ -77,63 +75,114 @@ function Posts({drawerWidth, groupID}) {
   }, [groupID, location.pathname, token]);
 
   return (
-    <TableContainer
-    //   key = {currMailbox}
+    <Box
       sx={{
         maxHeight: 'calc(100vh - 64px)',
         overflowY: 'auto',
         overflowX: 'hidden',
         width: isMobile ? '100%' : `calc(100% - ${drawerWidth}px)`,
         ml: isMobile ? 0 : `${drawerWidth}px`,
+        bgcolor: '#fafafa',
       }}
     >
       <Toolbar />
-      <Table
-        aria-label='list of posts'
-        sx={{tableLayout: 'fixed', width: '100%'}}
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+          px: isMobile ? 1.5 : 3,
+          py: 2,
+          maxWidth: 680,
+          mx: 'auto',
+        }}
       >
-        <TableBody>
-          {posts.map((post) => (
-            <TableRow
-              key={post.postID}
+        {posts.map((post) => (
+          <Box
+            key={post.postID}
+            sx={{
+              'bgcolor': '#ffffff',
+              'border': '1px solid #dbdbdb',
+              'borderRadius': '12px',
+              'overflow': 'hidden',
+              'transition': 'box-shadow 0.2s ease',
+              '&:hover': {
+                boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
+              },
+            }}
+          >
+            {/* Card Header */}
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                px: 2,
+                py: 1.5,
+                borderBottom: '1px solid #f0f0f0',
+              }}
             >
-              <TableCell sx={{
-                width: '20%',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: isMobile ? 'normal' : 'nowrap',
-              }}>
-                <Box>
-                  <Box sx={{fontWeight: 'bold'}}>
-                    {post.username}
-                  </Box>
-                  <Box
-                    sx={{
-                      mt: 0.5,
-                      lineHeight: 1.4,
-                      wordBreak: 'break-word',
-                      overflowWrap: 'anywhere',
-                      whiteSpace: 'normal',
-                    }}
-                  >
-                    {post.content}
-                  </Box>
+              <Box sx={{display: 'flex', alignItems: 'center', gap: 1.5}}>
+                {/* Avatar */}
+                <Box
+                  sx={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: '50%',
+                    bgcolor: '#228B22',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontWeight: 550,
+                    fontSize: 14,
+                    color: '#ffff',
+                    flexShrink: 0,
+                  }}
+                >
+                  {post.username?.[0]?.toUpperCase()}
                 </Box>
-              </TableCell>
-
-              <TableCell sx={{
-                width: '20%',
-                whiteSpace: 'nowrap',
-                textAlign: 'right',
-              }}>
+                {post.isPublic ?
+                <PublicIcon sx={{fontSize: 15, color: '#8e8e8e'}}/> :
+                <LockIcon sx={{fontSize: 15, color: '#8e8e8e'}}/>}
+                <Box
+                  sx={{
+                    fontWeight: 700,
+                    fontSize: '0.875rem',
+                    color: '#262626',
+                    letterSpacing: '-0.01em',
+                  }}
+                >
+                  {post.username}
+                </Box>
+              </Box>
+              <Box
+                sx={{
+                  fontSize: '0.75rem',
+                  color: '#8e8e8e',
+                  whiteSpace: 'nowrap',
+                }}
+              >
                 {formatEmailDate(post.date)}
-              </TableCell>
-            </TableRow>
-          ))
-          }
-        </TableBody>
-      </Table>
-    </TableContainer>
+              </Box>
+            </Box>
+
+            {/* Card Body */}
+            <Box
+              sx={{
+                px: 2,
+                py: 1.5,
+                fontSize: '0.9rem',
+                color: '#262626',
+                lineHeight: 1.6,
+                wordBreak: 'break-word',
+              }}
+            >
+              {post.content}
+            </Box>
+          </Box>
+        ))}
+      </Box>
+    </Box>
   );
 }
 

@@ -79,7 +79,13 @@ function SideBar({drawerWidth}) {
             <CheckBoxIcon aria-label="checked"/> :
             <CheckBoxOutlineBlankIcon aria-label="unchecked"/>
             }
-            <ListItemText primary="My Posts" />
+            <ListItemText primary="My Posts"
+              slotProps={{
+                primary: {ml: '10px',
+                  fontWeight: 600,
+                  fontFamily: 'DM Sans, sans-serif'},
+              }}
+            />
           </ListItemButton>
         </ListItem>
 
@@ -99,7 +105,13 @@ function SideBar({drawerWidth}) {
               <CheckBoxIcon aria-label="checked"/> :
               <CheckBoxOutlineBlankIcon aria-label="unchecked"/>
               }
-              <ListItemText primary={group.groupname} />
+              <ListItemText primary={group.groupname}
+                slotProps={{
+                  primary: {ml: '10px',
+                    fontWeight: 600,
+                    fontFamily: 'DM Sans, sans-serif'},
+                }}
+              />
             </ListItemButton>
           </ListItem>
         ))}
@@ -119,9 +131,10 @@ function SideBar({drawerWidth}) {
       >
         <AddCircleOutlineIcon/>
         <ListItemText primary="Create Post"
-          sx={{
-            pl: '10px',
-            fontFamily: 'sans-serif',
+          slotProps={{
+            primary: {ml: '10px',
+              fontWeight: 600,
+              fontFamily: 'DM Sans, sans-serif'},
           }}
         />
       </ListItemButton>
@@ -138,6 +151,7 @@ function SideBar({drawerWidth}) {
           width: drawerWidth,
           boxSizing: 'border-box',
           overflowX: 'hidden',
+          bgcolor: '#e0e0e0',
         },
       }}
     >
