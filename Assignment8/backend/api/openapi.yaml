@@ -78,6 +78,7 @@ paths:
                     type: boolean
                   groupID:        # optional, if your post belongs to a group
                     type: string
+                    nullable: true
         responses:
           201:
             description: Authenticated, Created Post
@@ -122,6 +123,7 @@ paths:
                     $ref: '#/components/schemas/Groups'
         401:
           description: Unauthorized Access
+
 
   /group/{id}/post:
     get:

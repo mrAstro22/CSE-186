@@ -25,7 +25,9 @@ function Header() {
   // Adaptable Title
   let title = 'Welcome to MeowlChat';
   if (location.pathname === '/post/mine') title = 'My Posts';
+  if (location.pathname === '/createPost') title = 'Create Post';
   if (location.pathname.startsWith('/group/')) title = 'Group Posts';
+
 
   return (
     <AppBar
@@ -56,6 +58,7 @@ function Header() {
         <IconButton
           aria-label= "go-home"
           onClick={() => {
+            setDrawerOpen((prev) => !prev);
             navigate('/home');
           }}
           sx={{mr: 2, ml: -1}}>
@@ -90,6 +93,7 @@ function Header() {
         <IconButton
           aria-label = 'logout'
           onClick={() => {
+            setDrawerOpen((prev) => !prev);
             navigate('/login');
           }}
           sx={{p: 0.8}}

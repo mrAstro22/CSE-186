@@ -1,4 +1,4 @@
-
+// Mui Elements
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Drawer from '@mui/material/Drawer';
@@ -9,12 +9,13 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 import {Component} from 'react';
 import PropTypes from 'prop-types';
 
 // Context Hooks
-import {useContext, useState, useEffect} from 'react';
+import {useContext, useEffect} from 'react';
 import {useNavigate, useLocation, useParams} from 'react-router-dom';
 import {LayoutContext} from '../App';
 
@@ -27,8 +28,9 @@ function SideBar({drawerWidth}) {
     drawerOpen,
     setDrawerOpen,
     isMobile,
+    groupNames,
+    setGroupNames,
   } = useContext(LayoutContext);
-  const [groupNames, setGroupNames] = useState([]);
   const token = localStorage.getItem('accessToken'); // JWT
   const navigate = useNavigate();
   const {groupID} = useParams();
@@ -105,6 +107,27 @@ function SideBar({drawerWidth}) {
     </Box>
   );
 
+  const FeatureList = (
+    <ListItem sx={{mt: 'auto'}}
+      disablePadding>
+      <ListItemButton
+        aria-label='createButton'
+        onClick={() => {
+          setDrawerOpen(false);
+          navigate(`/createPost`);
+        }}
+      >
+        <AddCircleOutlineIcon/>
+        <ListItemText primary="Create Post"
+          sx={{
+            pl: '10px',
+            fontFamily: 'sans-serif',
+          }}
+        />
+      </ListItemButton>
+    </ListItem>
+  );
+
   return (
     <Drawer
       variant={isMobile ? 'temporary' : 'permanent'}
@@ -119,6 +142,7 @@ function SideBar({drawerWidth}) {
       }}
     >
       {DrawerList}
+      {FeatureList}
     </Drawer>
   );
 }

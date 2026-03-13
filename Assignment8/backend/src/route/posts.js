@@ -39,6 +39,7 @@ export async function getGroups(req, res) {
   return res.status(200).json(groups);
 }
 
+
 /**
  *
  * @param {string} req - Group UUID

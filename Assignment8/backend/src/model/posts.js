@@ -51,6 +51,7 @@ export async function retrieveMyPosts(userID) {
   return rows;
 }
 
+
 /**
  * Grabs Groups they are in
  * @param {string} userID - User UUID
@@ -116,13 +117,13 @@ export async function createPost(userID, groupID = null, content, isPublic) {
       'date-posted', NOW()::timestamptz,
       'ispublic', $4::boolean
     ))
-    RETURNING postID
+    RETURNING postid AS "postID"
   `;
 
-  const values = [userID, groupID || null, content, isPublic];
+  const values = [userID, groupID ?? null, content, isPublic];
 
   const {rows} = await pool.query(query, values);
-  const postID = rows[0].postid;
+  const postID = rows[0].postID;
 
   console.log('First Query Done');
   // Select Newly Created Post and Fill With Info
@@ -138,7 +139,6 @@ export async function createPost(userID, groupID = null, content, isPublic) {
     FROM posts p
     JOIN users u ON u.id = p.userid
     WHERE p.postid = $1
-    ORDER BY (p.data->>'date-posted')::timestamptz DESC;
   `;
   console.log('Second Query Done');
 
