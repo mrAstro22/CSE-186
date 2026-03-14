@@ -1,6 +1,6 @@
 {
   "statistics": {
-    "detectionDate": "2026-03-14T01:35:56.284Z",
+    "detectionDate": "2026-03-14T02:33:04.629Z",
     "formats": {
       "jsx": {
         "sources": {
@@ -17,8 +17,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/__tests__/MockPosts.test.jsx": {
-            "lines": 184,
-            "tokens": 1646,
+            "lines": 260,
+            "tokens": 2461,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -101,8 +101,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/view/Posts.jsx": {
-            "lines": 239,
-            "tokens": 1687,
+            "lines": 269,
+            "tokens": 2038,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -198,8 +198,8 @@
           }
         },
         "total": {
-          "lines": 1757,
-          "tokens": 13587,
+          "lines": 1863,
+          "tokens": 14753,
           "sources": 16,
           "clones": 0,
           "duplicatedLines": 0,
@@ -237,8 +237,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/__tests__/MockPosts.test.jsx": {
-            "lines": 143,
-            "tokens": 1227,
+            "lines": 101,
+            "tokens": 845,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -309,8 +309,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/view/Posts.jsx": {
-            "lines": 90,
-            "tokens": 524,
+            "lines": 105,
+            "tokens": 696,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -394,8 +394,8 @@
           }
         },
         "total": {
-          "lines": 680,
-          "tokens": 5288,
+          "lines": 653,
+          "tokens": 5078,
           "sources": 15,
           "clones": 0,
           "duplicatedLines": 0,
@@ -408,8 +408,8 @@
       }
     },
     "total": {
-      "lines": 2437,
-      "tokens": 18875,
+      "lines": 2516,
+      "tokens": 19831,
       "sources": 31,
       "clones": 0,
       "duplicatedLines": 0,

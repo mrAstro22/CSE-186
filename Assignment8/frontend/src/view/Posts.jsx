@@ -84,7 +84,7 @@ function Posts({drawerWidth, groupID}) {
     const updatedPost = await res.json();
 
     setPosts((prev) => prev.map((p) =>
-    p.postID === postID ? updatedPost : p,
+      p.postID === postID ? updatedPost : p,
     ));
   };
 
