@@ -20,4 +20,10 @@ export const mockContext = {
   setDrawerOpen: vi.fn(),
   drawerWidth: 240,
   isMobile: false,
+  groupNames: [
+    {groupid: '1', groupname: 'Guitars'},
+    {groupid: '2', groupname: 'Movie Names'},
+  ],
+  setGroupNames: vi.fn(),
+  setToken: vi.fn(),
 };

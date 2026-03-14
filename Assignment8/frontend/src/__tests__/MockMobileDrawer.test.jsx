@@ -1,12 +1,12 @@
 import {render, screen, http,
   HttpResponse, server, URL, userEvent} from './testHelpers';
-import {it, expect, vi} from 'vitest';
+import {it, expect, vi, beforeEach} from 'vitest';
 import {fireEvent} from '@testing-library/react';
 import {LayoutContext} from '../App';
-import {beforeEach} from 'vitest';
 import {MemoryRouter, Routes, Route} from 'react-router-dom';
-import Home from '../view/Home';
+import {mockContext} from './testHelpers';
 import {useState} from 'react';
+import Home from '../view/Home';
 
 vi.mock('@mui/material/useMediaQuery', () => ({
   default: () => true,
@@ -14,14 +14,12 @@ vi.mock('@mui/material/useMediaQuery', () => ({
 
 const MobileWrapper = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+
   return (
     <MemoryRouter>
-      <LayoutContext.Provider value={{
+      <LayoutContext.Provider value={{...mockContext, isMobile: true,
         drawerOpen,
-        setDrawerOpen,
-        drawerWidth: 240,
-        isMobile: true,
-      }}>
+        setDrawerOpen}}>
         <Routes>
           <Route path="/" element={<Home drawerWidth={240} />} />
         </Routes>
@@ -32,63 +30,62 @@ const MobileWrapper = () => {
 
 beforeEach(() => {
   server.use(
-      http.get(`${URL}/group`, () => HttpResponse.json([])),
       http.get(`${URL}/post`, () => HttpResponse.json([])),
   );
 });
 
-it('renders Home page directly', () => {
+it('renders Home page', () => {
   render(<MobileWrapper />);
   expect(screen.getByText(/MeowlChat/i)).toBeInTheDocument();
 });
 
-it('Drawer Initially Closed On Mobile Render', () => {
+it('drawer initially closed on mobile', () => {
   render(<MobileWrapper />);
   expect(screen.getByLabelText('show groups')).toBeInTheDocument();
 });
 
-it('renders temporary drawer on mobile', async () => {
+it('opens drawer on button click', async () => {
   render(<MobileWrapper />);
-  const drawerButton = screen.getByLabelText('show groups');
-  await userEvent.click(drawerButton);
-  expect(document.querySelector('.MuiDrawer-modal')).not.toBeNull();
-});
-
-it('Open Drawer', async () => {
-  render(<MobileWrapper />);
-  const drawerButton = screen.getByLabelText('show groups');
-  await userEvent.click(drawerButton);
+  await userEvent.click(screen.getByLabelText('show groups'));
   expect(screen.getByLabelText('hide groups')).toBeInTheDocument();
 });
 
-it('Open then Close Drawer', async () => {
+it('closes drawer on button click', async () => {
   render(<MobileWrapper />);
-  const drawerButton = screen.getByLabelText('show groups');
-  await userEvent.click(drawerButton);
-  const closeButton = screen.getByLabelText('hide groups');
-  await userEvent.click(closeButton);
+  await userEvent.click(screen.getByLabelText('show groups'));
+  await userEvent.click(screen.getByLabelText('hide groups'));
   expect(screen.getByLabelText('show groups')).toBeInTheDocument();
 });
 
-it('Close Drawer With Backdrop', async () => {
+it('closes drawer when My Posts clicked', async () => {
   render(<MobileWrapper />);
-  const drawerButton = screen.getByLabelText('show groups');
-  await userEvent.click(drawerButton);
-  const backdrop = document.querySelector('.MuiBackdrop-root');
-  fireEvent.click(backdrop);
+  await userEvent.click(screen.getByLabelText('show groups'));
+  await userEvent.click(screen.getByLabelText('my-posts'));
+  expect(screen.getByLabelText('show groups')).toBeInTheDocument();
+});
+
+it('closes drawer when Create Post clicked', async () => {
+  render(<MobileWrapper />);
+  await userEvent.click(screen.getByLabelText('show groups'));
+  await userEvent.click(screen.getByLabelText('create-post'));
+  expect(screen.getByLabelText('show groups')).toBeInTheDocument();
+});
+
+it('closes drawer on backdrop click', async () => {
+  render(<MobileWrapper />);
+  await userEvent.click(screen.getByLabelText('show groups'));
+  fireEvent.click(document.querySelector('.MuiBackdrop-root'));
   expect(screen.getByLabelText('show groups')).toBeInTheDocument();
 });
 
 it('uses temporary drawer on mobile', async () => {
   render(<MobileWrapper />);
-  const openButton = screen.getByLabelText('show groups');
-  await userEvent.click(openButton);
+  await userEvent.click(screen.getByLabelText('show groups'));
   expect(document.querySelector('.MuiDrawer-modal')).not.toBeNull();
 });
 
-it('Click Logout on Header', async () => {
+it('logout button is present', async () => {
   render(<MobileWrapper />);
-  const logout = screen.getByLabelText('logout');
-  await userEvent.click(logout);
+  await userEvent.click(screen.getByLabelText('logout'));
   expect(screen.getByText(/MeowlChat/i)).toBeInTheDocument();
 });

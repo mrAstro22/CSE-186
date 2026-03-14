@@ -4,6 +4,8 @@ import {render, screen, waitFor, http,
 import Login from '../view/Login';
 import {MemoryRouter} from 'react-router-dom';
 import {it, expect, vi} from 'vitest';
+import {LayoutContext} from '../App';
+import {mockContext} from './testHelpers';
 
 // Claude Assisted with Writing mockStorage
 // For consistent JWT throughout tests
@@ -17,7 +19,9 @@ vi.spyOn(Storage.prototype, 'getItem').mockImplementation((key) => {
 
 const loginWrapper = () => (
   <MemoryRouter>
-    <Login />
+    <LayoutContext.Provider value={mockContext}>
+      <Login />
+    </LayoutContext.Provider>
   </MemoryRouter>
 );
 

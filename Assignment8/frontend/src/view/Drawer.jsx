@@ -15,7 +15,7 @@ import {Component} from 'react';
 import PropTypes from 'prop-types';
 
 // Context Hooks
-import {useContext, useEffect} from 'react';
+import {useContext} from 'react';
 import {useNavigate, useLocation, useParams} from 'react-router-dom';
 import {LayoutContext} from '../App';
 
@@ -29,9 +29,7 @@ function SideBar({drawerWidth}) {
     setDrawerOpen,
     isMobile,
     groupNames,
-    setGroupNames,
   } = useContext(LayoutContext);
-  const token = localStorage.getItem('accessToken'); // JWT
   const navigate = useNavigate();
   const {groupID} = useParams();
   const location = useLocation();
@@ -39,26 +37,6 @@ function SideBar({drawerWidth}) {
   const isMine = location.pathname === '/post/mine';
   const isGroup =
   (groupID) => location.pathname === `/group/${groupID}`;
-
-  // GET Users Group Names
-  useEffect(() => {
-    fetch('http://localhost:3010/api/v0/group', {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-        .then((res) => {
-          if (!res.ok) {
-            // console.error('Request failed:', res.status);
-            return [];
-          }
-          return res.json();
-        })
-
-        .then((data) => setGroupNames(data));
-  }, []);
 
   const DrawerList = (
     <Box sx={{width: drawerWidth}}>
@@ -123,7 +101,7 @@ function SideBar({drawerWidth}) {
     <ListItem sx={{mt: 'auto'}}
       disablePadding>
       <ListItemButton
-        aria-label='createButton'
+        aria-label='create-post'
         onClick={() => {
           setDrawerOpen(false);
           navigate(`/createPost`);

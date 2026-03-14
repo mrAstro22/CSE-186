@@ -22,7 +22,7 @@ import Login from './view/Login';
 import Home from './view/Home';
 
 // Contexts
-import {createContext, useState} from 'react';
+import {createContext, useState, useEffect} from 'react';
 export const LayoutContext = createContext();
 const drawerWidth = 240;
 
@@ -37,12 +37,35 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 function App() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [groupNames, setGroupNames] = useState([]);
+  const [token, setToken] = useState(localStorage.getItem('accessToken'));
 
   // Chat Generated
   // Determines whether we are in Mobile or Not
   const theme = useTheme();
   const isMobile =
   useMediaQuery(theme.breakpoints.down('md')); // true for mobile
+
+  // GET Users Group Names
+  useEffect(() => {
+    if (!token) return;
+
+    fetch('http://localhost:3010/api/v0/group', {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+        .then((res) => {
+          if (!res.ok) {
+            // console.error('Request failed:', res.status);
+            return [];
+          }
+          return res.json();
+        })
+
+        .then((data) => setGroupNames(data));
+  }, [token]);
 
   return (
     <LayoutContext.Provider value = {{
@@ -51,6 +74,8 @@ function App() {
       isMobile,
       groupNames,
       setGroupNames,
+      token,
+      setToken,
     }}>
       <BrowserRouter>
         <Routes>

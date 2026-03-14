@@ -18,7 +18,7 @@ import {LayoutContext} from '../App';
  * @returns {object} Returns Header Component
  */
 function Header() {
-  const {drawerOpen, setDrawerOpen} = useContext(LayoutContext);
+  const {drawerOpen, setDrawerOpen, setToken} = useContext(LayoutContext);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -93,6 +93,8 @@ function Header() {
         <IconButton
           aria-label = 'logout'
           onClick={() => {
+            localStorage.removeItem('accessToken');
+            setToken(null);
             setDrawerOpen(false);
             navigate('/login');
           }}

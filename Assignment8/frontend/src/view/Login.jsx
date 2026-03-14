@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useRef, useState} from 'react';
+import {useRef, useState, useContext} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -11,6 +11,7 @@ import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import {styled} from '@mui/material/styles';
 
+import {LayoutContext} from '../App';
 
 const Card = styled(MuiCard)(({theme}) => ({
   display: 'flex',
@@ -47,6 +48,7 @@ export default function Login() {
   const passwordRef = useRef();
   const [errorCode, setError] = useState('');
   const navigate = useNavigate();
+  const {setToken} = useContext(LayoutContext);
 
   const handleLogin = async () => {
     const email = emailRef.current.value;
@@ -62,6 +64,7 @@ export default function Login() {
 
     if (res.ok) {
       localStorage.setItem('accessToken', data.accessToken);
+      setToken(data.accessToken);
       navigate('/home');
     } else {
       setError('Invalid Credentials');
