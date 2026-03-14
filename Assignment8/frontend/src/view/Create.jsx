@@ -78,7 +78,7 @@ function Create({drawerWidth}) {
   return (
     <Box
       sx={{
-        maxHeight: 'calc(100vh - 64px)',
+        maxHeight: 'calc(100vh - 63px)',
         overflowY: 'auto',
         overflowX: 'hidden',
         width: isMobile ? '100%' : `calc(100% - ${drawerWidth}px)`,
@@ -110,7 +110,6 @@ function Create({drawerWidth}) {
             name="selectGroup"
             label="Select Group"
             onChange={handleSelect}
-            MenuProps={{disablePortal: true}}
           >
             <MenuItem value={'none'} aria-label='noGroup'>
                 None

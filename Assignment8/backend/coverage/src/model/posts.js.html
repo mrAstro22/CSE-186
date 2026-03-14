@@ -308,7 +308,23 @@
 <a name='L243'></a><a href='#L243'>243</a>
 <a name='L244'></a><a href='#L244'>244</a>
 <a name='L245'></a><a href='#L245'>245</a>
-<a name='L246'></a><a href='#L246'>246</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L246'></a><a href='#L246'>246</a>
+<a name='L247'></a><a href='#L247'>247</a>
+<a name='L248'></a><a href='#L248'>248</a>
+<a name='L249'></a><a href='#L249'>249</a>
+<a name='L250'></a><a href='#L250'>250</a>
+<a name='L251'></a><a href='#L251'>251</a>
+<a name='L252'></a><a href='#L252'>252</a>
+<a name='L253'></a><a href='#L253'>253</a>
+<a name='L254'></a><a href='#L254'>254</a>
+<a name='L255'></a><a href='#L255'>255</a>
+<a name='L256'></a><a href='#L256'>256</a>
+<a name='L257'></a><a href='#L257'>257</a>
+<a name='L258'></a><a href='#L258'>258</a>
+<a name='L259'></a><a href='#L259'>259</a>
+<a name='L260'></a><a href='#L260'>260</a>
+<a name='L261'></a><a href='#L261'>261</a>
+<a name='L262'></a><a href='#L262'>262</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -317,6 +333,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -344,6 +364,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -410,6 +434,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -440,6 +468,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -570,7 +602,11 @@ export async function retrievePosts(userID) {
         p.data-&gt;&gt;'content' AS "content",
         p.data-&gt;&gt;'date-posted' AS "date",
         (p.data-&gt;&gt;'ispublic')::boolean AS "isPublic",
-        COALESCE((p.data-&gt;&gt;'likes')::int, 0) AS likes
+        COALESCE((p.data-&gt;&gt;'likes')::int, 0) AS likes,
+        EXISTS (
+          SELECT 1 FROM post_likes
+          WHERE postid = p.postid AND userid = $1
+        ) AS "likedByMe"
     FROM posts p
     JOIN users u ON u.id = p.userid
     WHERE (p.data-&gt;&gt;'ispublic')::boolean = true
@@ -597,7 +633,11 @@ export async function retrieveMyPosts(userID) {
         p.data-&gt;&gt;'content' AS "content",
         p.data-&gt;&gt;'date-posted' AS "date",
         (p.data-&gt;&gt;'ispublic')::boolean AS "isPublic",
-        COALESCE((p.data-&gt;&gt;'likes')::int, 0) AS likes
+        COALESCE((p.data-&gt;&gt;'likes')::int, 0) AS likes,
+        EXISTS (
+          SELECT 1 FROM post_likes
+          WHERE postid = p.postid AND userid = $1
+        ) AS "likedByMe"
     FROM posts p
     JOIN users u ON u.id = p.userid
     WHERE p.userid = $1
@@ -644,7 +684,11 @@ export async function retrieveGroupPosts(groupID, userID) {
       p.data-&gt;&gt;'content' AS "content",
       p.data-&gt;&gt;'date-posted' AS "date",
       (p.data-&gt;&gt;'ispublic')::boolean AS "isPublic",
-      COALESCE((p.data-&gt;&gt;'likes')::int, 0) AS likes
+      COALESCE((p.data-&gt;&gt;'likes')::int, 0) AS likes,
+      EXISTS (
+        SELECT 1 FROM post_likes
+        WHERE postid = p.postid AND userid = $2
+      ) AS "likedByMe"
     FROM posts p
     JOIN users u ON p.userid = u.id
     WHERE p.groupid = $1
@@ -693,13 +737,17 @@ export async function createPost(userID, groupID = null, content, isPublic) {
         p.data-&gt;&gt;'content' AS "content",
         p.data-&gt;&gt;'date-posted' AS "date",
         (p.data-&gt;&gt;'ispublic')::boolean AS "isPublic",
-        COALESCE((p.data-&gt;&gt;'likes')::int, 0) AS likes
+        COALESCE((p.data-&gt;&gt;'likes')::int, 0) AS likes,
+        EXISTS (
+          SELECT 1 FROM post_likes
+          WHERE postid = p.postid AND userid = $2
+        ) AS "likedByMe"
     FROM posts p
     JOIN users u ON u.id = p.userid
     WHERE p.postid = $1
   `;
 &nbsp;
-  const {rows: postRows} = await pool.query(postQuery, [postID]);
+  const {rows: postRows} = await pool.query(postQuery, [postID, userID]);
   return postRows[0];
 }
 &nbsp;
@@ -750,7 +798,7 @@ export async function userLikePost(postID, userID) {
     WHERE p.postid = $1
   `;
   const {rows} = await pool.query(postQuery, [postID]);
-  return rows[0];
+  return {...rows[0], likedByMe: true};
 }
 &nbsp;
 /**
@@ -796,7 +844,7 @@ export async function userUnlikePost(postID, userID) {
     WHERE p.postid = $1
   `;
   const {rows} = await pool.query(postQuery, [postID]);
-  return rows[0];
+  return {...rows[0], likedByMe: false};
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -805,7 +853,7 @@ export async function userUnlikePost(postID, userID) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-03-13T23:10:24.463Z
+                at 2026-03-14T01:58:23.434Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

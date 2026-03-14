@@ -10,8 +10,9 @@ import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
 import LockIcon from '@mui/icons-material/Lock';
 import PublicIcon from '@mui/icons-material/Public';
-// import FavoriteIcon from '@mui/icons-material/Favorite';
-// import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import IconButton from '@mui/material/IconButton';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 // MUI Clipped Drawer
 // https://mui.com/material-ui/react-drawer/#ClippedDrawer.js
@@ -74,8 +75,22 @@ function Posts({drawerWidth, groupID}) {
     getPosts();
   }, [groupID, location.pathname, token]);
 
+  const handleLike = async (postID, liked) => {
+    const method = liked ? 'DELETE' : 'POST';
+    const res = await fetch(`http://localhost:3010/api/v0/post/${postID}/like`, {
+      method,
+      headers: {Authorization: `Bearer ${token}`},
+    });
+    const updatedPost = await res.json();
+
+    setPosts((prev) => prev.map((p) =>
+    p.postID === postID ? updatedPost : p,
+    ));
+  };
+
   return (
     <Box
+      aria-label='posts'
       sx={{
         maxHeight: 'calc(100vh - 64px)',
         overflowY: 'auto',
@@ -142,8 +157,10 @@ function Posts({drawerWidth, groupID}) {
                   {post.username?.[0]?.toUpperCase()}
                 </Box>
                 {post.isPublic ?
-                <PublicIcon sx={{fontSize: 15, color: '#8e8e8e'}}/> :
-                <LockIcon sx={{fontSize: 15, color: '#8e8e8e'}}/>}
+                <PublicIcon aria-label='publicIcon'
+                  sx={{fontSize: 15, color: '#8e8e8e'}}/> :
+                <LockIcon aria-label='privateIcon'
+                  sx={{fontSize: 15, color: '#8e8e8e'}}/>}
                 <Box
                   sx={{
                     fontWeight: 700,
@@ -178,6 +195,22 @@ function Posts({drawerWidth, groupID}) {
               }}
             >
               {post.content}
+              {/* Like Section */}
+              <Box sx={{display: 'flex', alignItems: 'center', gap: 1, mt: 1}}>
+                <IconButton
+                  aria-label={post.likedByMe ? 'unlike' : 'like'}
+                  onClick={() => handleLike(post.postID, post.likedByMe)}
+                  size="small"
+                >
+                  {post.likedByMe ?
+                    <FavoriteIcon sx={{fontSize: 18, color: 'red'}}/> :
+                    <FavoriteBorderIcon sx={{fontSize: 18, color: '#8e8e8e'}}/>
+                  }
+                </IconButton>
+                <Box sx={{fontSize: '0.8rem', color: '#8e8e8e'}}>
+                  {post.likes}
+                </Box>
+              </Box>
             </Box>
           </Box>
         ))}

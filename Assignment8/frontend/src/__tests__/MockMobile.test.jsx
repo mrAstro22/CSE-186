@@ -87,3 +87,22 @@ it('logout button is present', async () => {
   await userEvent.click(screen.getByLabelText('logout'));
   expect(screen.getByText(/MeowlChat/i)).toBeInTheDocument();
 });
+
+it('renders Posts on home route', () => {
+  render(<MobileWrapper />);
+  expect(screen.getByLabelText('posts')).toBeInTheDocument();
+});
+
+it('renders Create on createPost route', () => {
+  render(
+      <MemoryRouter initialEntries={['/createPost']}>
+        <LayoutContext.Provider value={{...mockContext, isMobile: true,
+          drawerOpen: false, setDrawerOpen: vi.fn()}}>
+          <Routes>
+            <Route path="/createPost" element={<Home drawerWidth={240} />} />
+          </Routes>
+        </LayoutContext.Provider>
+      </MemoryRouter>,
+  );
+  expect(screen.getByLabelText('contentField')).toBeInTheDocument();
+});

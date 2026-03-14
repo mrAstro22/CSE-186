@@ -15,7 +15,11 @@ export async function retrievePosts(userID) {
         p.data->>'content' AS "content",
         p.data->>'date-posted' AS "date",
         (p.data->>'ispublic')::boolean AS "isPublic",
-        COALESCE((p.data->>'likes')::int, 0) AS likes
+        COALESCE((p.data->>'likes')::int, 0) AS likes,
+        EXISTS (
+          SELECT 1 FROM post_likes
+          WHERE postid = p.postid AND userid = $1
+        ) AS "likedByMe"
     FROM posts p
     JOIN users u ON u.id = p.userid
     WHERE (p.data->>'ispublic')::boolean = true
@@ -42,7 +46,11 @@ export async function retrieveMyPosts(userID) {
         p.data->>'content' AS "content",
         p.data->>'date-posted' AS "date",
         (p.data->>'ispublic')::boolean AS "isPublic",
-        COALESCE((p.data->>'likes')::int, 0) AS likes
+        COALESCE((p.data->>'likes')::int, 0) AS likes,
+        EXISTS (
+          SELECT 1 FROM post_likes
+          WHERE postid = p.postid AND userid = $1
+        ) AS "likedByMe"
     FROM posts p
     JOIN users u ON u.id = p.userid
     WHERE p.userid = $1
@@ -89,7 +97,11 @@ export async function retrieveGroupPosts(groupID, userID) {
       p.data->>'content' AS "content",
       p.data->>'date-posted' AS "date",
       (p.data->>'ispublic')::boolean AS "isPublic",
-      COALESCE((p.data->>'likes')::int, 0) AS likes
+      COALESCE((p.data->>'likes')::int, 0) AS likes,
+      EXISTS (
+        SELECT 1 FROM post_likes
+        WHERE postid = p.postid AND userid = $2
+      ) AS "likedByMe"
     FROM posts p
     JOIN users u ON p.userid = u.id
     WHERE p.groupid = $1
@@ -138,13 +150,17 @@ export async function createPost(userID, groupID = null, content, isPublic) {
         p.data->>'content' AS "content",
         p.data->>'date-posted' AS "date",
         (p.data->>'ispublic')::boolean AS "isPublic",
-        COALESCE((p.data->>'likes')::int, 0) AS likes
+        COALESCE((p.data->>'likes')::int, 0) AS likes,
+        EXISTS (
+          SELECT 1 FROM post_likes
+          WHERE postid = p.postid AND userid = $2
+        ) AS "likedByMe"
     FROM posts p
     JOIN users u ON u.id = p.userid
     WHERE p.postid = $1
   `;
 
-  const {rows: postRows} = await pool.query(postQuery, [postID]);
+  const {rows: postRows} = await pool.query(postQuery, [postID, userID]);
   return postRows[0];
 }
 
@@ -195,7 +211,7 @@ export async function userLikePost(postID, userID) {
     WHERE p.postid = $1
   `;
   const {rows} = await pool.query(postQuery, [postID]);
-  return rows[0];
+  return {...rows[0], likedByMe: true};
 }
 
 /**
@@ -241,5 +257,5 @@ export async function userUnlikePost(postID, userID) {
     WHERE p.postid = $1
   `;
   const {rows} = await pool.query(postQuery, [postID]);
-  return rows[0];
+  return {...rows[0], likedByMe: false};
 }

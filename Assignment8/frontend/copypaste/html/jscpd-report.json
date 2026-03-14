@@ -1,6 +1,6 @@
 {
   "statistics": {
-    "detectionDate": "2026-03-14T00:41:32.160Z",
+    "detectionDate": "2026-03-14T01:35:56.284Z",
     "formats": {
       "jsx": {
         "sources": {
@@ -17,8 +17,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/__tests__/MockPosts.test.jsx": {
-            "lines": 160,
-            "tokens": 1144,
+            "lines": 184,
+            "tokens": 1646,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -28,9 +28,9 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
-          "C:/CSE-186/Assignment8/frontend/src/__tests__/MockMobileDrawer.test.jsx": {
-            "lines": 88,
-            "tokens": 836,
+          "C:/CSE-186/Assignment8/frontend/src/__tests__/MockMobile.test.jsx": {
+            "lines": 107,
+            "tokens": 1013,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -76,9 +76,21 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
+          "C:/CSE-186/Assignment8/frontend/src/__tests__/MockCreate.test.jsx": {
+            "lines": 103,
+            "tokens": 1046,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
           "C:/CSE-186/Assignment8/frontend/src/__tests__/MockApp.test.jsx": {
-            "lines": 58,
-            "tokens": 485,
+            "lines": 56,
+            "tokens": 483,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -89,14 +101,14 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/view/Posts.jsx": {
-            "lines": 236,
-            "tokens": 1668,
+            "lines": 239,
+            "tokens": 1687,
             "sources": 1,
-            "clones": 1,
-            "duplicatedLines": 10,
-            "duplicatedTokens": 78,
-            "percentage": 4.24,
-            "percentageTokens": 4.68,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
             "newDuplicatedLines": 0,
             "newClones": 0
           },
@@ -149,14 +161,14 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/view/Create.jsx": {
-            "lines": 155,
-            "tokens": 1046,
+            "lines": 157,
+            "tokens": 1058,
             "sources": 1,
-            "clones": 1,
-            "duplicatedLines": 10,
-            "duplicatedTokens": 78,
-            "percentage": 6.45,
-            "percentageTokens": 7.46,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
             "newDuplicatedLines": 0,
             "newClones": 0
           },
@@ -186,14 +198,14 @@
           }
         },
         "total": {
-          "lines": 1608,
-          "tokens": 11833,
-          "sources": 15,
-          "clones": 1,
-          "duplicatedLines": 10,
-          "duplicatedTokens": 78,
-          "percentage": 0.62,
-          "percentageTokens": 0.66,
+          "lines": 1757,
+          "tokens": 13587,
+          "sources": 16,
+          "clones": 0,
+          "duplicatedLines": 0,
+          "duplicatedTokens": 0,
+          "percentage": 0,
+          "percentageTokens": 0,
           "newDuplicatedLines": 0,
           "newClones": 0
         }
@@ -225,8 +237,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/__tests__/MockPosts.test.jsx": {
-            "lines": 1,
-            "tokens": 20,
+            "lines": 143,
+            "tokens": 1227,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -236,9 +248,9 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
-          "C:/CSE-186/Assignment8/frontend/src/__tests__/MockMobileDrawer.test.jsx": {
-            "lines": 3,
-            "tokens": 46,
+          "C:/CSE-186/Assignment8/frontend/src/__tests__/MockMobile.test.jsx": {
+            "lines": 82,
+            "tokens": 770,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -284,9 +296,21 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
+          "C:/CSE-186/Assignment8/frontend/src/__tests__/MockCreate.test.jsx": {
+            "lines": 2,
+            "tokens": 41,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
           "C:/CSE-186/Assignment8/frontend/src/view/Posts.jsx": {
-            "lines": 88,
-            "tokens": 512,
+            "lines": 90,
+            "tokens": 524,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -345,8 +369,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/view/Create.jsx": {
-            "lines": 53,
-            "tokens": 370,
+            "lines": 55,
+            "tokens": 382,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -370,9 +394,9 @@
           }
         },
         "total": {
-          "lines": 453,
-          "tokens": 3292,
-          "sources": 14,
+          "lines": 680,
+          "tokens": 5288,
+          "sources": 15,
           "clones": 0,
           "duplicatedLines": 0,
           "duplicatedTokens": 0,
@@ -384,55 +408,18 @@
       }
     },
     "total": {
-      "lines": 2061,
-      "tokens": 15125,
-      "sources": 29,
-      "clones": 1,
-      "duplicatedLines": 10,
-      "duplicatedTokens": 78,
-      "percentage": 0.49,
-      "percentageTokens": 0.52,
+      "lines": 2437,
+      "tokens": 18875,
+      "sources": 31,
+      "clones": 0,
+      "duplicatedLines": 0,
+      "duplicatedTokens": 0,
+      "percentage": 0,
+      "percentageTokens": 0,
       "newDuplicatedLines": 0,
       "newClones": 0
     }
   },
-  "duplicates": [
-    {
-      "format": "jsx",
-      "lines": 11,
-      "fragment": ";\n\n  return (\n    <Box\n      sx={{\n        maxHeight: 'calc(100vh - 64px)',\n        overflowY: 'auto',\n        overflowX: 'hidden',\n        width: isMobile ? '100%' : `calc(100% - ${drawerWidth}px)`,\n        ml: isMobile ? 0 : `${drawerWidth}px`,\n      }",
-      "tokens": 0,
-      "firstFile": {
-        "name": "C:/CSE-186/Assignment8/frontend/src/view/Create.jsx",
-        "start": 76,
-        "end": 86,
-        "startLoc": {
-          "line": 76,
-          "column": 2,
-          "position": 510
-        },
-        "endLoc": {
-          "line": 86,
-          "column": 2,
-          "position": 588
-        }
-      },
-      "secondFile": {
-        "name": "C:/CSE-186/Assignment8/frontend/src/view/Posts.jsx",
-        "start": 75,
-        "end": 85,
-        "startLoc": {
-          "line": 75,
-          "column": 2,
-          "position": 559
-        },
-        "endLoc": {
-          "line": 85,
-          "column": 8,
-          "position": 637
-        }
-      }
-    }
-  ],
+  "duplicates": [],
   "filename": "C:\\CSE-186\\Assignment8\\frontend\\node_modules\\@jscpd\\html-reporter\\dist\\templates\\main.pug"
 }

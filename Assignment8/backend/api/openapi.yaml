@@ -300,6 +300,7 @@ components:
         - date
         - isPublic
         - likes
+        - likedByMe
       properties:
         postID:
           type: string
@@ -321,6 +322,8 @@ components:
           type: boolean
         likes:
           type: integer
+        likedByMe:
+          type: boolean
       example:
           postID: "3f4c6e4b-7a65-4a1e-8d2c-5f6dce9f2a2a"
           userID: "3f4c6e4b-7a65-4a1e-8d2c-5f6dce9f2f2f"
@@ -330,3 +333,4 @@ components:
           date: "2026-03-04T20:15:12.123Z"
           isPublic: true
           likes: 200
+          likedByMe: false

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1773443424496" clover="3.2.0">
-  <project timestamp="1773443424496" name="All files">
+<coverage generated="1773453503475" clover="3.2.0">
+  <project timestamp="1773453503475" name="All files">
     <metrics statements="137" coveredstatements="137" conditionals="14" coveredconditionals="14" methods="29" coveredmethods="29" elements="180" coveredelements="180" complexity="0" loc="137" ncloc="137" packages="5" files="10" classes="10"/>
     <package name="src">
       <metrics statements="21" coveredstatements="21" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
@@ -62,37 +62,37 @@
       <file name="posts.js" path="C:\CSE-186\Assignment8\backend\src\model\posts.js">
         <metrics statements="32" coveredstatements="32" conditionals="3" coveredconditionals="3" methods="7" coveredmethods="7"/>
         <line num="9" count="7" type="stmt"/>
-        <line num="26" count="7" type="stmt"/>
-        <line num="27" count="7" type="stmt"/>
-        <line num="36" count="2" type="stmt"/>
-        <line num="52" count="2" type="stmt"/>
-        <line num="53" count="2" type="stmt"/>
-        <line num="63" count="17" type="stmt"/>
-        <line num="73" count="17" type="stmt"/>
-        <line num="83" count="11" type="stmt"/>
-        <line num="103" count="11" type="stmt"/>
-        <line num="104" count="11" type="stmt"/>
-        <line num="116" count="5" type="stmt"/>
-        <line num="126" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="30" count="7" type="stmt"/>
+        <line num="31" count="7" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="60" count="2" type="stmt"/>
+        <line num="61" count="2" type="stmt"/>
+        <line num="71" count="17" type="stmt"/>
+        <line num="81" count="17" type="stmt"/>
+        <line num="91" count="11" type="stmt"/>
+        <line num="115" count="11" type="stmt"/>
+        <line num="116" count="11" type="stmt"/>
         <line num="128" count="5" type="stmt"/>
-        <line num="129" count="5" type="stmt"/>
-        <line num="132" count="5" type="stmt"/>
-        <line num="147" count="5" type="stmt"/>
-        <line num="148" count="5" type="stmt"/>
-        <line num="159" count="1" type="stmt"/>
-        <line num="164" count="1" type="stmt"/>
-        <line num="171" count="1" type="stmt"/>
+        <line num="138" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="140" count="5" type="stmt"/>
+        <line num="141" count="5" type="stmt"/>
+        <line num="144" count="5" type="stmt"/>
+        <line num="163" count="5" type="stmt"/>
+        <line num="164" count="5" type="stmt"/>
+        <line num="175" count="1" type="stmt"/>
         <line num="180" count="1" type="stmt"/>
-        <line num="183" count="1" type="stmt"/>
-        <line num="197" count="1" type="stmt"/>
-        <line num="198" count="1" type="stmt"/>
-        <line num="209" count="1" type="stmt"/>
+        <line num="187" count="1" type="stmt"/>
+        <line num="196" count="1" type="stmt"/>
+        <line num="199" count="1" type="stmt"/>
+        <line num="213" count="1" type="stmt"/>
         <line num="214" count="1" type="stmt"/>
-        <line num="217" count="1" type="stmt"/>
-        <line num="226" count="1" type="stmt"/>
-        <line num="229" count="1" type="stmt"/>
-        <line num="243" count="1" type="stmt"/>
-        <line num="244" count="1" type="stmt"/>
+        <line num="225" count="1" type="stmt"/>
+        <line num="230" count="1" type="stmt"/>
+        <line num="233" count="1" type="stmt"/>
+        <line num="242" count="1" type="stmt"/>
+        <line num="245" count="1" type="stmt"/>
+        <line num="259" count="1" type="stmt"/>
+        <line num="260" count="1" type="stmt"/>
       </file>
       <file name="user.js" path="C:\CSE-186\Assignment8\backend\src\model\user.js">
         <metrics statements="9" coveredstatements="9" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>

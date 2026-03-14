@@ -85,8 +85,8 @@ export async function createPost(req, res) {
 export async function likePost(req, res) {
   const postID = req.params.postid;
   const userID = (await req.user).id;
-  console.log('UserID: ', userID);
-  console.log('PostID: ', postID);
+  // console.log('UserID: ', userID);
+  // console.log('PostID: ', postID);
 
   const like = await postsModel.userLikePost(postID, userID);
 

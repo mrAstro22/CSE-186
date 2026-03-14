@@ -1,11 +1,10 @@
 import {render, screen, waitFor,
   http, HttpResponse,
   server, URL, mockContext, mockNavigate} from './testHelpers';
-
 import {it, expect, vi} from 'vitest';
 import Posts from '../view/Posts';
 import {LayoutContext} from '../App';
-import {MemoryRouter} from 'react-router-dom';
+import {MemoryRouter, Routes, Route} from 'react-router-dom';
 
 vi.spyOn(Storage.prototype, 'getItem').mockReturnValue('fake-token');
 
@@ -27,26 +26,6 @@ const mockPosts = [
     content: 'Electric Guitar',
     date: '2022-01-01T00:00:00.000Z'},
 ];
-
-// This one was pure formatting
-// Claude Generated this specific test
-// it('wraps username on mobile', async () => {
-//   server.use(
-//       http.get(`${URL}/post`, () => HttpResponse.json(mockPosts)),
-//   );
-
-//   render(
-//       <MemoryRouter>
-//         <LayoutContext.Provider value={{...mockContext, isMobile: true}}>
-//           <Posts drawerWidth={240} />
-//         </LayoutContext.Provider>
-//       </MemoryRouter>,
-//   );
-
-//   await waitFor(() => {
-//     expect(screen.getByText('Aye Astro')).toHaveStyle('white-space: normal');
-//   });
-// });
 
 it('does not fetch posts when no token', async () => {
   vi.spyOn(Storage.prototype, 'getItem').mockReturnValueOnce(null);
@@ -139,23 +118,68 @@ it('formats today as time', async () => {
   expect(screen.getByText(/^\d{2}:\d{2}$/)).toBeInTheDocument();
 });
 
-// it('formats yesterday as Yesterday', async () => {
-//   const d = new Date();
-//   d.setDate(d.getDate() - 1);
-//   await renderWithDate(d.toISOString());
-//   expect(screen.getByText('yesterday')).toBeInTheDocument();
-// });
+it('formats yesterday as Yesterday', async () => {
+  const d = new Date();
+  d.setDate(d.getDate() - 1);
+  await renderWithDate(d.toISOString());
+  expect(screen.getByText(/^Yesterday @ \d{2}:\d{2}$/)).toBeInTheDocument();
+});
 
-// it('formats recent date as Mon DD', async () => {
-//   const d = new Date();
-//   d.setMonth(d.getMonth() - 2);
-//   await renderWithDate(d.toISOString());
-//   expect(screen.getByText(/^[A-Z][a-z]{2} \d{2}$/)).toBeInTheDocument();
-// });
+it('formats recent date as Mon DD', async () => {
+  const d = new Date();
+  d.setMonth(d.getMonth() - 2);
+  await renderWithDate(d.toISOString());
+  expect(screen.getByText(
+      /^[A-Z][a-z]{2} \d{2} @ \d{2}:\d{2}$/,
+  )).toBeInTheDocument();
+});
 
 it('formats old date as year', async () => {
   const d = new Date();
   d.setFullYear(d.getFullYear() - 2);
   await renderWithDate(d.toISOString());
   expect(screen.getByText(String(d.getFullYear()))).toBeInTheDocument();
+});
+
+it('fetches my posts on /post/mine route', async () => {
+  server.use(
+      http.get(`${URL}/post/mine`, () =>
+        HttpResponse.json(makePost('2022-01-01T00:00:00.000Z')),
+      ),
+  );
+
+  render(
+      <MemoryRouter initialEntries={['/post/mine']}>
+        <LayoutContext.Provider value={mockContext}>
+          <Routes>
+            <Route path="/post/mine"
+              element={<Posts drawerWidth={240} />} />
+          </Routes>
+        </LayoutContext.Provider>
+      </MemoryRouter>,
+  );
+
+  await waitFor(() => screen.getByText('Test Post'));
+});
+
+it('renders public icon for public post', async () => {
+  server.use(
+      http.get(`${URL}/post`, () =>
+        HttpResponse.json([{...mockPosts[0], isPublic: true}]),
+      ),
+  );
+  render(postsWrapper());
+  await waitFor(() => screen.getByText('Hello World'));
+  expect(screen.getByLabelText('publicIcon')).toBeInTheDocument();
+});
+
+it('renders lock icon for private post', async () => {
+  server.use(
+      http.get(`${URL}/post`, () =>
+        HttpResponse.json([{...mockPosts[0], isPublic: false}]),
+      ),
+  );
+  render(postsWrapper());
+  await waitFor(() => screen.getByText('Hello World'));
+  expect(screen.getByLabelText('privateIcon')).toBeInTheDocument();
 });
