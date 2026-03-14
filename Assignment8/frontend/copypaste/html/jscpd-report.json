@@ -1,6 +1,6 @@
 {
   "statistics": {
-    "detectionDate": "2026-03-14T00:08:54.356Z",
+    "detectionDate": "2026-03-14T00:41:32.160Z",
     "formats": {
       "jsx": {
         "sources": {
@@ -29,8 +29,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/__tests__/MockMobileDrawer.test.jsx": {
-            "lines": 90,
-            "tokens": 899,
+            "lines": 88,
+            "tokens": 836,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -53,8 +53,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/__tests__/MockHeader.test.jsx": {
-            "lines": 23,
-            "tokens": 201,
+            "lines": 40,
+            "tokens": 374,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -67,6 +67,18 @@
           "C:/CSE-186/Assignment8/frontend/src/__tests__/MockDrawer.test.jsx": {
             "lines": 62,
             "tokens": 542,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "C:/CSE-186/Assignment8/frontend/src/__tests__/MockApp.test.jsx": {
+            "lines": 58,
+            "tokens": 485,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -137,14 +149,14 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/view/Create.jsx": {
-            "lines": 154,
-            "tokens": 1040,
+            "lines": 155,
+            "tokens": 1046,
             "sources": 1,
             "clones": 1,
             "duplicatedLines": 10,
             "duplicatedTokens": 78,
-            "percentage": 6.49,
-            "percentageTokens": 7.5,
+            "percentage": 6.45,
+            "percentageTokens": 7.46,
             "newDuplicatedLines": 0,
             "newClones": 0
           },
@@ -174,14 +186,14 @@
           }
         },
         "total": {
-          "lines": 1534,
-          "tokens": 11232,
-          "sources": 14,
+          "lines": 1608,
+          "tokens": 11833,
+          "sources": 15,
           "clones": 1,
           "duplicatedLines": 10,
           "duplicatedTokens": 78,
-          "percentage": 0.65,
-          "percentageTokens": 0.69,
+          "percentage": 0.62,
+          "percentageTokens": 0.66,
           "newDuplicatedLines": 0,
           "newClones": 0
         }
@@ -225,7 +237,7 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/__tests__/MockMobileDrawer.test.jsx": {
-            "lines": 4,
+            "lines": 3,
             "tokens": 46,
             "sources": 1,
             "clones": 0,
@@ -249,8 +261,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/__tests__/MockHeader.test.jsx": {
-            "lines": 0,
-            "tokens": 3,
+            "lines": 3,
+            "tokens": 41,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -333,8 +345,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/view/Create.jsx": {
-            "lines": 52,
-            "tokens": 364,
+            "lines": 53,
+            "tokens": 370,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -358,8 +370,8 @@
           }
         },
         "total": {
-          "lines": 450,
-          "tokens": 3248,
+          "lines": 453,
+          "tokens": 3292,
           "sources": 14,
           "clones": 0,
           "duplicatedLines": 0,
@@ -372,14 +384,14 @@
       }
     },
     "total": {
-      "lines": 1984,
-      "tokens": 14480,
-      "sources": 28,
+      "lines": 2061,
+      "tokens": 15125,
+      "sources": 29,
       "clones": 1,
       "duplicatedLines": 10,
       "duplicatedTokens": 78,
-      "percentage": 0.5,
-      "percentageTokens": 0.54,
+      "percentage": 0.49,
+      "percentageTokens": 0.52,
       "newDuplicatedLines": 0,
       "newClones": 0
     }

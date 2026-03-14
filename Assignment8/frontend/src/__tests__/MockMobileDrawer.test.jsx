@@ -18,14 +18,18 @@ const MobileWrapper = () => {
   return (
     <MemoryRouter>
       <LayoutContext.Provider value={{...mockContext, isMobile: true,
-        drawerOpen,
-        setDrawerOpen}}>
+        drawerOpen, setDrawerOpen}}>
         <Routes>
           <Route path="/" element={<Home drawerWidth={240} />} />
         </Routes>
       </LayoutContext.Provider>
     </MemoryRouter>
   );
+};
+
+const openDrawer = async () => {
+  render(<MobileWrapper />);
+  await userEvent.click(screen.getByLabelText('show groups'));
 };
 
 beforeEach(() => {
@@ -45,42 +49,36 @@ it('drawer initially closed on mobile', () => {
 });
 
 it('opens drawer on button click', async () => {
-  render(<MobileWrapper />);
-  await userEvent.click(screen.getByLabelText('show groups'));
+  await openDrawer();
   expect(screen.getByLabelText('hide groups')).toBeInTheDocument();
 });
 
 it('closes drawer on button click', async () => {
-  render(<MobileWrapper />);
-  await userEvent.click(screen.getByLabelText('show groups'));
+  await openDrawer();
   await userEvent.click(screen.getByLabelText('hide groups'));
   expect(screen.getByLabelText('show groups')).toBeInTheDocument();
 });
 
 it('closes drawer when My Posts clicked', async () => {
-  render(<MobileWrapper />);
-  await userEvent.click(screen.getByLabelText('show groups'));
+  await openDrawer();
   await userEvent.click(screen.getByLabelText('my-posts'));
   expect(screen.getByLabelText('show groups')).toBeInTheDocument();
 });
 
 it('closes drawer when Create Post clicked', async () => {
-  render(<MobileWrapper />);
-  await userEvent.click(screen.getByLabelText('show groups'));
+  await openDrawer();
   await userEvent.click(screen.getByLabelText('create-post'));
   expect(screen.getByLabelText('show groups')).toBeInTheDocument();
 });
 
 it('closes drawer on backdrop click', async () => {
-  render(<MobileWrapper />);
-  await userEvent.click(screen.getByLabelText('show groups'));
+  await openDrawer();
   fireEvent.click(document.querySelector('.MuiBackdrop-root'));
   expect(screen.getByLabelText('show groups')).toBeInTheDocument();
 });
 
 it('uses temporary drawer on mobile', async () => {
-  render(<MobileWrapper />);
-  await userEvent.click(screen.getByLabelText('show groups'));
+  await openDrawer();
   expect(document.querySelector('.MuiDrawer-modal')).not.toBeNull();
 });
 

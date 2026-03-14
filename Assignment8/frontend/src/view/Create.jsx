@@ -93,6 +93,8 @@ function Create({drawerWidth}) {
         {/* Content: */}
         <TextField
           fullWidth
+          name="contentField"
+          aria-label='contentField'
           label="Content"
           value={content}
           onChange={(event) => setContent(event.target.value)}
@@ -105,8 +107,10 @@ function Create({drawerWidth}) {
           </InputLabel>
           <Select
             value={selectedGroup}
+            name="selectGroup"
             label="Select Group"
             onChange={handleSelect}
+            MenuProps={{disablePortal: true}}
           >
             <MenuItem value={'none'} aria-label='noGroup'>
                 None
@@ -125,7 +129,7 @@ function Create({drawerWidth}) {
         <Box sx={{display: 'flex', alignItems: 'center', gap: 1}}>
             Public:
           <Switch
-            aria-label= 'isPublic'
+            aria-label= 'togglePublic'
             checked={isPublic}
             onChange={toggle}
             slotProps={{input: {'aria-label': 'controlled'}}}
