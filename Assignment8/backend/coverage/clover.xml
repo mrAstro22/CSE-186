@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1773453503475" clover="3.2.0">
-  <project timestamp="1773453503475" name="All files">
-    <metrics statements="137" coveredstatements="137" conditionals="14" coveredconditionals="14" methods="29" coveredmethods="29" elements="180" coveredelements="180" complexity="0" loc="137" ncloc="137" packages="5" files="10" classes="10"/>
+<coverage generated="1773466650743" clover="3.2.0">
+  <project timestamp="1773466650743" name="All files">
+    <metrics statements="135" coveredstatements="135" conditionals="14" coveredconditionals="14" methods="29" coveredmethods="29" elements="178" coveredelements="178" complexity="0" loc="135" ncloc="135" packages="5" files="10" classes="10"/>
     <package name="src">
       <metrics statements="21" coveredstatements="21" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="app.js" path="C:\CSE-186\Assignment8\backend\src\app.js">
@@ -108,7 +108,7 @@
       </file>
     </package>
     <package name="src.route">
-      <metrics statements="33" coveredstatements="33" conditionals="3" coveredconditionals="3" methods="8" coveredmethods="8"/>
+      <metrics statements="31" coveredstatements="31" conditionals="3" coveredconditionals="3" methods="8" coveredmethods="8"/>
       <file name="login.js" path="C:\CSE-186\Assignment8\backend\src\route\login.js">
         <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
         <line num="22" count="5" type="stmt"/>
@@ -119,7 +119,7 @@
         <line num="33" count="3" type="stmt"/>
       </file>
       <file name="posts.js" path="C:\CSE-186\Assignment8\backend\src\route\posts.js">
-        <metrics statements="27" coveredstatements="27" conditionals="1" coveredconditionals="1" methods="7" coveredmethods="7"/>
+        <metrics statements="25" coveredstatements="25" conditionals="1" coveredconditionals="1" methods="7" coveredmethods="7"/>
         <line num="11" count="7" type="stmt"/>
         <line num="12" count="7" type="stmt"/>
         <line num="13" count="7" type="stmt"/>
@@ -139,8 +139,6 @@
         <line num="76" count="5" type="stmt"/>
         <line num="86" count="1" type="stmt"/>
         <line num="87" count="1" type="stmt"/>
-        <line num="88" count="1" type="stmt"/>
-        <line num="89" count="1" type="stmt"/>
         <line num="91" count="1" type="stmt"/>
         <line num="93" count="1" type="stmt"/>
         <line num="103" count="1" type="stmt"/>

@@ -1,6 +1,6 @@
 {
   "statistics": {
-    "detectionDate": "2026-03-14T02:33:04.629Z",
+    "detectionDate": "2026-03-14T05:37:47.038Z",
     "formats": {
       "jsx": {
         "sources": {
@@ -101,8 +101,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/view/Posts.jsx": {
-            "lines": 269,
-            "tokens": 2038,
+            "lines": 268,
+            "tokens": 2054,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -113,8 +113,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/view/Login.jsx": {
-            "lines": 152,
-            "tokens": 1054,
+            "lines": 155,
+            "tokens": 1059,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -137,8 +137,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/view/Header.jsx": {
-            "lines": 115,
-            "tokens": 756,
+            "lines": 116,
+            "tokens": 762,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -149,8 +149,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/view/Drawer.jsx": {
-            "lines": 145,
-            "tokens": 981,
+            "lines": 148,
+            "tokens": 986,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -161,8 +161,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/view/Create.jsx": {
-            "lines": 157,
-            "tokens": 1058,
+            "lines": 158,
+            "tokens": 1064,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -198,8 +198,8 @@
           }
         },
         "total": {
-          "lines": 1863,
-          "tokens": 14753,
+          "lines": 1870,
+          "tokens": 14791,
           "sources": 16,
           "clones": 0,
           "duplicatedLines": 0,
@@ -309,8 +309,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/view/Posts.jsx": {
-            "lines": 105,
-            "tokens": 696,
+            "lines": 107,
+            "tokens": 717,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -345,8 +345,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/view/Header.jsx": {
-            "lines": 74,
-            "tokens": 470,
+            "lines": 75,
+            "tokens": 476,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -369,8 +369,8 @@
             "newClones": 0
           },
           "C:/CSE-186/Assignment8/frontend/src/view/Create.jsx": {
-            "lines": 55,
-            "tokens": 382,
+            "lines": 56,
+            "tokens": 388,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -394,8 +394,8 @@
           }
         },
         "total": {
-          "lines": 653,
-          "tokens": 5078,
+          "lines": 657,
+          "tokens": 5111,
           "sources": 15,
           "clones": 0,
           "duplicatedLines": 0,
@@ -408,8 +408,8 @@
       }
     },
     "total": {
-      "lines": 2516,
-      "tokens": 19831,
+      "lines": 2527,
+      "tokens": 19902,
       "sources": 31,
       "clones": 0,
       "duplicatedLines": 0,
