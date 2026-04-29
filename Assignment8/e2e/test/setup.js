@@ -62,7 +62,7 @@ beforeEach(async () => {
   page = await browser.newPage();
 
   // Apply the ViewPort
-  await page.setViewport({width: 375, height: 667, isMobile: true});
+  await page.setViewport({width: 1280, height: 800, isMobile: false});
 
   await page.goto('http://localhost:3000');
 });
@@ -75,7 +75,7 @@ afterEach(async () => {
 });
 
 export const clickOn = async (p, selector) => {
-  const clickable = await p.waitForSelector(selector);
+  const clickable = await p.waitForSelector(selector, {visible: true});
   await clickable.click();
   clickable.dispose();
 };

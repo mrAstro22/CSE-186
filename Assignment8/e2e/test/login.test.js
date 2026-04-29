@@ -24,7 +24,7 @@ test('Login with Unknown User', async () => {
 test('Logout', async () => {
   await login(page, 'molly@books.com', 'mollymember');
   await clickOn(page, '[aria-label="logout"]');
-  await page.waitForNavigation();
-  const label = await page.waitForSelector('::-p-text(MeowlChat)');
+  const label = await page.waitForSelector('::-p-text(MeowlChat)',
+      {timeout: 5000});
   expect(label).not.toBeNull();
 });

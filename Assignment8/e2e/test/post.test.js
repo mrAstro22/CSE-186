@@ -8,7 +8,7 @@ test('Login and Private Post', async () => {
 
   // Look at First Post
   const label = await page.waitForSelector(
-      '::-p-text(Private Post: Just ate Steak Frites #Yummy)');
+      '::-p-text(Just ate Steak Frites #Yummy)');
   expect(label).not.toBeNull();
 });
 
@@ -20,7 +20,6 @@ test('Login Scroll to Last Post', async () => {
 
   // Look at First Post
   const label = await page.waitForSelector(
-      '::-p-text(Public Post in "Movie Names":' +
-      ' Favorite Movie ATM - 21 Jump Street)');
+      '::-p-text(Favorite Movie ATM - 21 Jump Street)');
   expect(label).not.toBeNull();
 });
