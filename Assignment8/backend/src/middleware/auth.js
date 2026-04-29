@@ -26,7 +26,7 @@ export async function check(req, res, next) {
   const token = authHeader.split(' ')[1];
   try {
     const data = authModel.verify(token);
-    req.user = userModel.retrieveById(data.id);
+    req.user = await userModel.retrieveById(data.id);
     next();
   } catch {
     return res.sendStatus(403);
