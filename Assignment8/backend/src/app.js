@@ -24,9 +24,9 @@ import {check} from './middleware/auth.js';
 import {login} from './route/login.js';
 import {getAll, getGroups, getGroupPosts} from './route/posts.js';
 
-console.log("POSTGRES_USER:", process.env.POSTGRES_USER);
-console.log("POSTGRES_PASSWORD:", process.env.POSTGRES_PASSWORD);
-console.log("POSTGRES_DB:", process.env.POSTGRES_DB);
+// console.log("POSTGRES_USER:", process.env.POSTGRES_USER);
+// console.log("POSTGRES_PASSWORD:", process.env.POSTGRES_PASSWORD);
+// console.log("POSTGRES_DB:", process.env.POSTGRES_DB);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -42,10 +42,11 @@ app.use('/api/v0/docs', swaggerUi.serve, swaggerUi.setup(apidoc));
 
 // Allow connections from a non common origin so dev and preview
 // UIs can connect
-app.use(cors(
-    {origin: 'http://localhost:3000'},
-    {origin: 'http://localhost:4173'},
-));
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:4173',
+  'https://meowlchat.onrender.com'
+];
 
 app.use(
     OpenApiValidator.middleware({
