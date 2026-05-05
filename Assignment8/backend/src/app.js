@@ -22,15 +22,11 @@ import http from 'http';
 // Model and Routes
 import {check} from './middleware/auth.js';
 import {login} from './route/login.js';
-import {
-  getAll,
-  getGroups,
-  getGroupPosts,
-  getMyPosts,
-  createPost,
-  likePost,
-  unlikePost,
-} from './route/posts.js';
+import {getAll, getGroups, getGroupPosts} from './route/posts.js';
+
+console.log("POSTGRES_USER:", process.env.POSTGRES_USER);
+console.log("POSTGRES_PASSWORD:", process.env.POSTGRES_PASSWORD);
+console.log("POSTGRES_DB:", process.env.POSTGRES_DB);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -46,14 +42,10 @@ app.use('/api/v0/docs', swaggerUi.serve, swaggerUi.setup(apidoc));
 
 // Allow connections from a non common origin so dev and preview
 // UIs can connect
-app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'http://localhost:4173',
-    'https://meowlchat.onrender.com'
-  ],
-  credentials: true
-}));
+app.use(cors(
+    {origin: 'http://localhost:3000'},
+    {origin: 'http://localhost:4173'},
+));
 
 app.use(
     OpenApiValidator.middleware({
@@ -74,20 +66,8 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Login
 app.post('/api/v0/login', login);
-
-// Posts
-app.get('/api/v0/post', check, getAll); // Public + Curr User
-app.get('/api/v0/post/mine', check, getMyPosts); // Curr Users
-app.post('/api/v0/post', check, createPost);
-
-// Like System
-app.post('/api/v0/post/:postid/like', check, likePost);
-app.delete('/api/v0/post/:postid/like', check, unlikePost);
-
-
-// Groups
+app.get('/api/v0/post', check, getAll);
 app.get('/api/v0/group', check, getGroups);
 app.get('/api/v0/group/:groupID/post', check, getGroupPosts);
 

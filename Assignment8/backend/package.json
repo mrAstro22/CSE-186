@@ -37,7 +37,7 @@
   "scripts": {
     "cpd": "jscpd src test --silent",
     "lint": "eslint src test --no-inline-config --report-unused-disable-directives --max-warnings 0",
-    "start": "node src/server.js",
+    "start": "nodemon src/server.js",
     "test": "vitest run --no-file-parallelism --testTimeout=2000 --coverage",
     "qtest": "(npm run lint -- --fix) && (npm run cpd) && (npm test)"
   }

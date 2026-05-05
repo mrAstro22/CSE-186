@@ -56,4 +56,3 @@ export async function retrieveByCredentials(email, password) {
   // if(!valid) return null;
   return strip(user);
 }
-
