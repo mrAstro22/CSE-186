@@ -31,7 +31,7 @@ import {useTheme} from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 // API Fetch
-import { apiFetch } from '../api/client';
+import {apiFetch} from './api/client';
 
 
 /**

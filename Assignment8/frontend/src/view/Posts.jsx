@@ -15,7 +15,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 // API Render Fetch
-import { apiFetch } from '../api/client';
+import {apiFetch} from './api/client';
 
 
 /**
