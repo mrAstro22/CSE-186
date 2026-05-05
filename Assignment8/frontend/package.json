@@ -15,7 +15,6 @@
     "react": "*",
     "react-dom": "*",
     "react-router-dom": "*",
-    "vite": "*",
     "uuid": "*"
   },
   "devDependencies": {
@@ -36,6 +35,7 @@
     "jscpd": "*",
     "jsdom": "*",
     "msw": "*",
+    "vite": "*",
     "vite-plugin-eslint": "*",
     "vitest": "*"
   },
