@@ -17,6 +17,10 @@ import MenuItem from '@mui/material/MenuItem';
 import Switch from '@mui/material/Switch';
 import Button from '@mui/material/Button';
 
+// API Render Fetch
+import { apiFetch } from '../api/client';
+
+
 // MUI Dropdown
 // https://mui.com/material-ui/react-select/#BasicSelect.js
 
@@ -60,7 +64,7 @@ function Create({drawerWidth}) {
       groupID: groupValue,
     };
 
-    const response = await fetch('http://localhost:3010/api/v0/post', {
+    const response = await apiFetch('/api/v0/post', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -30,6 +30,10 @@ const drawerWidth = 240;
 import {useTheme} from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
+// API Fetch
+import { apiFetch } from '../api/client';
+
+
 /**
  * Simple component with no state.
  * @returns {object} JSX
@@ -49,7 +53,7 @@ function App() {
   useEffect(() => {
     if (!token) return;
 
-    fetch('http://localhost:3010/api/v0/group', {
+    apiFetch('/api/v0/group', {
       method: 'GET',
       headers: {
         Accept: 'application/json',

@@ -13,6 +13,10 @@ import {styled} from '@mui/material/styles';
 
 import {LayoutContext} from '../App';
 
+// API Render Fetch
+import { apiFetch } from '../api/client';
+
+
 // MUI Login Page
 // https://mui.com/material-ui/getting-started/templates/sign-in/
 
@@ -57,7 +61,7 @@ export default function Login() {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
-    const res = await fetch('http://localhost:3010/api/v0/login', {
+    const res = await apiFetch('/api/v0/login', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({email, password}),

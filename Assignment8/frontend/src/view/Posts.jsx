@@ -14,6 +14,10 @@ import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
+// API Render Fetch
+import { apiFetch } from '../api/client';
+
+
 /**
  * @param {number} drawerWidth -
  * @returns {object} Mailbox List
@@ -33,7 +37,7 @@ function Posts({drawerWidth, groupID}) {
     const getPosts = async () => {
       let res;
       if (groupID) {
-        res = await fetch(`http://localhost:3010/api/v0/group/${groupID}/post`, {
+        res = await apiFetch(`/api/v0/group/${groupID}/post`, {
           method: 'GET',
           headers: {
             Accept: 'application/json',
@@ -41,7 +45,7 @@ function Posts({drawerWidth, groupID}) {
           },
         });
       } else if (location.pathname === '/post/mine') {
-        res = await fetch('http://localhost:3010/api/v0/post/mine', {
+        res = await apiFetch('/api/v0/post/mine', {
           method: 'GET',
           headers: {
             Accept: 'application/json',
@@ -49,7 +53,7 @@ function Posts({drawerWidth, groupID}) {
           },
         });
       } else {
-        res = await fetch('http://localhost:3010/api/v0/post', {
+        res = await apiFetch('/api/v0/post', {
           method: 'GET',
           headers: {
             Accept: 'application/json',
@@ -74,7 +78,7 @@ function Posts({drawerWidth, groupID}) {
 
   const handleLike = async (postID, liked) => {
     const method = liked ? 'DELETE' : 'POST';
-    const res = await fetch(`http://localhost:3010/api/v0/post/${postID}/like`, {
+    const res = await apiFetch(`/api/v0/post/${postID}/like`, {
       method,
       headers: {Authorization: `Bearer ${token}`},
     });
