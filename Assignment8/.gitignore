@@ -16,3 +16,6 @@ node_modules/
 # Build outputs (optional but recommended)
 dist/
 build/
+
+# Zip Files
+*.zip
