@@ -49,7 +49,7 @@ app.use('/api/v0/docs', swaggerUi.serve, swaggerUi.setup(apidoc));
 app.use(cors(
     {origin: 'http://localhost:3000'},
     {origin: 'http://localhost:4173'},
-    {origin: 'https://meowlchat.onrender.com/'}
+    {origin: 'https://meowlchat.onrender.com/'},
 ));
 
 app.use(
