@@ -19,19 +19,24 @@ import * as authModel from '../model/auth.js';
  * @returns {string} status
  */
 export async function login(req, res) {
-  const {email, password} = req.body;
+  try {
+    const {email, password} = req.body;
 
-  // async DB + bcrypt
-  const user = await userModel.retrieveByCredentials(email, password);
-  if (!user) {
-    return res.status(401).json({error: 'Invalid credentials'});
+    const user = await userModel.retrieveByCredentials(email, password);
+
+    if (!user) {
+      return res.status(401).json({error: 'Invalid credentials'});
+    }
+
+    const accessToken = authModel.sign({id: user.id});
+
+    return res.status(200).json({
+      user,
+      accessToken,
+    });
+
+  } catch (err) {
+    console.error('LOGIN ERROR:', err);
+    return res.status(500).json({error: 'Internal server error'});
   }
-
-  const accessToken = authModel.sign({id: user.id});
-
-  // Send full user object + JWT
-  res.status(200).json({
-    user,
-    accessToken,
-  });
 }
