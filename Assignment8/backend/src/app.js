@@ -46,11 +46,14 @@ app.use('/api/v0/docs', swaggerUi.serve, swaggerUi.setup(apidoc));
 
 // Allow connections from a non common origin so dev and preview
 // UIs can connect
-app.use(cors(
-    {origin: 'http://localhost:3000'},
-    {origin: 'http://localhost:4173'},
-    {origin: 'https://meowlchat.onrender.com'},
-));
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:4173',
+    'https://meowlchat.onrender.com'
+  ],
+  credentials: true
+}));
 
 app.use(
     OpenApiValidator.middleware({
