@@ -48,13 +48,20 @@ const allowedOrigins = [
   'https://meowlchat.onrender.com'
 ];
 
-app.use(
-    OpenApiValidator.middleware({
-      apiSpec: apiSpec,
-      validateRequests: true,
-      validateResponses: true,
-    }),
-);
+// Render Version
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true,
+}));
+
+// Local Version
+// app.use(
+//     OpenApiValidator.middleware({
+//       apiSpec: apiSpec,
+//       validateRequests: true,
+//       validateResponses: true,
+//     }),
+// );
 
 // Your routes go here; however, do NOT write then inline.
 // Create additional modules and delegate to their exports.
