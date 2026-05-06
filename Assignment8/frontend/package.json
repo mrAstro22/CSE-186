@@ -12,10 +12,8 @@
     "@mui/icons-material": "*",
     "@mui/material": "*",
     "prop-types": "*",
-    "react": "*",
-    "react-dom": "*",
-    "react-router-dom": "*",
-    "vite": "*",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "uuid": "*"
   },
   "devDependencies": {
@@ -36,6 +34,7 @@
     "jscpd": "*",
     "jsdom": "*",
     "msw": "*",
+    "vite": "^5.4.0",
     "vite-plugin-eslint": "*",
     "vitest": "*"
   },
