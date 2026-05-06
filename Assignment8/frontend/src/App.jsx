@@ -51,7 +51,9 @@ function App() {
 
   // GET Users Group Names
   useEffect(() => {
-    if (!token) return;
+    if (!token) {
+      return;
+    }
 
     apiFetch('/api/v0/group', {
       method: 'GET',
