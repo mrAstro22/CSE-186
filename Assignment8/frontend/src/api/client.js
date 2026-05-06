@@ -1,3 +1,6 @@
+/* eslint-env browser */
+/* global fetch */
+
 const API = import.meta.env.VITE_API_URL;
 
 /**
