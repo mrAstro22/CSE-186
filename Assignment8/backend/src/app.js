@@ -74,6 +74,11 @@ app.use((err, req, res, next) => {
   });
 });
 
+// Health Check
+app.get('/', (req, res) => {
+  res.json({ status: 'ok', message: 'Backend is running' });
+});
+
 app.post('/api/v0/login', login);
 app.get('/api/v0/post', check, getAll);
 app.get('/api/v0/group', check, getGroups);
