@@ -12,9 +12,6 @@
 import * as userModel from '../model/user.js';
 import * as authModel from '../model/auth.js';
 
-console.log("LOGIN HIT", email);
-console.log("DB URL:", process.env.DATABASE_URL);
-console.log("USER RESULT:", user);
 
 /**
  *
