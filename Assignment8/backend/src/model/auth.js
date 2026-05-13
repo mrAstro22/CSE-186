@@ -18,17 +18,15 @@ import jwt from 'jsonwebtoken';
  * @returns {string} tokenized
  */
 export function verify(token) {
-  let data;
-  jwt.verify(token, process.env.secret, (err, plain) => {
-    if (err) {
-      throw err;
-    }
-    data = plain;
+  try {
+    const data = jwt.verify(token, process.env.JWT_SECRET);
     delete data.iat;
     delete data.exp;
-  });
-  return data;
-};
+    return data;
+  } catch (err) {
+    throw err;
+  }
+}
 
 /**
  *
@@ -38,7 +36,7 @@ export function verify(token) {
 export function sign(data) {
   return jwt.sign(
       data,
-      process.env.secret, {
+      process.env.JWT_SECRET, {
         expiresIn: '30m',
         algorithm: 'HS256',
       });

@@ -22,13 +22,28 @@ import * as userModel from '../model/user.js';
  * @returns {string} error Code
  */
 export async function check(req, res, next) {
-  const authHeader = req.headers.authorization;
-  const token = authHeader.split(' ')[1];
   try {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ error: 'Missing token' });
+    }
+
+    const token = authHeader.split(' ')[1];
+
     const data = authModel.verify(token);
-    req.user = await userModel.retrieveById(data.id);
+
+    const user = await userModel.retrieveById(data.id);
+
+    if (!user) {
+      return res.status(401).json({ error: 'User not found' });
+    }
+
+    req.user = user;
     next();
-  } catch {
-    return res.sendStatus(403);
-  };
-};
+
+  } catch (err) {
+    console.error('AUTH ERROR:', err);
+    return res.status(401).json({ error: 'Invalid token' });
+  }
+}
