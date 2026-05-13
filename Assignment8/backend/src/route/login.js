@@ -20,6 +20,7 @@ import * as authModel from '../model/auth.js';
  * @returns {string} status
  */
 export async function login(req, res) {
+  console.log("LOGIN HIT");
   try {
     const { email, password } = req.body;
 

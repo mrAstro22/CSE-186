@@ -33,6 +33,7 @@ export async function getMyPosts(req, res) {
  * @returns {string} - Groups they are a part of
  */
 export async function getGroups(req, res) {
+  console.log("GET GROUPS USER:", req.user);
   const userID = (await req.user).id;
   const groups = await postsModel.retrieveGroups(userID);
 
